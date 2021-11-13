@@ -1,5 +1,9 @@
 # SetUpStore
 
+𝑨𝒍𝒍 𝒚𝒐𝒖 𝒏𝒆𝒆𝒅 𝒕𝒐 𝒃𝒖𝒊𝒍𝒅 𝕒 𝕡𝕣𝕠𝕕𝕦𝕔𝕥𝕚𝕧𝕖 𝕕𝕖𝕤𝕜.
+
+Danh mục chính: Màn hình, Bàn phím, Bàn, Ghế, Phụ kiện
+
 Team Members: **Lê Minh Hoàng**, **Bùi Xuân Hiếu**, **Ngô Việt Tùng**
 
 ## Stack
@@ -25,10 +29,10 @@ Team Members: **Lê Minh Hoàng**, **Bùi Xuân Hiếu**, **Ngô Việt Tùng**
 
 ## User Story
 
-- Là khách, tôi muốn vào trang web và xem các sản phẩm
+- Là khách, tôi muốn vào trang web và xem các sản phẩm (/Home)
 - Là khách, tôi muốn click vào sản phẩm là xem đc các thông tin chi tiết
   - Tên(title),
-  - Đánh giá trung bình(rating),
+  - Đánh giá trung bình và số lượng(rating),
   - Danh mục chính (category),
   - danh mục phụ (subs),
   - sản phẩm có thể ship hay ko (shipping),
@@ -41,23 +45,55 @@ Team Members: **Lê Minh Hoàng**, **Bùi Xuân Hiếu**, **Ngô Việt Tùng**
   - Các sản phẩm khác liên quan
 - Là khách, tôi muốn đăng nhập để có thể thêm đánh giá
 - Là khách, tôi muốn thêm sản phẩm vào giỏ hàng
-- Là khách, tôi muốn vào giỏ hàng để xem thông tin sản phẩm, thêm, bớt, xóa sản phẩm, hiển thị tổng giá tiền.
+- Là khách, tôi muốn vào giỏ hàng (/Cart) để xem thông tin sản phẩm, thêm, bớt, xóa sản phẩm, hiển thị tổng giá tiền.
 - Là khách, tôi muốn khi vào giỏ hàng để checkout thì cần đăng nhập (Login to checkout).
 - Là khách, tôi muốn sau khi click vào Login to checkout thì dẫn đến trang đăng nhập
 - Là khách, tôi muốn đăng nhập, đăng kí để trở thành người dùng (nếu là đăng kí thì dùng firebase để gửi email xác thực, kèm đường link để dẫn đến trang đăng nhập)
 - Là khách, tối muốn khi trong giỏ hàng có order thì sau khi đăng nhập sẽ hiển thị phần giỏ hàng (Login to checkout -> Proceed to checkout)
+- Là khách, tôi muốn lọc và tìm kiếm sản phẩm (/Shop)
+- Là khách, tôi muốn lọc sản phẩm theo khoảng giá (Price), Danh mục (Category), Đánh giá (Rating), Danh mục phụ (Sub Category), Hãng (Brand), Màu sắc (Color), Shipping (Y/N)  
 
 ---
 
-- Là người dùng, tôi muốn đánh giá sản phẩm thì sẽ hiển thị đánh giá trung bình tại thời điểm đó
-- Là người dùng, tôi muốn đánh giá sản phẩm lần nữa thì sẽ hiển thị đánh giá trước đó và có thể thay đổi đánh giá
-- Là người dùng, tôi muốn thêm sản phẩm vào yêu thích thì sẽ hiển thị sản phẩm đó ở Dashboard/Wishlist
-- Là người dùng, tôi muốn khi checkout sẽ hiển thị form điền thông tin để nhận được sản phẩm
+- Là người dùng, tôi muốn đánh giá sản phẩm thì sẽ hiển thị form đánh giá và giá trị trung bình sẽ thay đổi tại thời điểm đó
+- Là người dùng, tôi muốn đánh giá lại sản phẩm thì sẽ hiển thị form đánh giá với giá trị trước đó và có thể thay đổi đánh giá
+- Là người dùng, tôi muốn thêm sản phẩm vào yêu thích và sẽ hiển thị sản phẩm đó (Dashboard/Wishlist)
+- Là người dùng, tôi muốn thay đổi mật khẩu thì sẽ hiển thị form nhập mật khẩu (Dashboard/Password).
+- Là người dùng, tôi muốn khi checkout sẽ hiển thị form điền thông tin để checkout sản phẩm
   - Địa chỉ người dùng
   - Coupon Code (optional)
   - Hiển thị tổng giá tiền trước và sau khi áp dụng coupon code (nếu có)
   - Các nút chức năng Place Order, Empty Cart
-- Là người dùng, tôi muốn khi click Place Order thì sẽ hiển trị form điền thông tin thẻ để thanh toán, và lưu sản phẩm đó vào History với trạng thái Not Processed.
+- Là người dùng, tôi muốn khi click Place Order thì sẽ hiển trị form điền thông tin để thanh toán (card), và lưu sản phẩm đó vào Dashboard/History với trạng thái Not Processed.
+
+---
+
+- Là khách, tôi muốn đăng nhập với tài khoản admin
+- Là admin, tôi muốn hiển thị các chức năng ở Dashboard.
+- Là admin, tôi muốn thêm sản phẩm (Dashboard/Product) với form gồm các trường:
+  - Ảnh sản phẩm: Upload nhiều ảnh và có thể xóa ảnh ko phù hợp
+  - Title
+  - Description
+  - Price
+  - Shipping (Y/N)
+  - Quantity
+  - Color
+  - Brand
+  - Category (Màn hình, Bàn phím, Bàn, Ghế, Phụ kiện)
+  - Sub-categories (subs) sẽ đc hiển thị khi Category đã chọn ở trên, có thể thêm nhiều subs và xóa sub ko phù hợp
+- Là admin, tôi muốn xem tất cả các sản phẩm (Dashboard/Products) với chức năng Chỉnh sửa, Xóa  
+- Là admin, tôi muốn xem tất cả các Danh mục (Dashboard/Category) với chức năng Thêm, Chỉnh sửa, Xóa  
+- Là admin, tôi muốn xem tất cả các Danh mục phụ (Dashboard/Sub Category) với chức năng Thêm, Chỉnh sửa, Xóa  
+- Là admin, tôi muốn xem tất cả các Mã giảm giá (Dashboard/Coupon) với chức năng Thêm, Xóa
+  - form thêm Coupon gồm các trường: mã giảm giá, %discount, ngày hết hạn
+- Là admin, tôi muốn xem tất cả order đc người dùng tạo (Dashboard/Order) và thay đổi trạng thái order
+  - sản phẩm chưa đc xử lý (Not Processed), 
+  - sản phẩm đc thanh toán bằng tiền mặt khi đến nơi (Cash On Delivery),
+  - sản phẩm đang đc xử lý (Processing), 
+  - sản phẩm đã rời kho (Dispatched),
+  - hủy đơn hàng (Cancelled),
+  - khi sản phẩm đã đến tay người dùng (Completed).
+ 
 
 ## Data schema (7)
 
@@ -68,6 +104,7 @@ Team Members: **Lê Minh Hoàng**, **Bùi Xuân Hiếu**, **Ngô Việt Tùng**
 - OrderSchema
 - CartSchema
 - CouponSchema
+
 ```js
 // UserSchema
   {
@@ -275,4 +312,3 @@ Team Members: **Lê Minh Hoàng**, **Bùi Xuân Hiếu**, **Ngô Việt Tùng**
   },
   { timestamps: true }
 ```
-
