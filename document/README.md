@@ -93,7 +93,7 @@ Team Members: **Lê Minh Hoàng**, **Bùi Xuân Hiếu**, **Ngô Việt Tùng**
   - sản phẩm đã rời kho (Dispatched),
   - hủy đơn hàng (Cancelled),
   - khi sản phẩm đã đến tay người dùng (Completed).
- 
+- Là admin, tôi muốn thay đổi mật khẩu thì sẽ hiển thị form nhập mật khẩu (Dashboard/Password).
 
 ## Data schema (7)
 
