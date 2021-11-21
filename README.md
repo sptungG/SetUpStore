@@ -2,7 +2,7 @@
 
 🖥 🖱 ⌨ SetUpStore
 
-### run FE
+## run FE
 
 `cd` to `client`
 
@@ -12,7 +12,9 @@
 
 (edit scss files: `sass src/scss/app.scss src/css/app.css --watch`)
 
-### run BE
+icons: [https://react-icons.github.io/react-icons/](https://react-icons.github.io/react-icons/)
+
+## run BE
 
 `cd` to `server`
 
