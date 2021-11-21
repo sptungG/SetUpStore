@@ -1,0 +1,108 @@
+/* using px unit */
+html {
+  scroll-behavior: smooth;
+  font-size: 100%;
+}
+body {
+  font-family: $primary-font;
+  font-size: 18px;
+  line-height: 1;
+  color: $gray-light;
+  background-color: $gray;
+  overflow-x: hidden;
+  padding-top: 60px;
+  @include hideScroll();
+}
+input,
+button,
+textarea,
+select {
+  font-family: $primary-font;
+  font-size: 16px;
+  outline: none;
+  border: 0;
+}
+input {
+  line-height: normal;
+}
+a {
+  color: $gray-lighter;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $secondary-font;
+}
+section[id] {
+  scroll-margin-top: 30px;
+}
+.wrapper {
+  margin: 0 auto;
+  // background: linear-gradient(-45deg, rgba($gray, 0.8) 10%, rgba($gray, 0.01)) 90%, url("../IMG/icons/cloud-bg.svg") no-repeat center / cover;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+.btn {
+  font-size: 18px;
+  text-align: center;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  transition: all 0.25s ease;
+  font-family: $primary-font;
+  border: 1px solid transparent;
+  &-primary {
+    color: #fff;
+    border-radius: 100px;
+    font-family: $secondary-font;
+    @include gradient($primary-color, $secondary-color);
+  }
+  &-lock {
+    color: $primary-color;
+    border-radius: 100px;
+    background-color: rgba($primary-color, 0.2);
+  }
+  &-delete {
+    color: red;
+    &:hover {
+      color: red;
+      background-color: rgba(red, 0.2);
+    }
+  }
+  &-show {
+    color: $secondary-color;
+    background-color: transparent;
+    &:hover {
+      color: $secondary-color;
+      background-color: rgba($secondary-color, 0.2);
+    }
+  }
+  &-register {
+    border-radius: 100px;
+    background-color: rgba($primary-color, 0.2);
+    & a {
+      color: $primary-color;
+    }
+    &:hover {
+      border: 1px solid $primary-color;
+    }
+  }
+  &-login {
+    border-radius: 100px;
+    margin-right: 5px;
+    background-color: transparent;
+    & a {
+      color: $secondary-color;
+    }
+    &:hover {
+      border: 1px solid $secondary-color;
+    }
+  }
+}

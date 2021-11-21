@@ -1,0 +1,264 @@
+html {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+input,
+textarea,
+select,
+button {
+  outline: none;
+}
+
+input {
+  line-height: normal;
+}
+
+label,
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* using px unit */
+html {
+  scroll-behavior: smooth;
+  font-size: 100%;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  line-height: 1;
+  color: #dee2e6;
+  background-color: #252936;
+  overflow-x: hidden;
+  padding-top: 60px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+
+input,
+button,
+textarea,
+select {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  outline: none;
+  border: 0;
+}
+
+input {
+  line-height: normal;
+}
+
+a {
+  color: #f8f9fa;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Charm", cursive;
+}
+
+section[id] {
+  scroll-margin-top: 30px;
+}
+
+.wrapper {
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.btn {
+  font-size: 18px;
+  text-align: center;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  transition: all 0.25s ease;
+  font-family: "Roboto", sans-serif;
+  border: 1px solid transparent;
+}
+.btn-primary {
+  color: #fff;
+  border-radius: 100px;
+  font-family: "Charm", cursive;
+  background-image: linear-gradient(to bottom right, #f56766, #f58826);
+}
+.btn-lock {
+  color: #f56766;
+  border-radius: 100px;
+  background-color: rgba(245, 103, 102, 0.2);
+}
+.btn-delete {
+  color: red;
+}
+.btn-delete:hover {
+  color: red;
+  background-color: rgba(255, 0, 0, 0.2);
+}
+.btn-show {
+  color: #f58826;
+  background-color: transparent;
+}
+.btn-show:hover {
+  color: #f58826;
+  background-color: rgba(245, 136, 38, 0.2);
+}
+.btn-register {
+  border-radius: 100px;
+  background-color: rgba(245, 103, 102, 0.2);
+}
+.btn-register a {
+  color: #f56766;
+}
+.btn-register:hover {
+  border: 1px solid #f56766;
+}
+.btn-login {
+  border-radius: 100px;
+  margin-right: 5px;
+  background-color: transparent;
+}
+.btn-login a {
+  color: #f58826;
+}
+.btn-login:hover {
+  border: 1px solid #f58826;
+}
+
+.header {
+  height: 60px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 200;
+  background-color: #1e242e;
+}
+.header .container {
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.header-left {
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.header-left img {
+  height: 60px;
+  flex-shrink: 0;
+}
+.header-left span {
+  display: block;
+  padding: 10px;
+  padding-left: 0;
+  font-family: "Kaushan Script", cursive;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(to bottom right, #f56766, #f58826);
+  font-size: 28px;
+  font-weight: bold;
+}
+.header-center {
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: nowrap;
+  padding-left: 50px;
+}
+.header-center form {
+  min-width: 350px;
+  height: inherit;
+  display: flex;
+  padding: 5px;
+  border-radius: 100px;
+  border: 1px solid #2b3139;
+}
+.header-center input {
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
+  -webkit-appearance: none;
+  font-size: 16px;
+  font-weight: lighter;
+  color: #f8f9fa;
+}
+.header-center button {
+  padding: 10px 20px;
+  color: #dee2e6;
+  flex-shrink: 0;
+  border-radius: 100px;
+  background-image: linear-gradient(to bottom right, rgba(245, 103, 102, 0.9), rgba(245, 136, 38, 0.9));
+}
+.header-right {
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.header-right .cart {
+  padding-left: 10px;
+  margin-left: 10px;
+  border-left: 2px solid #dee2e6;
+  position: relative;
+}
+.header-right .cart-badge {
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: nowrap;
+  position: absolute;
+  padding: 8px;
+  border: 3px solid #1e242e;
+  background-color: #f56766;
+  border-radius: 50%;
+  right: 0;
+  top: 0;
+  transform: translate(50%, -50%);
+}
+
+/*# sourceMappingURL=app.css.map */

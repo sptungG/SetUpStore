@@ -1,0 +1,78 @@
+.header {
+  height: 60px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 200;
+  background-color: $gray-darkest;
+  & .container {
+    @include flex(center, space-between);
+  }
+  &-left {
+    @include flex(center, space-between);
+    & img {
+      height: 60px;
+      flex-shrink: 0;
+    }
+    & span {
+      display: block;
+      padding: 10px;
+      padding-left: 0;
+      font-family: $third-font;
+      @include textGradient();
+      font-size: 28px;
+      font-weight: bold;
+    }
+  }
+  &-center {
+    @include flex(center, space-between);
+    padding-left: 50px;
+    & form {
+      min-width: 350px;
+      height: inherit;
+      display: flex;
+      padding: 5px;
+      border-radius: 100px;
+      border: 1px solid $gray-dark;
+      // border: 1px solid rgba($gray-light, 0.5);
+    }
+    & input {
+      width: 100%;
+      padding: 10px;
+      background-color: transparent;
+      -webkit-appearance: none;
+      font-size: 16px;
+      font-weight: lighter;
+      color: $gray-lighter;
+    }
+    & button {
+      padding: 10px 20px;
+      color: $gray-light;
+      flex-shrink: 0;
+      border-radius: 100px;
+      @include gradient($primary-color, $secondary-color, 0.9, 0.9);
+    }
+  }
+  &-right {
+    @include flex(center, space-between);
+    & .cart {
+      padding-left: 10px;
+      margin-left: 10px;
+      border-left: 2px solid $gray-light;
+      position: relative;
+    }
+    & .cart-badge {
+      @include size(24px);
+      @include flex(center, center);
+      position: absolute;
+      padding: 8px;
+      border: 3px solid $gray-darkest;
+      background-color: $primary-color;
+      border-radius: 50%;
+      right: 0;
+      top: 0;
+      transform: translate(50%, -50%);
+    }
+  }
+}
