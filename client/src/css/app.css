@@ -140,8 +140,6 @@ section[id] {
 .btn-register {
   border-radius: 100px;
   background-color: rgba(245, 103, 102, 0.2);
-}
-.btn-register a {
   color: #f56766;
 }
 .btn-register:hover {
@@ -151,8 +149,6 @@ section[id] {
   border-radius: 100px;
   margin-right: 5px;
   background-color: transparent;
-}
-.btn-login a {
   color: #f58826;
 }
 .btn-login:hover {
@@ -169,15 +165,13 @@ section[id] {
   background-color: #1e242e;
 }
 .header .container {
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   justify-content: space-between;
-  flex-direction: row;
-  display: flex;
-  flex-wrap: nowrap;
 }
 .header-left {
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-direction: row;
   display: flex;
   flex-wrap: nowrap;
@@ -186,7 +180,7 @@ section[id] {
   height: 60px;
   flex-shrink: 0;
 }
-.header-left span {
+.header-left a {
   display: block;
   padding: 10px;
   padding-left: 0;
@@ -200,14 +194,14 @@ section[id] {
 }
 .header-center {
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   flex-direction: row;
   display: flex;
   flex-wrap: nowrap;
-  padding-left: 50px;
 }
 .header-center form {
   min-width: 350px;
+  width: 100%;
   height: inherit;
   display: flex;
   padding: 5px;
@@ -232,7 +226,7 @@ section[id] {
 }
 .header-right {
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   flex-direction: row;
   display: flex;
   flex-wrap: nowrap;
@@ -252,13 +246,13 @@ section[id] {
   display: flex;
   flex-wrap: nowrap;
   position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(50%, -50%);
   padding: 8px;
   border: 3px solid #1e242e;
   background-color: #f56766;
   border-radius: 50%;
-  right: 0;
-  top: 0;
-  transform: translate(50%, -50%);
 }
 
 /*# sourceMappingURL=app.css.map */

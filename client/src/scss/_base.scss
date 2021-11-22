@@ -87,9 +87,7 @@ section[id] {
   &-register {
     border-radius: 100px;
     background-color: rgba($primary-color, 0.2);
-    & a {
-      color: $primary-color;
-    }
+    color: $primary-color;
     &:hover {
       border: 1px solid $primary-color;
     }
@@ -98,9 +96,7 @@ section[id] {
     border-radius: 100px;
     margin-right: 5px;
     background-color: transparent;
-    & a {
-      color: $secondary-color;
-    }
+    color: $secondary-color;
     &:hover {
       border: 1px solid $secondary-color;
     }
