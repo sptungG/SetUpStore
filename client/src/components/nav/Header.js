@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 
-export default function Header() {
+function Header() {
   const [current, setCurrent] = useState("home");
 
   const handleClick = (e) => {
     console.log(e.target.dataset.key ?? "");
-    // setCurrent(e.dataset.key);
+    // setCurrent(e.target.dataset.key);
   };
 
   return (
@@ -15,7 +15,9 @@ export default function Header() {
       <div className="container">
         <div className="header-left">
           <img src="./index.svg" alt="logo" />
-          <Link data-key="home" to="/">SetUpStore</Link>
+          <Link data-key="home" to="/">
+            SetUpStore
+          </Link>
         </div>
         <div className="header-center">
           <form>
@@ -26,8 +28,12 @@ export default function Header() {
           </form>
         </div>
         <div className="header-right">
-          <Link data-key="login" to="/login" className="btn btn-login" >Login</Link>
-          <Link data-key="register" to="/register" className="btn btn-register">Register</Link>
+          <Link data-key="login" to="/login" className="btn btn-login">
+            Login
+          </Link>
+          <Link data-key="register" to="/register" className="btn btn-register">
+            Register
+          </Link>
           <div className="cart">
             <Link data-key="cart" to="/">
               <FaShoppingCart size={28} />
@@ -39,3 +45,4 @@ export default function Header() {
     </header>
   );
 }
+export default Header;
