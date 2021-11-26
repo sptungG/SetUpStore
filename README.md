@@ -10,7 +10,7 @@
 
 `npm start`
 
-(edit scss files: `sass src/scss/app.scss src/css/app.css --watch`)
+(edit scss files: `npm run sass`)
 
 icons: [https://react-icons.github.io/react-icons/](https://react-icons.github.io/react-icons/)
 

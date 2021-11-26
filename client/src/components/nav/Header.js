@@ -21,7 +21,7 @@ function Header() {
         </div>
         <div className="header-center">
           <form>
-            <input type="email" placeholder="Type your product ..." />
+            <input type="text" placeholder="Type your product ..." />
             <button>
               <FaSearch />
             </button>
