@@ -14,7 +14,7 @@ function Header() {
     <header className="header" onClick={handleClick}>
       <div className="container">
         <div className="header-left">
-          <img src="./index.svg" alt="logo" />
+          <img src="https://firebasestorage.googleapis.com/v0/b/ecommerce-62fba.appspot.com/o/index.svg?alt=media&token=4582b9e5-16e0-4de1-a742-e1f0da3d3d62" alt="logo" />
           <Link data-key="home" to="/">
             SetUpStore
           </Link>

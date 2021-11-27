@@ -100,6 +100,12 @@ section[id] {
   padding: 0 10px;
 }
 
+.Toastify {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  background-color: #1e242e;
+}
+
 .btn {
   font-size: 18px;
   text-align: center;
@@ -253,6 +259,52 @@ section[id] {
   border: 3px solid #1e242e;
   background-color: #f56766;
   border-radius: 50%;
+}
+
+.form {
+  align-items: stretch;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.form-title {
+  margin: 50px auto;
+}
+.form-group {
+  margin: 0 auto;
+  padding-bottom: 20px;
+  width: 50%;
+}
+.form-group label {
+  display: inline-block;
+  color: #dee2e6;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  width: 100%;
+}
+.form-group input {
+  background-color: transparent;
+  padding: 10px 0;
+  display: block;
+  width: 100%;
+  color: #252936;
+  border-bottom: 2px solid #f56766;
+  color: #f8f9fa;
+}
+.form-group input:disabled {
+  color: #dee2e6;
+}
+.form-group input:focus::placeholder {
+  color: transparent;
+}
+.form .btn {
+  display: block;
+  margin: 25px auto;
+  width: 300px;
+  font-family: "Roboto", sans-serif;
 }
 
 /*# sourceMappingURL=app.css.map */

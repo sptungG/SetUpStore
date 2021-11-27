@@ -41,12 +41,16 @@ section[id] {
 }
 .wrapper {
   margin: 0 auto;
-  // background: linear-gradient(-45deg, rgba($gray, 0.8) 10%, rgba($gray, 0.01)) 90%, url("../IMG/icons/cloud-bg.svg") no-repeat center / cover;
 }
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 10px;
+}
+.Toastify{
+  font-family: $primary-font;
+  font-size: 14px;
+  background-color: $gray-darkest;
 }
 .btn {
   font-size: 18px;
