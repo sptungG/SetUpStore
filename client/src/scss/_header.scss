@@ -8,16 +8,19 @@
   background-color: $gray-darkest;
   & .container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1.5fr 1fr 1fr;
     justify-content: space-between;
   }
   &-left {
-    @include flex(center);
-    & img {
+    @include flex(stretch);
+    & .header-logo {
+      @include flex(center);
+    }
+    & .header-logo img {
       height: 60px;
       flex-shrink: 0;
     }
-    & a {
+    & .header-logo a {
       display: block;
       padding: 10px;
       padding-left: 0;
@@ -25,6 +28,42 @@
       @include textGradient();
       font-size: 28px;
       font-weight: bold;
+    }
+    & ul {
+      margin-left: 40px;
+      @include flex(center);
+      list-style: none;
+    }
+    & .item {
+      padding: 6px;
+      margin-right: 15px;
+      @include flex(center, center, column);
+      position: relative;
+      border-bottom: 2px solid transparent;
+    }
+    & .item.show svg {
+      color: $primary-color;
+    }
+    @media (hover: hover) {
+      & .item:hover{
+        border-bottom: 2px solid $primary-color;
+      }
+      & .item:hover .tooltip-content {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+    & .item-badge {
+      @include size(24px);
+      @include flex(center, center);
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      transform: translate(50%, -50%);
+      padding: 8px;
+      border: 3px solid $gray-darkest;
+      background-color: $primary-color;
+      border-radius: 50%;
     }
   }
   &-center {
@@ -58,23 +97,5 @@
   }
   &-right {
     @include flex(center, flex-end);
-    & .cart {
-      padding-left: 10px;
-      margin-left: 10px;
-      border-left: 2px solid $gray-light;
-      position: relative;
-    }
-    & .cart-badge {
-      @include size(24px);
-      @include flex(center, center);
-      position: absolute;
-      right: 0;
-      top: 0;
-      transform: translate(50%, -50%);
-      padding: 8px;
-      border: 3px solid $gray-darkest;
-      background-color: $primary-color;
-      border-radius: 50%;
-    }
   }
 }

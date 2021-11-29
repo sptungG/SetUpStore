@@ -14,16 +14,10 @@ function RegisterComplete({ history }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email || !password) {
-      toast.error("Email and password is required");
-      return;
-    }
-
-    if (password.length < 6) {
-      toast.error("Password must be at least 6 characters long");
-      return;
-    }
     try {
+      if (!email || !password) throw new Error("Email and password is required");
+      if (password.length < 6) throw new Error("Password must be at least 6 characters long");
+
       const result = await auth.signInWithEmailLink(email, window.location.href);
       //   console.log("RESULT", result);
       if (result.user.emailVerified) {
@@ -36,10 +30,9 @@ function RegisterComplete({ history }) {
         // redux store
         console.log("user", user, "idTokenResult", idTokenResult);
         // redirect
-        // history.push("/");
+        history.replace("/");
       }
     } catch (error) {
-      console.log(error);
       toast.error(error.message);
     }
   };

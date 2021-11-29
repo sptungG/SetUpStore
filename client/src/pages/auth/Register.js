@@ -2,23 +2,31 @@ import React, { useState } from "react";
 import { auth } from "../../firebase";
 import FromGroup from "../../components/form/FromGroup";
 import { toast } from "react-toastify";
+import { validateEmail } from "../../utils";
 function Register() {
   const [email, setEmail] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const config = {
-      url: process.env.REACT_APP_REGISTER_REDIRECT_URL,
-      handleCodeInApp: true,
-    };
+    try {
+      if (email.trim() === "") throw new Error("Invalid email");
+      if (!validateEmail(email)) throw new Error(`${email} is not an email!`);
 
-    await auth.sendSignInLinkToEmail(email, config);
+      const config = {
+        url: process.env.REACT_APP_REGISTER_REDIRECT_URL,
+        handleCodeInApp: true,
+      };
 
-    toast.success(`Email is sent to ${email}. Click the link to complete your registration.`);
-    // save user email in local storage
-    window.localStorage.setItem("emailForRegistration", email);
-    // clear state
-    setEmail("");
+      await auth.sendSignInLinkToEmail(email, config);
+
+      toast.success(`Email is sent to ${email}. Click the link to complete your registration.`);
+      // save user email in local storage
+      window.localStorage.setItem("emailForRegistration", email);
+      // clear state
+      setEmail("");
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   const RegistrationForm = () => (
