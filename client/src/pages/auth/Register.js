@@ -39,7 +39,7 @@ function Register({history}) {
     <form className="form" onSubmit={handleSubmit}>
       <h1 className="form-title">React Register</h1>
       <FromGroup id="email" label="Email" type="email" value={email} placeholder="Nhập email..." autoFocus={true} onChange={(e) => setEmail(e.target.value)} />
-      <button type="submit" className="btn btn-primary" disabled={!email}>
+      <button type="submit" className="btn btn-primary">
         Register
       </button>
     </form>
