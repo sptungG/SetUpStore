@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import { auth } from "../../firebase";
 import FromGroup from "../../components/form/FromGroup";
 import { toast } from "react-toastify";
 function RegisterComplete({ history }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
-  useEffect(() => {
+  const { user } = useSelector((state) => ({ ...state }));
+
+  React.useEffect(() => {
+    if (user && user.token) history.push("/");
+  }, [history, user]);
+
+  React.useEffect(() => {
     setEmail(window.localStorage.getItem("emailForRegistration"));
     // console.log(window.location.href);
     // console.log(window.localStorage.getItem("emailForRegistration"));
@@ -40,31 +47,18 @@ function RegisterComplete({ history }) {
   const completeRegistrationForm = () => (
     <form className="form" onSubmit={handleSubmit}>
       <h1 className="form-title">React Register</h1>
-      <FromGroup
-        id="email"
-        label="Email"
-        type="email"
-        name="email"
-        value={email}
-        placeholder="Nhập email..."
-        disabled={true}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <FromGroup
-        id="password"
-        label="Password"
-        type="password"
-        name="password"
-        value={password}
-        placeholder="Nhập password..."
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit" className="btn btn-register">
+      <FromGroup id="email" label="Email" type="email" value={email} placeholder="Nhập email..." disabled={true} onChange={(e) => setEmail(e.target.value)} />
+      <FromGroup id="password" label="Password" type="password" value={password} placeholder="Nhập password..." onChange={(e) => setPassword(e.target.value)} />
+      <button type="submit" className="btn btn-primary" disabled={password.length < 6}>
         Complete Registration
       </button>
     </form>
   );
 
-  return <div className="container">{completeRegistrationForm()}</div>;
+  return (
+    <div className="container">
+      <div className="form-container">{completeRegistrationForm()}</div>
+    </div>
+  );
 }
 export default RegisterComplete;

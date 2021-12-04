@@ -1,6 +1,6 @@
 import React from "react";
 
-function FromGroup({ id, label, type, name, value, placeholder, autoFocus, disabled, onChange }) {
+function FromGroup({ id, label, type, value, placeholder, autoFocus, disabled, onChange }) {
   return (
     <div className="form-group">
       <label htmlFor={id}>{label}</label>
@@ -8,7 +8,7 @@ function FromGroup({ id, label, type, name, value, placeholder, autoFocus, disab
         id={id}
         type={type ?? "text"}
         className="form-control"
-        name={name}
+        // autoComplete="off"
         value={value}
         onChange={onChange}
         autoFocus={autoFocus ?? false}
