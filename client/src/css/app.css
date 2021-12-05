@@ -195,12 +195,22 @@ section[id] {
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translate(-50%, -30%) rotate(45deg);
-  width: 25px;
-  height: 25px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 20px;
+  height: 20px;
   border-radius: 4px;
   background-color: inherit;
   z-index: -1;
+}
+
+.text-redirect {
+  margin: 50px auto;
+}
+.text-demo {
+  margin: 50px auto;
+}
+.text-danger {
+  color: red;
 }
 
 .header {
@@ -214,7 +224,7 @@ section[id] {
 }
 .header .container {
   display: grid;
-  grid-template-columns: 1fr 1.5fr 1fr;
+  grid-template-columns: 1fr 1.2fr 1fr;
   grid-gap: 10px;
   justify-content: space-between;
 }
@@ -320,7 +330,7 @@ section[id] {
   flex-wrap: nowrap;
   position: relative;
   border-radius: 8px;
-  margin-left: 10px;
+  margin-left: 8px;
 }
 .header-nav .item.show svg {
   color: #f56766;
@@ -380,13 +390,19 @@ section[id] {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 52%;
-  max-width: 52%;
+  width: 100%;
+  max-width: 100%;
   white-space: pre-wrap;
   word-break: break-word;
+  width: auto;
+  max-width: 58%;
 }
 .dropdown-select .dropdown-caret {
+  flex-shrink: 0;
   color: #f58826;
+}
+.dropdown-icon {
+  font-size: 22px;
 }
 .dropdown-list {
   width: 90%;
@@ -442,19 +458,15 @@ section[id] {
 }
 .dropdown-item:not(:last-child) {
   margin-bottom: 10px;
-}
-.dropdown-item:not(:last-child) span {
   font-weight: bold;
 }
 .dropdown-item:not(:last-child):hover {
-  background-image: linear-gradient(to bottom right, rgba(245, 103, 102, 0.05), rgba(245, 136, 38, 0.05));
-  border: 1px solid #f56766;
+  background-color: rgba(245, 136, 38, 0.05);
+  border: 1px solid #f58826;
+  color: #f58826;
 }
-.dropdown-item:not(:last-child):hover > span {
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-  background-image: linear-gradient(to bottom right, #f56766, #f58826);
+.dropdown-item:not(:last-child):hover a {
+  color: #f58826;
 }
 .dropdown-item:last-child {
   border-radius: 0 0 8px 8px;
@@ -499,6 +511,7 @@ section[id] {
 }
 .form-group input:disabled {
   color: #dee2e6;
+  background-color: #1e242e;
 }
 .form-group input:focus::placeholder {
   color: transparent;
@@ -515,6 +528,7 @@ section[id] {
   padding: 0 20px;
 }
 .form-container .text-loader {
+  color: #f56766;
   margin: 50px auto;
 }
 .form-container .text-forgot {

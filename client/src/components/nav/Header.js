@@ -1,8 +1,9 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Tooltip from "./Tooltip";
-import { FaSearch, FaStore, FaShoppingCart, FaChevronDown } from "react-icons/fa";
-import { FiLogOut } from "react-icons/fi";
+import { FaSearch, FaStore, FaShoppingCart, FaChevronDown, FaRegUserCircle } from "react-icons/fa";
+import { FiLogOut, FiHeart } from "react-icons/fi";
+import { RiMoonClearFill, RiHistoryFill } from "react-icons/ri";
 import firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -26,6 +27,10 @@ function Header() {
     return (
       <div className="header-nav">
         <ul>
+          <li className={"item"} key="dark-mode">
+            <RiMoonClearFill size={30} />
+            <Tooltip content="Dark" />
+          </li>
           <li className={pathname === "/store" ? "item show" : "item"} key="store">
             <Link to="/store">
               <FaStore size={30} />
@@ -62,23 +67,29 @@ function Header() {
       <div className="dropdown">
         <div className="dropdown-select">
           <div className="header-avatar">
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/ecommerce-62fba.appspot.com/o/user.png?alt=media&token=bc8dc5bb-237f-497d-b59c-9672753d778b"
-              alt="avatar"
-            />
+            <img src={user.picture} alt="avatar" />
           </div>
-          <span className="header-name">{user.email && user.email.split("@")[0]}</span>
+          <span className="header-name">{user.name}</span>
           <FaChevronDown className="dropdown-caret" />
         </div>
         <ul className="dropdown-list">
           <li className="dropdown-item">
-            <span className="dropdown-text">New project</span>
+            <Link to="/user/profile" className="dropdown-text">
+              View profile
+            </Link>
+            <FaRegUserCircle className="dropdown-icon" />
           </li>
           <li className="dropdown-item">
-            <span className="dropdown-text">View profile</span>
+            <Link to="/user/wishlist" className="dropdown-text">
+              Wishlist
+            </Link>
+            <FiHeart className="dropdown-icon" />
           </li>
           <li className="dropdown-item">
-            <span className="dropdown-text">Settings</span>
+            <Link to="/user/history" className="dropdown-text">
+              History
+            </Link>
+            <RiHistoryFill className="dropdown-icon" />
           </li>
           <li className="dropdown-item" onClick={logout}>
             <span className="dropdown-text">Logout</span>

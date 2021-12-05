@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import FromGroup from "../../components/form/FromGroup";
 
-const ForgotPassword = ({ history }) => {
+function ForgotPassword({ history }){
   const [email, setEmail] = React.useState("");
   const [loading, setLoading] = React.useState(false);
 

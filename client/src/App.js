@@ -10,9 +10,17 @@ import Register from "./pages/auth/Register";
 import RegisterComplete from "./pages/auth/RegisterComplete";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import Home from "./pages/Home";
+import History from "./pages/user/History";
+import Password from "./pages/user/Password";
+import Wishlist from "./pages/user/Wishlist";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+
+import UserRoute from "./components/routes/UserRoute";
+import AdminRoute from "./components/routes/AdminRoute";
 
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
+import { currentUser } from "./functions/auth";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,13 +30,23 @@ function App() {
       if (user) {
         const idTokenResult = await user.getIdTokenResult();
         // console.log("user", user);
-        dispatch({
-          type: "LOGGED_IN_USER",
-          payload: {
-            email: user.email,
-            token: idTokenResult.token,
-          },
-        });
+        currentUser(idTokenResult.token)
+          .then((res) => {
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                _id: res.data._id,
+                name: res.data.name,
+                email: res.data.email,
+                picture: res.data.picture,
+                role: res.data.role,
+                token: idTokenResult.token,
+              },
+            });
+          })
+          .catch((err) => {
+            throw new Error(err);
+          });
       }
     });
     // cleanup
@@ -45,6 +63,10 @@ function App() {
         <Route exact path="/register" component={Register} />
         <Route exact path="/register/complete" component={RegisterComplete} />
         <Route exact path="/forgot/password" component={ForgotPassword} />
+        <UserRoute exact path="/user/history" component={History} />
+        <UserRoute exact path="/user/password" component={Password} />
+        <UserRoute exact path="/user/wishlist" component={Wishlist} />
+        <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
       </Switch>
     </BrowserRouter>
   );
