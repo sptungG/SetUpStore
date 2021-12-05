@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import Tooltip from "./Tooltip";
 import { FaSearch, FaStore, FaShoppingCart, FaChevronDown, FaRegUserCircle } from "react-icons/fa";
 import { FiLogOut, FiHeart } from "react-icons/fi";
-import { RiMoonClearFill, RiHistoryFill } from "react-icons/ri";
+import { RiMoonClearFill, RiHistoryFill, RiAdminLine } from "react-icons/ri";
 import firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -79,18 +79,30 @@ function Header() {
             </Link>
             <FaRegUserCircle className="dropdown-icon" />
           </li>
-          <li className="dropdown-item">
-            <Link to="/user/wishlist" className="dropdown-text">
-              Wishlist
-            </Link>
-            <FiHeart className="dropdown-icon" />
-          </li>
-          <li className="dropdown-item">
-            <Link to="/user/history" className="dropdown-text">
-              History
-            </Link>
-            <RiHistoryFill className="dropdown-icon" />
-          </li>
+          {user.role !== "admin" ? (
+            <>
+              <li className="dropdown-item">
+                <Link to="/user/wishlist" className="dropdown-text">
+                  Wishlist
+                </Link>
+                <FiHeart className="dropdown-icon" />
+              </li>
+              <li className="dropdown-item">
+                <Link to="/user/history" className="dropdown-text">
+                  History
+                </Link>
+                <RiHistoryFill className="dropdown-icon" />
+              </li>
+            </>
+          ) : (
+            <li className="dropdown-item">
+              <Link to="/admin/dashboard" className="dropdown-text">
+                Dashboard
+              </Link>
+              <RiAdminLine className="dropdown-icon" />
+            </li>
+          )}
+
           <li className="dropdown-item" onClick={logout}>
             <span className="dropdown-text">Logout</span>
             <FiLogOut className="dropdown-icon" />
