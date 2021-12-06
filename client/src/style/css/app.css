@@ -642,6 +642,7 @@ section[id] {
   display: flex;
   flex-wrap: nowrap;
   padding: 0 20px;
+  padding-bottom: 20px;
   z-index: 10;
 }
 .profile-name {
@@ -675,6 +676,7 @@ section[id] {
   flex-direction: row;
   display: flex;
   flex-wrap: nowrap;
+  margin-bottom: 20px;
 }
 .profile-role > span {
   text-transform: capitalize;
@@ -783,18 +785,17 @@ section[id] {
 .total-list {
   list-style: none;
   color: #f8f9fa;
-  margin-top: 20px;
+  margin: -10px;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   flex-direction: row;
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 .total-item {
   padding: 6px;
   border-radius: 10px;
-  margin-right: 20px;
-  margin-bottom: 20px;
+  margin: 10px 5px;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;

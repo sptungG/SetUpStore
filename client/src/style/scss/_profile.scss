@@ -60,6 +60,7 @@
     margin-top: 60px;
     @include flex(stretch, space-between, column);
     padding: 0 20px;
+    padding-bottom: 20px;
     z-index: 10;
   }
   &-name {
@@ -78,6 +79,7 @@
   &-role {
     font-size: 16px;
     @include flex(center);
+    margin-bottom: 20px;
     & > span {
       text-transform: capitalize;
       @include dotSeparate("left");
@@ -131,14 +133,13 @@
   &-list {
     list-style: none;
     color: $gray-lighter;
-    margin-top: 20px;
-    @include flex(center);
+    margin: -10px;
+    @include flex(center, space-between, row, wrap);
   }
   &-item {
     padding: 6px;
     border-radius: 10px;
-    margin-right: 20px;
-    margin-bottom: 20px;
+    margin: 10px 5px;
     @include flex(center, space-between);
   }
   &-item span {

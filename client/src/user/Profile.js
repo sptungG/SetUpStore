@@ -1,6 +1,7 @@
 import React from "react";
 import { FaUserTag, FaHeart } from "react-icons/fa";
 import { RiHistoryFill } from "react-icons/ri";
+import { AiFillStar } from "react-icons/ai";
 
 function Profile({ data }) {
   return (
@@ -27,6 +28,10 @@ function Profile({ data }) {
           </li>
           <li className="total-item">
             <RiHistoryFill />
+            <span className="total-num">{100}</span>
+          </li>
+          <li className="total-item">
+            <AiFillStar />
             <span className="total-num">{100}</span>
           </li>
         </ul>
