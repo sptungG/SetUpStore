@@ -60,7 +60,6 @@
     margin-top: 60px;
     @include flex(stretch, space-between, column);
     padding: 0 20px;
-    padding-bottom: 20px;
     z-index: 10;
   }
   &-name {
@@ -121,6 +120,7 @@
     padding: 6px;
     border-radius: 10px;
     margin-right: 20px;
+    margin-bottom: 20px;
     @include flex(center, space-between);
   }
   &-item span{

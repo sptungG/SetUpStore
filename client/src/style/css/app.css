@@ -637,7 +637,6 @@ section[id] {
   display: flex;
   flex-wrap: nowrap;
   padding: 0 20px;
-  padding-bottom: 20px;
   z-index: 10;
 }
 .profile-name {
@@ -747,6 +746,7 @@ section[id] {
   padding: 6px;
   border-radius: 10px;
   margin-right: 20px;
+  margin-bottom: 20px;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
