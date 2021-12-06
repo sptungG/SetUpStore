@@ -171,20 +171,18 @@
   &-item:not(:last-child) {
     margin-bottom: 10px;
     font-weight: bold;
-    &:hover {
-      background-color: rgba($secondary-color, 0.05);
-      border: 1px solid $secondary-color;
-      color: $secondary-color;
-      & a {
-        color: $secondary-color;
-      }
-    }
   }
+  @include itemTransform("both");
   &-item:last-child {
     border-radius: 0 0 8px 8px;
+    border: none;
     border-top: 2px solid $gray-light;
     &:hover {
       color: $gray-light;
+      opacity: 0.5;
+      border: none;
+      background-color: transparent;
+      border-top: 2px solid $gray-light;
     }
   }
 }

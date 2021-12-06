@@ -153,7 +153,6 @@
   }
 }
 
-
 @mixin touchSlider($width: 80%, $gap: 25px, $padding: 10px) {
   display: grid !important;
   justify-content: flex-start !important;
@@ -171,7 +170,7 @@
     width: auto;
   }
 }
-@mixin dropdownListIcon($top: 18px, $right: 10px){
+@mixin dropdownListIcon($top: 18px, $right: 10px) {
   margin-top: $top;
   &::before {
     content: "";
@@ -194,5 +193,65 @@
     right: 0;
     background-color: transparent;
     transform: translateY(-100%);
+  }
+}
+
+@mixin itemTransform($form: "none", $a: 0.05) {
+  @if $form == "both" {
+    &-item:nth-child(3n + 1) {
+      &:hover,
+      &.active {
+        background-color: rgba($primary-color, $a);
+        border: 1px solid $primary-color;
+        color: $primary-color;
+        & a {
+          color: currentColor;
+        }
+      }
+    }
+    &-item:nth-child(3n + 2) {
+      &:hover,
+      &.active {
+        background-color: rgba($secondary-color, $a);
+        border: 1px solid $secondary-color;
+        color: $secondary-color;
+        & a {
+          color: currentColor;
+        }
+      }
+    }
+    &-item:nth-child(3n + 3) {
+      &:hover,
+      &.active {
+        background-color: rgba($third-color, $a);
+        border: 1px solid $third-color;
+        color: $third-color;
+        & a {
+          color: currentColor;
+        }
+      }
+    }
+  } @else if $form == "none" {
+    &-item:nth-child(3n + 1) {
+      background-color: rgba($primary-color, $a);
+      color: $primary-color;
+      & a {
+        color: currentColor;
+      }
+    }
+    &-item:nth-child(3n + 2) {
+      background-color: rgba($secondary-color, $a);
+      color: $secondary-color;
+      & a {
+        color: currentColor;
+      }
+    }
+    &-item:nth-child(3n + 3) {
+      background-color: rgba($third-color, $a);
+      color: $third-color;
+      & a {
+        color: currentColor;
+      }
+    }
   }
 }

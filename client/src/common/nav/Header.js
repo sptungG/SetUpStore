@@ -77,7 +77,7 @@ function Header() {
           {user.role !== "admin" ? (
             <>
               <li className="dropdown-item">
-                <Link to="/user/profile" className="dropdown-text">
+                <Link to="/user/history" className="dropdown-text">
                   View profile
                 </Link>
                 <FaRegUserCircle className="dropdown-icon" />
