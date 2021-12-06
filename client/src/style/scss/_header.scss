@@ -126,7 +126,7 @@
     cursor: pointer;
     & span {
       margin: 0 5px;
-      padding: 3px 0;
+      line-height: 1.4;
       font-weight: bold;
       font-family: $secondary-font;
       @include textGradient();
