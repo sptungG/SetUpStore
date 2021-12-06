@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import "./css/app.css";
+import "./style/css/app.css";
 
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import rootReducer from "./reducers";
+import rootReducer from "./common/reducers";
 // store
 const store = createStore(rootReducer, composeWithDevTools());
 

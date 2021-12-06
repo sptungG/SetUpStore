@@ -1,26 +1,26 @@
 import React from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { auth } from "./common/firebase";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Header from "./components/nav/Header";
-import Login from "./pages/auth/Login";
-import Register from "./pages/auth/Register";
-import RegisterComplete from "./pages/auth/RegisterComplete";
-import ForgotPassword from "./pages/auth/ForgotPassword";
-import Home from "./pages/Home";
-import History from "./pages/user/History";
-import Password from "./pages/user/Password";
-import Wishlist from "./pages/user/Wishlist";
-import AdminDashboard from "./pages/admin/AdminDashboard";
+import Login from "./auth/pages/Login";
+import Register from "./auth/pages/Register";
+import RegisterComplete from "./auth/pages/RegisterComplete";
+import ForgotPassword from "./auth/pages/ForgotPassword";
+import History from "./user/pages/History";
+import Password from "./user/pages/Password";
+import Wishlist from "./user/pages/Wishlist";
+import AdminDashboard from "./admin/pages/AdminDashboard";
 
-import UserRoute from "./components/routes/UserRoute";
-import AdminRoute from "./components/routes/AdminRoute";
+import UserRoute from "./common/routes/UserRoute";
+import AdminRoute from "./common/routes/AdminRoute";
 
-import { auth } from "./firebase";
-import { useDispatch } from "react-redux";
-import { currentUser } from "./functions/auth";
+import Header from "./common/nav/Header";
+import Home from "./common/Home";
+import { currentUser } from "./auth/auth.function";
 
 function App() {
   const dispatch = useDispatch();

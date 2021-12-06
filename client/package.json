@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "set PORT=9091 && react-scripts start",
-    "sass": "sass src/scss/app.scss src/css/app.css --watch",
+    "sass": "sass src/style/scss/app.scss src/style/css/app.css --watch",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

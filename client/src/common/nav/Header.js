@@ -1,12 +1,13 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import Tooltip from "./Tooltip";
+import { Link, useLocation,useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import firebase from "firebase";
+
 import { FaSearch, FaStore, FaShoppingCart, FaChevronDown, FaRegUserCircle } from "react-icons/fa";
 import { FiLogOut, FiHeart } from "react-icons/fi";
 import { RiMoonClearFill, RiHistoryFill, RiAdminLine } from "react-icons/ri";
-import firebase from "firebase";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+
+import Tooltip from "./Tooltip";
 
 function Header() {
   const { pathname } = useLocation();

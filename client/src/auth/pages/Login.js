@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { auth, googleAuthProvider } from "../../firebase";
-import FromGroup from "../../components/form/FromGroup";
-import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
+
+import { toast } from "react-toastify";
 import { HiOutlineMail } from "react-icons/hi";
 import { FcGoogle } from "react-icons/fc";
-import { createOrUpdateUser } from "../../functions/auth";
+
+import { auth, googleAuthProvider } from "../../common/firebase";
+import FromGroup from "../../common/form/FromGroup";
+import { createOrUpdateUser } from "../auth.function";
 
 function Login({ history }) {
   const [email, setEmail] = React.useState("");

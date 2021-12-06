@@ -1,10 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { auth } from "../../firebase";
-import FromGroup from "../../components/form/FromGroup";
+
 import { toast } from "react-toastify";
-import { validateEmail } from "../../utils";
-function Register({history}) {
+
+import { auth } from "../../common/firebase";
+import FromGroup from "../../common/form/FromGroup";
+import { validateEmail } from "../auth.utils";
+
+function Register({ history }) {
   const [email, setEmail] = React.useState("");
   const { user } = useSelector((state) => ({ ...state }));
 

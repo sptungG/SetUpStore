@@ -1,8 +1,10 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import { useSelector } from "react-redux";
+
+import { currentAdmin } from "../../auth/auth.function";
+
 import LoadingToRedirect from "./LoadingToRedirect";
-import { currentAdmin } from "../../functions/auth";
 
 function AdminRoute({ children, ...rest }) {
   const { user } = useSelector((state) => ({ ...state }));

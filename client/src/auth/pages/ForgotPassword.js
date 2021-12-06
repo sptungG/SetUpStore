@@ -1,8 +1,10 @@
 import React from "react";
-import { auth } from "../../firebase";
-import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import FromGroup from "../../components/form/FromGroup";
+import { auth } from "../../common/firebase";
+
+import { toast } from "react-toastify";
+
+import FromGroup from "../../common/form/FromGroup";
 
 function ForgotPassword({ history }){
   const [email, setEmail] = React.useState("");
