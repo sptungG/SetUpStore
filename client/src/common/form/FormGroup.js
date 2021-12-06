@@ -1,6 +1,6 @@
 import React from "react";
 
-function FromGroup({ id, label, type, value, placeholder, autoFocus, disabled, onChange }) {
+function FormGroup({ id, label, type, value, placeholder, autoFocus, disabled, onChange }) {
   return (
     <div className="form-group">
       <label htmlFor={id}>{label}</label>
@@ -19,4 +19,4 @@ function FromGroup({ id, label, type, value, placeholder, autoFocus, disabled, o
   );
 }
 
-export default FromGroup;
+export default FormGroup;

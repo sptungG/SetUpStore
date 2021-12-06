@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import { auth } from "../../common/firebase";
-import FromGroup from "../../common/form/FromGroup";
+import FormGroup from "../../common/form/FormGroup";
 import { createOrUpdateUser } from "../auth.function";
 
 function RegisterComplete({ history }) {
@@ -68,8 +68,8 @@ function RegisterComplete({ history }) {
   const completeRegistrationForm = () => (
     <form className="form" onSubmit={handleSubmit}>
       <h1 className="form-title">React Register</h1>
-      <FromGroup id="email" label="Email" type="email" value={email} placeholder="Nhập email..." disabled={true} onChange={(e) => setEmail(e.target.value)} />
-      <FromGroup id="password" label="Password" type="password" value={password} placeholder="Nhập password..." onChange={(e) => setPassword(e.target.value)} />
+      <FormGroup id="email" label="Email" type="email" value={email} placeholder="Nhập email..." disabled={true} onChange={(e) => setEmail(e.target.value)} />
+      <FormGroup id="password" label="Password" type="password" value={password} placeholder="Nhập password..." onChange={(e) => setPassword(e.target.value)} />
       <button type="submit" className="btn btn-primary">
         Complete Registration
       </button>

@@ -4,7 +4,7 @@ import { auth } from "../../common/firebase";
 
 import { toast } from "react-toastify";
 
-import FromGroup from "../../common/form/FromGroup";
+import FormGroup from "../../common/form/FormGroup";
 
 function ForgotPassword({ history }){
   const [email, setEmail] = React.useState("");
@@ -44,7 +44,7 @@ function ForgotPassword({ history }){
       <div className="form-container">
         <form className="form" onSubmit={handleSubmit}>
           {loading ? <h1 className="text-loader">Loading</h1> : <h1 className="form-title">Forgot Password</h1>}
-          <FromGroup
+          <FormGroup
             id="email"
             label="Email"
             type="email"

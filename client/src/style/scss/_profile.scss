@@ -69,9 +69,10 @@
     font-family: $secondary-font;
     text-align: center;
     @include textGradient();
+    @include textClamp(1);
     margin-bottom: 10px;
   }
-  &-email{
+  &-email {
     margin: 10px 0;
   }
   &-role {
@@ -84,46 +85,63 @@
   }
 }
 .nav {
-  &-side {
+  &-container{
     box-shadow: $box-shadow-01;
     background-color: $gray-darkest;
-    border-radius: 10px;
     margin-top: 20px;
+    border-radius: 10px;
     padding: 20px;
+  }
+  &-title{
+    margin-bottom: 20px;
+    padding-left: 11px;
+    @include flex(center);
+    & > span {
+      font-size: 18px;
+      text-transform: capitalize;
+      @include dotSeparate("left");
+    }
+    & .nav-icon{
+      font-size: 24px;
+    }
+  }
+  &-list {
     list-style: none;
   }
-  &-item{
+  &-item {
     padding: 10px;
     border-radius: 8px;
     background-color: $gray;
-    @include flex(center, space-between);
     border: 1px solid transparent;
     transition: all 0.25s linear;
     cursor: pointer;
+    & a {
+      @include flex(center, space-between);
+    }
   }
   &-icon {
     font-size: 22px;
   }
-  &-item:not(:last-child){
+  &-item:not(:last-child) {
     margin-bottom: 20px;
   }
   @include itemTransform("both");
 }
-.total{
-  &-list{
+.total {
+  &-list {
     list-style: none;
     color: $gray-lighter;
     margin-top: 20px;
     @include flex(center);
   }
-  &-item{
+  &-item {
     padding: 6px;
     border-radius: 10px;
     margin-right: 20px;
     margin-bottom: 20px;
     @include flex(center, space-between);
   }
-  &-item span{
+  &-item span {
     font-size: 14px;
     @include dotSeparate("left", currentColor);
   }

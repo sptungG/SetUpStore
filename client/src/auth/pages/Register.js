@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import { auth } from "../../common/firebase";
-import FromGroup from "../../common/form/FromGroup";
+import FormGroup from "../../common/form/FormGroup";
 import { validateEmail } from "../auth.utils";
 
 function Register({ history }) {
@@ -41,7 +41,7 @@ function Register({ history }) {
   const RegistrationForm = () => (
     <form className="form" onSubmit={handleSubmit}>
       <h1 className="form-title">React Register</h1>
-      <FromGroup id="email" label="Email" type="email" value={email} placeholder="Nhập email..." autoFocus={true} onChange={(e) => setEmail(e.target.value)} />
+      <FormGroup id="email" label="Email" type="email" value={email} placeholder="Nhập email..." autoFocus={true} onChange={(e) => setEmail(e.target.value)} />
       <button type="submit" className="btn btn-primary">
         Register
       </button>

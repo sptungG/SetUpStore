@@ -185,6 +185,7 @@ section[id] {
   line-height: 1.4;
   border-radius: 8px;
   background-color: #1e242e;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 4px 4px rgba(0, 0, 0, 0.05), 0 8px 8px rgba(0, 0, 0, 0.05), 0 16px 16px rgba(0, 0, 0, 0.05);
   color: #fff;
   font-weight: bold;
   z-index: 1;
@@ -414,8 +415,10 @@ section[id] {
   right: 0;
   padding: 10px;
   background-color: #1e242e;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 4px 4px rgba(0, 0, 0, 0.05), 0 8px 8px rgba(0, 0, 0, 0.05), 0 16px 16px rgba(0, 0, 0, 0.05);
   display: none;
   z-index: 10;
+  list-style: none;
   margin-top: 25px;
   border-radius: 8px;
 }
@@ -448,14 +451,16 @@ section[id] {
   padding: 10px;
   border-radius: 8px;
   background-color: #1e242e;
+  border: 1px solid transparent;
+  transition: all 0.25s linear;
+  cursor: pointer;
+}
+.dropdown-text {
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
   display: flex;
   flex-wrap: nowrap;
-  border: 1px solid transparent;
-  transition: all 0.25s linear;
-  cursor: pointer;
 }
 .dropdown-item:not(:last-child) {
   margin-bottom: 10px;
@@ -649,6 +654,15 @@ section[id] {
   background-clip: text;
   -webkit-background-clip: text;
   background-image: linear-gradient(to bottom right, #f56766, #f58826);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  max-width: 100%;
+  white-space: pre-wrap;
+  word-break: break-word;
   margin-bottom: 10px;
 }
 .profile-email {
@@ -680,26 +694,60 @@ section[id] {
   transform: translate(-50%, -50%);
 }
 
-.nav-side {
+.nav-container {
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 4px 4px rgba(0, 0, 0, 0.05), 0 8px 8px rgba(0, 0, 0, 0.05), 0 16px 16px rgba(0, 0, 0, 0.05);
   background-color: #1e242e;
-  border-radius: 10px;
   margin-top: 20px;
+  border-radius: 10px;
   padding: 20px;
+}
+.nav-title {
+  margin-bottom: 20px;
+  padding-left: 11px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.nav-title > span {
+  font-size: 18px;
+  text-transform: capitalize;
+  position: relative;
+  padding-left: 5px;
+  margin-left: 5px;
+}
+.nav-title > span::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 3.2px;
+  height: 3.2px;
+  border-radius: 50%;
+  background-color: #f8f9fa;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+.nav-title .nav-icon {
+  font-size: 24px;
+}
+.nav-list {
   list-style: none;
 }
 .nav-item {
   padding: 10px;
   border-radius: 8px;
   background-color: #252936;
+  border: 1px solid transparent;
+  transition: all 0.25s linear;
+  cursor: pointer;
+}
+.nav-item a {
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
   display: flex;
   flex-wrap: nowrap;
-  border: 1px solid transparent;
-  transition: all 0.25s linear;
-  cursor: pointer;
 }
 .nav-icon {
   font-size: 22px;
@@ -790,6 +838,45 @@ section[id] {
 }
 .total-item:nth-child(3n+3) a {
   color: currentColor;
+}
+
+.password-container {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 4px 4px rgba(0, 0, 0, 0.05), 0 8px 8px rgba(0, 0, 0, 0.05), 0 16px 16px rgba(0, 0, 0, 0.05);
+  background-color: #1e242e;
+  border-radius: 10px;
+  padding: 20px;
+}
+.password-container .form-title,
+.password-container .text-loader {
+  margin-top: 20px;
+  margin-bottom: 40px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: nowrap;
+  font-size: 24px;
+}
+.password-container .form-title > span,
+.password-container .text-loader > span {
+  position: relative;
+  padding-left: 5px;
+  margin-left: 5px;
+}
+.password-container .form-title > span::before,
+.password-container .text-loader > span::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 3.2px;
+  height: 3.2px;
+  border-radius: 50%;
+  background-color: #f8f9fa;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+.password-container .btn {
+  margin-top: 20px;
 }
 
 /*# sourceMappingURL=app.css.map */

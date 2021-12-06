@@ -151,8 +151,10 @@
     right: 0;
     padding: 10px;
     background-color: $gray-darkest;
+    box-shadow: $box-shadow-01;
     display: none;
     z-index: 10;
+    list-style: none;
     @include dropdownListIcon(25px, 10px);
     border-radius: 8px;
   }
@@ -163,10 +165,12 @@
     padding: 10px;
     border-radius: 8px;
     background-color: $gray-darkest;
-    @include flex(center, space-between);
     border: 1px solid transparent;
     transition: all 0.25s linear;
     cursor: pointer;
+  }
+  &-text {
+    @include flex(center, space-between);
   }
   &-item:not(:last-child) {
     margin-bottom: 10px;

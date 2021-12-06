@@ -78,35 +78,36 @@ function Header() {
             <>
               <li className="dropdown-item">
                 <Link to="/user/history" className="dropdown-text">
-                  View profile
+                  <span>View profile</span>
+                  <FaRegUserCircle className="dropdown-icon" />
                 </Link>
-                <FaRegUserCircle className="dropdown-icon" />
               </li>
               <li className="dropdown-item">
                 <Link to="/user/wishlist" className="dropdown-text">
-                  Wishlist
+                  <span>Wishlist</span>
+                  <FiHeart className="dropdown-icon" />
                 </Link>
-                <FiHeart className="dropdown-icon" />
               </li>
               <li className="dropdown-item">
                 <Link to="/user/history" className="dropdown-text">
-                  History
+                  <span>History</span>
+                  <RiHistoryFill className="dropdown-icon" />
                 </Link>
-                <RiHistoryFill className="dropdown-icon" />
               </li>
             </>
           ) : (
             <li className="dropdown-item">
-              <Link to="/admin/dashboard" className="dropdown-text">
-                Dashboard
+              <Link to="/admin/dashboard" className="dropdown-text">              
+                <span>Dashboard</span>
+                <RiAdminLine className="dropdown-icon" />
               </Link>
-              <RiAdminLine className="dropdown-icon" />
             </li>
           )}
 
           <li className="dropdown-item" onClick={logout}>
-            <span className="dropdown-text">Logout</span>
-            <FiLogOut className="dropdown-icon" />
+            <span className="dropdown-text">
+              Logout <FiLogOut className="dropdown-icon" />
+            </span>
           </li>
         </ul>
       </div>

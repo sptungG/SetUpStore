@@ -7,7 +7,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { FcGoogle } from "react-icons/fc";
 
 import { auth, googleAuthProvider } from "../../common/firebase";
-import FromGroup from "../../common/form/FromGroup";
+import FormGroup from "../../common/form/FormGroup";
 import { createOrUpdateUser } from "../auth.function";
 
 function Login({ history }) {
@@ -103,8 +103,8 @@ function Login({ history }) {
   const LoginForm = () => (
     <form className="form" onSubmit={handleSubmit}>
       {loading ? <h1 className="text-loader">Loading...</h1> : <h1 className="form-title">React Login</h1>}
-      <FromGroup id="email" label="Email" type="email" value={email} placeholder="Nhập email..." onChange={(e) => setEmail(e.target.value)} />
-      <FromGroup id="password" label="Password" type="password" value={password} placeholder="Nhập password..." onChange={(e) => setPassword(e.target.value)} />
+      <FormGroup id="email" label="Email" type="email" value={email} placeholder="Nhập email..." onChange={(e) => setEmail(e.target.value)} />
+      <FormGroup id="password" label="Password" type="password" value={password} placeholder="Nhập password..." onChange={(e) => setPassword(e.target.value)} />
       <button type="submit" className="btn btn-primary" disabled={!email || password.length < 6}>
         <HiOutlineMail size={24} /> Login with Email/Password
       </button>
