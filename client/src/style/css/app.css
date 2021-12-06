@@ -578,7 +578,6 @@ section[id] {
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-gap: 0 20px;
-  padding-top: 20px;
 }
 .profile-info {
   position: relative;
@@ -586,6 +585,7 @@ section[id] {
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 4px 4px rgba(0, 0, 0, 0.05), 0 8px 8px rgba(0, 0, 0, 0.05), 0 16px 16px rgba(0, 0, 0, 0.05);
   background-color: #1e242e;
   border-radius: 10px;
+  margin-top: 20px;
 }
 .profile-image {
   height: 120px;
@@ -845,6 +845,7 @@ section[id] {
   background-color: #1e242e;
   border-radius: 10px;
   padding: 20px;
+  margin-top: 20px;
 }
 .password-container .form-title,
 .password-container .text-loader {
