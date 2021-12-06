@@ -83,14 +83,6 @@
       @include dotSeparate("left");
     }
   }
-  &-wishlist {
-    color: $primary-color;
-    background-color: rgba($primary-color, 0.2);
-  }
-  &-history {
-    color: $secondary-color;
-    background-color: rgba($secondary-color, 0.2);
-  }
 }
 .nav {
   &-side {
