@@ -43,9 +43,10 @@ function App() {
                 token: idTokenResult.token,
               },
             });
+            console.log(res);
           })
           .catch((err) => {
-            throw new Error(err);
+            console.log(err);
           });
       }
     });

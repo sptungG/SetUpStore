@@ -11,8 +11,8 @@ exports.createOrUpdateUser = async (req, res) => {
   } else {
     const newUser = await new User({
       email,
-      name: email.split("@")[0],
-      picture: "https://firebasestorage.googleapis.com/v0/b/ecommerce-62fba.appspot.com/o/user.png?alt=media&token=bc8dc5bb-237f-497d-b59c-9672753d778b",
+      name: name ?? email.split("@")[0],
+      picture: picture ?? "https://firebasestorage.googleapis.com/v0/b/ecommerce-62fba.appspot.com/o/user.png?alt=media&token=bc8dc5bb-237f-497d-b59c-9672753d778b",
     }).save();
     // console.log("USER CREATED", newUser);
     res.json(newUser);

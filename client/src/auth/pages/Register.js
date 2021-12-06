@@ -28,7 +28,7 @@ function Register({ history }) {
 
       await auth.sendSignInLinkToEmail(email, config);
 
-      toast.success(`Email is sent to ${email}. Click the link to complete your registration.`);
+      toast.success(`Email is sent to ${email}.\nClick the link to complete your registration.`);
       // save user email in local storage
       window.localStorage.setItem("emailForRegistration", email);
       // clear state

@@ -56,7 +56,7 @@ function Login({ history }) {
           roleBasedRedirect(res.data.role);
         })
         .catch((err) => {
-          throw new Error(err);
+          console.log(err);
         });
 
       // history.replace("/");
@@ -72,6 +72,7 @@ function Login({ history }) {
       .then(async (result) => {
         const { user } = result;
         const idTokenResult = await user.getIdTokenResult();
+        
         createOrUpdateUser(idTokenResult.token)
           .then((res) => {
             // console.log("CREATE OR UPDATE RES", res);
@@ -89,7 +90,7 @@ function Login({ history }) {
             roleBasedRedirect(res.data.role);
           })
           .catch((err) => {
-            throw new Error(err);
+            console.log(err);
           });
 
         // history.replace("/");

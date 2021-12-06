@@ -55,7 +55,7 @@ function RegisterComplete({ history }) {
             });
           })
           .catch((err) => {
-            throw new Error(err);
+            console.log(err);
           });
         // redirect
         history.replace("/");

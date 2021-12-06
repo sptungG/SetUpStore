@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation,useHistory } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import firebase from "firebase";
 
@@ -74,14 +74,14 @@ function Header() {
           <FaChevronDown className="dropdown-caret" />
         </div>
         <ul className="dropdown-list">
-          <li className="dropdown-item">
-            <Link to="/user/profile" className="dropdown-text">
-              View profile
-            </Link>
-            <FaRegUserCircle className="dropdown-icon" />
-          </li>
           {user.role !== "admin" ? (
             <>
+              <li className="dropdown-item">
+                <Link to="/user/profile" className="dropdown-text">
+                  View profile
+                </Link>
+                <FaRegUserCircle className="dropdown-icon" />
+              </li>
               <li className="dropdown-item">
                 <Link to="/user/wishlist" className="dropdown-text">
                   Wishlist

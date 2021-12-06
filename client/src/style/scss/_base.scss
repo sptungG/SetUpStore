@@ -48,9 +48,12 @@ section[id] {
   padding: 0 10px;
 }
 .Toastify {
-  font-family: $primary-font;
-  font-size: 14px;
-  background-color: $gray-darkest;
+  &__toast-body {
+    font-family: $primary-font;
+    font-size: 14px;
+    line-height: 1.4;
+    white-space: pre-line;
+  }
 }
 .btn {
   font-size: 18px;

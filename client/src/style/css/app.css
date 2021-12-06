@@ -100,10 +100,11 @@ section[id] {
   padding: 0 10px;
 }
 
-.Toastify {
+.Toastify__toast-body {
   font-family: "Roboto", sans-serif;
   font-size: 14px;
-  background-color: #1e242e;
+  line-height: 1.4;
+  white-space: pre-line;
 }
 
 .btn {
