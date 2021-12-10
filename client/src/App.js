@@ -21,7 +21,7 @@ import UserRoute from "./components/routes/UserRoute";
 import AdminRoute from "./components/routes/AdminRoute";
 
 import Header from "./components/nav/Header";
-import Home from "./Home";
+import Home from "./pages/Home";
 import { currentUser } from "./functions/auth";
 
 function App() {
