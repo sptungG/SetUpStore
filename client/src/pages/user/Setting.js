@@ -1,15 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { auth } from "../../common/firebase";
 
 import { toast } from "react-toastify";
 import { FaUserLock } from "react-icons/fa";
 
-import Profile from "../Profile";
-import UserNav from "../../common/nav/UserNav";
-import FormGroup from "../../common/form/FormGroup";
+import Profile from "../../components/profile/Profile";
+import UserNav from "../../components/nav/UserNav";
+import FormGroup from "../../components/form/FormGroup";
 function Setting() {
-  let { user } = useSelector((state) => ({ ...state }));
   const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
 
@@ -51,7 +49,8 @@ function Setting() {
   return (
     <div className="container profile">
       <div className="profile-left">
-        <Profile data={user} />
+        <Profile />
+
         <UserNav />
       </div>
       <div className="profile-right">

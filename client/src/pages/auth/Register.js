@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import { auth } from "../../common/firebase";
-import FormGroup from "../../common/form/FormGroup";
-import { validateEmail } from "../auth.utils";
+import FormGroup from "../../components/form/FormGroup";
+import { validateEmail } from "../../common/utils";
 
 function Register({ history }) {
   const [email, setEmail] = React.useState("");

@@ -1,15 +1,12 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
-import Profile from "../Profile";
-import UserNav from "../../common/nav/UserNav";
+import Profile from "../../components/profile/Profile";
+import UserNav from "../../components/nav/UserNav";
 function Wishlist() {
-  let { user } = useSelector((state) => ({ ...state }));
-
   return (
     <div className="container profile">
       <div className="profile-left">
-        <Profile data={user} />
+        <Profile />
         <UserNav/>
       </div>
       <div className="profile-right">

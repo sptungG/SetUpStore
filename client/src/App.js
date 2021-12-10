@@ -6,21 +6,23 @@ import { auth } from "./common/firebase";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Login from "./auth/pages/Login";
-import Register from "./auth/pages/Register";
-import RegisterComplete from "./auth/pages/RegisterComplete";
-import ForgotPassword from "./auth/pages/ForgotPassword";
-import History from "./user/pages/History";
-import Setting from "./user/pages/Setting";
-import Wishlist from "./user/pages/Wishlist";
-import AdminDashboard from "./admin/pages/AdminDashboard";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import RegisterComplete from "./pages/auth/RegisterComplete";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import History from "./pages/user/History";
+import Setting from "./pages/user/Setting";
+import Wishlist from "./pages/user/Wishlist";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import CategoryCreate from "./pages/admin/category/CategoryCreate";
+import CategoryUpdate from "./pages/admin/category/CategoryUpdate";
 
-import UserRoute from "./common/routes/UserRoute";
-import AdminRoute from "./common/routes/AdminRoute";
+import UserRoute from "./components/routes/UserRoute";
+import AdminRoute from "./components/routes/AdminRoute";
 
-import Header from "./common/nav/Header";
-import Home from "./common/Home";
-import { currentUser } from "./auth/auth.function";
+import Header from "./components/nav/Header";
+import Home from "./Home";
+import { currentUser } from "./functions/auth";
 
 function App() {
   const dispatch = useDispatch();
@@ -67,6 +69,8 @@ function App() {
         <UserRoute exact path="/user/setting" component={Setting} />
         <UserRoute exact path="/user/wishlist" component={Wishlist} />
         <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
+        <AdminRoute exact path="/admin/category" component={CategoryCreate} />
+        <AdminRoute exact path="/admin/category/:slug" component={CategoryUpdate} />
       </Switch>
     </BrowserRouter>
   );

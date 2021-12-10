@@ -4,7 +4,7 @@ import { auth } from "../../common/firebase";
 
 import { toast } from "react-toastify";
 
-import FormGroup from "../../common/form/FormGroup";
+import FormGroup from "../../components/form/FormGroup";
 
 function ForgotPassword({ history }){
   const [email, setEmail] = React.useState("");

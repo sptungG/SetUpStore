@@ -576,7 +576,7 @@ section[id] {
 
 .profile.container {
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1.05fr 4fr;
   grid-gap: 0 20px;
 }
 .profile-info {
@@ -668,6 +668,16 @@ section[id] {
 }
 .profile-email {
   margin: 10px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  max-width: 100%;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.4;
 }
 .profile-role {
   font-size: 16px;
@@ -787,7 +797,7 @@ section[id] {
   color: #f8f9fa;
   margin: -10px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-direction: row;
   display: flex;
   flex-wrap: wrap;

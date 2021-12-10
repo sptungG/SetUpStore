@@ -2,7 +2,7 @@ import React from "react";
 import { Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { currentAdmin } from "../../auth/auth.function";
+import { currentAdmin } from "../../functions/auth";
 
 import LoadingToRedirect from "./LoadingToRedirect";
 

@@ -1,9 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 import { FaUserTag, FaHeart } from "react-icons/fa";
 import { RiHistoryFill } from "react-icons/ri";
 import { AiFillStar } from "react-icons/ai";
 
-function Profile({ data }) {
+function Profile() {
+  let { user } = useSelector((state) => ({ ...state }));
   return (
     <div className="profile-info">
       <div className="profile-image">
@@ -11,15 +14,15 @@ function Profile({ data }) {
           <img src="https://source.unsplash.com/random/?vietnam,nature" alt="wallpaper" />
         </div>
         <div className="profile-avt">
-          <img src={data.picture} alt="avatar" />
+          <img src={user.picture} alt="avatar" />
         </div>
       </div>
       <div className="profile-content">
-        <div className="profile-name">{data.name}</div>
-        <div className="profile-email">{data.email}</div>
+        <div className="profile-name">{user.name}</div>
+        <div className="profile-email">{user.email+"aaaaaaaaaaaa"}</div>
         <div className="profile-role">
           <FaUserTag />
-          <span>{data.role}</span>
+          <span>{user.role}</span>
         </div>
         <ul className="total-list">
           <li className="total-item">

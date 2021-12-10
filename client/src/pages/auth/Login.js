@@ -7,8 +7,8 @@ import { HiOutlineMail } from "react-icons/hi";
 import { FcGoogle } from "react-icons/fc";
 
 import { auth, googleAuthProvider } from "../../common/firebase";
-import FormGroup from "../../common/form/FormGroup";
-import { createOrUpdateUser } from "../auth.function";
+import FormGroup from "../../components/form/FormGroup";
+import { createOrUpdateUser } from "../../functions/auth";
 
 function Login({ history }) {
   const [email, setEmail] = React.useState("");
