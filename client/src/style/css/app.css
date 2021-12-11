@@ -575,7 +575,7 @@ section[id] {
 
 .dashboard.container {
   display: grid;
-  grid-template-columns: 1.05fr 4fr;
+  grid-template-columns: 230px 6fr;
   grid-gap: 0 20px;
 }
 
@@ -634,6 +634,35 @@ section[id] {
 .profile-avt > img {
   border-radius: 50%;
 }
+.profile-avt:hover .profile-edit {
+  opacity: 1;
+  visibility: visible;
+}
+.profile-edit {
+  cursor: pointer;
+  position: absolute;
+  left: 50%;
+  bottom: 0px;
+  transform: translateX(-50%);
+  font-size: 28px;
+  z-index: 10;
+  cursor: pointer;
+  width: 100%;
+  height: 30%;
+  padding: 10px 0;
+  background-color: rgba(30, 36, 46, 0.5);
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+}
+.profile-edit:hover {
+  color: #f56766;
+}
 .profile-content {
   margin-top: 60px;
   align-items: stretch;
@@ -667,6 +696,7 @@ section[id] {
 }
 .profile-email {
   text-align: center;
+  font-size: 16px;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;

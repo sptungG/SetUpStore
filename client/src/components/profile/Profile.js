@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-
+import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
-import { RiHistoryFill } from "react-icons/ri";
+import { RiHistoryFill, RiEdit2Fill } from "react-icons/ri";
 import { AiFillStar } from "react-icons/ai";
 
 function Profile() {
@@ -35,11 +35,14 @@ function Profile() {
         </div>
         <div className="profile-avt">
           <img src={user.picture} alt="avatar" />
+          <Link to="/user/setting" className="profile-edit">
+            <RiEdit2Fill />
+          </Link>
         </div>
       </div>
       <div className="profile-content">
         <div className="profile-name">{user.name}</div>
-        <div className="profile-email">{user.email + "aaaaaaaaaaaa"}</div>
+        <div className="profile-email">{user.email}</div>
         {user.role === "admin" ? "" : renderTotal()}
       </div>
     </div>
