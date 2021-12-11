@@ -7,6 +7,26 @@ import { AiFillStar } from "react-icons/ai";
 
 function Profile() {
   let { user } = useSelector((state) => ({ ...state }));
+
+  const renderTotal = () => {
+    return (
+      <ul className="total-list">
+        <li className="total-item">
+          <FaHeart />
+          <span className="total-num">{100}</span>
+        </li>
+        <li className="total-item">
+          <RiHistoryFill />
+          <span className="total-num">{100}</span>
+        </li>
+        <li className="total-item">
+          <AiFillStar />
+          <span className="total-num">{100}</span>
+        </li>
+      </ul>
+    );
+  };
+
   return (
     <div className="profile-info">
       <div className="profile-image">
@@ -19,25 +39,12 @@ function Profile() {
       </div>
       <div className="profile-content">
         <div className="profile-name">{user.name}</div>
-        <div className="profile-email">{user.email+"aaaaaaaaaaaa"}</div>
+        <div className="profile-email">{user.email + "aaaaaaaaaaaa"}</div>
         <div className="profile-role">
           <FaUserTag />
           <span>{user.role}</span>
         </div>
-        <ul className="total-list">
-          <li className="total-item">
-            <FaHeart />
-            <span className="total-num">{100}</span>
-          </li>
-          <li className="total-item">
-            <RiHistoryFill />
-            <span className="total-num">{100}</span>
-          </li>
-          <li className="total-item">
-            <AiFillStar />
-            <span className="total-num">{100}</span>
-          </li>
-        </ul>
+        {user.role === "admin" ? "" : renderTotal()}
       </div>
     </div>
   );
