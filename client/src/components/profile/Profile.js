@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { FaUserTag, FaHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import { RiHistoryFill } from "react-icons/ri";
 import { AiFillStar } from "react-icons/ai";
 
@@ -40,10 +40,6 @@ function Profile() {
       <div className="profile-content">
         <div className="profile-name">{user.name}</div>
         <div className="profile-email">{user.email + "aaaaaaaaaaaa"}</div>
-        <div className="profile-role">
-          <FaUserTag />
-          <span>{user.role}</span>
-        </div>
         {user.role === "admin" ? "" : renderTotal()}
       </div>
     </div>

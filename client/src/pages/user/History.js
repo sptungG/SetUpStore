@@ -5,12 +5,12 @@ import UserNav from "../../components/nav/UserNav";
 function History() {
 
   return (
-    <div className="container profile">
-      <div className="profile-left">
+    <div className="container dashboard">
+      <div className="dashboard-left">
         <Profile />
         <UserNav/>
       </div>
-      <div className="profile-right">
+      <div className="dashboard-right">
         <h1 className="text-demo">User history page</h1>
       </div>
     </div>

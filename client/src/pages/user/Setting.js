@@ -47,13 +47,13 @@ function Setting() {
   );
 
   return (
-    <div className="container profile">
-      <div className="profile-left">
+    <div className="container dashboard">
+      <div className="dashboard-left">
         <Profile />
 
         <UserNav />
       </div>
-      <div className="profile-right">
+      <div className="dashboard-right">
         <div className="password-container">
           {loading ? (
             <h2 className="text-loader">Loading...</h2>

@@ -1,9 +1,11 @@
-.profile {
+.dashboard {
   &.container {
     display: grid;
     grid-template-columns: 1.05fr 4fr;
     grid-gap: 0 20px;
   }
+}
+.profile {
   &-info {
     position: relative;
     width: 100%;
@@ -71,22 +73,21 @@
     text-align: center;
     @include textGradient();
     @include textClamp(1);
-    margin-bottom: 10px;
   }
   &-email {
-    margin: 10px 0;
+    text-align: center;
     @include textClamp(1);
     line-height: 1.4;
   }
-  &-role {
-    font-size: 16px;
-    @include flex(center);
-    margin-bottom: 20px;
-    & > span {
-      text-transform: capitalize;
-      @include dotSeparate("left");
-    }
-  }
+  // &-role {
+  //   font-size: 16px;
+  //   @include flex(center);
+  //   margin-bottom: 10px;
+  //   & > span {
+  //     text-transform: capitalize;
+  //     @include dotSeparate("left");
+  //   }
+  // }
 }
 .nav {
   &-container {
@@ -135,16 +136,24 @@
   @include itemTransform("both");
 }
 .total {
-  &-list {
+  &-list{
+    --f-columns: 3;
+    --f-gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
     list-style: none;
+    justify-content: center;
     color: $gray-lighter;
-    margin: -10px;
-    @include flex(center, flex-start, row, wrap);
+    margin-top: 10px;
+    margin-left: calc(-1 * var(--f-gap));
+    margin-bottom: calc(-1 * var(--f-gap));
   }
-  &-item {
-    padding: 6px;
+  &-item  {
+    margin-left: var(--f-gap);
+    margin-bottom: var(--f-gap);
+    // width: calc((100% / var(--f-columns) - var(--f-gap)));
+    padding: 5px;
     border-radius: 10px;
-    margin: 10px 5px;
     @include flex(center, space-between);
   }
   &-item span {
