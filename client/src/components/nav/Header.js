@@ -1,19 +1,19 @@
 import React from "react";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import firebase from "firebase";
 
+import { Row, Col, Layout, Menu, Dropdown, Badge, Button, Avatar, Typography } from "antd";
+
 import { FaSearch, FaStore, FaShoppingCart, FaChevronDown, FaRegUserCircle } from "react-icons/fa";
 import { FiLogOut, FiHeart } from "react-icons/fi";
-import { RiMoonClearFill, RiHistoryFill, RiAdminLine } from "react-icons/ri";
-
-import Tooltip from "./Tooltip";
+import { RiHistoryFill, RiAdminLine } from "react-icons/ri";
 
 function Header() {
-  const { pathname } = useLocation();
   let dispatch = useDispatch();
   let history = useHistory();
   let { user } = useSelector((state) => ({ ...state }));
+  const size = "large";
 
   const logout = () => {
     firebase.auth().signOut();
@@ -26,120 +26,130 @@ function Header() {
 
   const renderHeaderNav = () => {
     return (
-      <div className="header-nav">
-        <ul>
-          <li className={"item"} key="dark-mode">
-            <RiMoonClearFill size={30} />
-            <Tooltip content="Dark" />
-          </li>
-          <li className={pathname === "/store" ? "item show" : "item"} key="store">
-            <Link to="/store">
-              <FaStore size={30} />
-            </Link>
-            <Tooltip content="Store" />
-          </li>
-          <li className={pathname === "/cart" ? "item show" : "item"} key="cart">
+      <Menu mode="horizontal" style={{ marginLeft: "20px", lineHeight: "46px", backgroundColor: "transparent" }}>
+        <Menu.Item key="store">
+          <Link to="/store">
+            <FaStore size={30} />
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="cart">
+          <Badge count={0} showZero>
             <Link to="/cart">
               <FaShoppingCart size={28} />
             </Link>
-            <Tooltip content="Cart" />
-            <div className="item-badge">1</div>
-          </li>
-        </ul>
-      </div>
+          </Badge>
+        </Menu.Item>
+      </Menu>
     );
   };
 
   const renderLoginWrapper = () => {
     return (
       <>
-        <Link data-key="login" to="/login" className="btn btn-login">
-          Login
-        </Link>
-        <Link data-key="register" to="/register" className="btn btn-register">
-          Register
-        </Link>
+        <Button type="link" shape="round" size={size}>
+          <Link to="/login">Login</Link>
+        </Button>
+        <Button type="primary" shape="round" size={size}>
+          <Link to="/register">Register</Link>
+        </Button>
       </>
     );
   };
 
   const renderDropdownMenu = () => {
+    const iconSize = 22;
+    const dropdownItemStyle = "rounded-[4px]";
+    const dropdownTextStyle = "p-[10px] flex items-center justify-between font-bold";
+    const menu = (
+      <Menu style={{ borderRadius: 8, padding: 8 }}>
+        {user.role !== "admin" ? (
+          <>
+            <Menu.Item className={dropdownItemStyle}>
+              <Link to="/user/history" className={dropdownTextStyle}>
+                View profile <FaRegUserCircle size={iconSize} />
+              </Link>
+            </Menu.Item>
+            <Menu.Item className={dropdownItemStyle}>
+              <Link to="/user/wishlist" className={dropdownTextStyle}>
+                Wishlist <FiHeart size={iconSize} />
+              </Link>
+            </Menu.Item>
+            <Menu.Item className={dropdownItemStyle}>
+              <Link to="/user/history" className={dropdownTextStyle}>
+                History <RiHistoryFill size={iconSize} />
+              </Link>
+            </Menu.Item>
+          </>
+        ) : (
+          <Menu.Item className={dropdownItemStyle}>
+            <Link to="/admin/dashboard" className={dropdownTextStyle}>
+              Dashboard <RiAdminLine size={iconSize} />
+            </Link>
+          </Menu.Item>
+        )}
+        <Menu.Item className={dropdownItemStyle} onClick={logout}>
+          <span className={dropdownTextStyle + " font-normal"}>
+            Logout <FiLogOut size={iconSize} />
+          </span>
+        </Menu.Item>
+      </Menu>
+    );
     return (
-      <div className="dropdown">
-        <div className="dropdown-select">
-          <div className="header-avatar">
-            <img src={user.picture} alt="avatar" />
+      <Dropdown overlay={menu} placement="bottomRight" arrow>
+        <div className="flex items-center">
+          <div className="flex items-center p-[2px] rounded-full border-solid border">
+            <Avatar size="large" src={user.picture} alt="avatar" />
           </div>
-          <span className="header-name">{user.name}</span>
+          <Typography.Text type="secondary" style={{ width: 100, marginLeft: 5 }} ellipsis>
+            {user.name + " aaaaaaaaaaaaa"}
+          </Typography.Text>
           <FaChevronDown className="dropdown-caret" />
         </div>
-        <ul className="dropdown-list">
-          {user.role !== "admin" ? (
-            <>
-              <li className="dropdown-item">
-                <Link to="/user/history" className="dropdown-text">
-                  <span>View profile</span>
-                  <FaRegUserCircle className="dropdown-icon" />
-                </Link>
-              </li>
-              <li className="dropdown-item">
-                <Link to="/user/wishlist" className="dropdown-text">
-                  <span>Wishlist</span>
-                  <FiHeart className="dropdown-icon" />
-                </Link>
-              </li>
-              <li className="dropdown-item">
-                <Link to="/user/history" className="dropdown-text">
-                  <span>History</span>
-                  <RiHistoryFill className="dropdown-icon" />
-                </Link>
-              </li>
-            </>
-          ) : (
-            <li className="dropdown-item">
-              <Link to="/admin/dashboard" className="dropdown-text">              
-                <span>Dashboard</span>
-                <RiAdminLine className="dropdown-icon" />
-              </Link>
-            </li>
-          )}
+      </Dropdown>
+    );
+  };
 
-          <li className="dropdown-item" onClick={logout}>
-            <span className="dropdown-text">
-              Logout <FiLogOut className="dropdown-icon" />
-            </span>
-          </li>
-        </ul>
-      </div>
+  const renderHeaderLeft = () => {
+    return (
+      <Row align="middle" style={{ height: 70 }}>
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/ecommerce-62fba.appspot.com/o/index.svg?alt=media&token=4582b9e5-16e0-4de1-a742-e1f0da3d3d62"
+          alt="logo"
+          style={{ height: "inherit" }}
+        />
+        <Link to="/" className="text-2xl font-bold">
+          SetUpStore
+        </Link>
+      </Row>
+    );
+  };
+
+  const renderHeaderCenter = () => {
+    return (
+      <Row align="middle" justify="center">
+        <form className="w-full p-[5px] h-[52px] flex items-center rounded-full border-solid border">
+          <input className="w-full p-[10px] h-[50px] bg-transparent border-none outline-0" type="text" placeholder="Type your product ..." />
+          <Button type="primary" shape="round" size="large">
+            <FaSearch size={18} />
+          </Button>
+        </form>
+      </Row>
     );
   };
 
   return (
-    <header className="header">
-      <div className="container">
-        <div className="header-left">
-          <div className="header-logo">
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/ecommerce-62fba.appspot.com/o/index.svg?alt=media&token=4582b9e5-16e0-4de1-a742-e1f0da3d3d62"
-              alt="logo"
-            />
-            <Link to="/">SetUpStore</Link>
-          </div>
-        </div>
-        <div className="header-center">
-          <form>
-            <input type="text" placeholder="Type your product ..." />
-            <button>
-              <FaSearch size={18} />
-            </button>
-          </form>
-        </div>
-        <div className="header-right">
-          {!user ? renderLoginWrapper() : renderDropdownMenu()}
-          {renderHeaderNav()}
-        </div>
-      </div>
-    </header>
+    <Layout.Header style={{ height: 70, background: "#fff", padding: "0 15px" }}>
+      <Row justify="space-between" align="middle">
+        <Col span={7}>{renderHeaderLeft()}</Col>
+        <Col span={10}>{renderHeaderCenter()}</Col>
+        <Col span={7}>
+          <Row align="middle" justify="end">
+            {!user ? renderLoginWrapper() : renderDropdownMenu()}
+            {renderHeaderNav()}
+          </Row>
+        </Col>
+      </Row>
+    </Layout.Header>
   );
 }
 export default Header;
