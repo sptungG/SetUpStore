@@ -101,7 +101,7 @@ function Header() {
             <Avatar size="large" src={user.picture} alt="avatar" />
           </div>
           <Typography.Text type="secondary" style={{ width: 100, marginLeft: 5 }} ellipsis>
-            {user.name + " aaaaaaaaaaaaa"}
+            {user.name}
           </Typography.Text>
           <FaChevronDown className="dropdown-caret" />
         </div>
