@@ -126,7 +126,7 @@ function Header() {
   const renderHeaderCenter = () => {
     return (
       <Row align="middle" justify="center">
-        <Form name="header-search" style={{ width: "100%", paddingBottom: "1px" }}>
+        <Form name="header-search" style={{ width: "100%" }}>
           <Input
             style={{ borderRadius: 100, padding: "5px 8px 5px 20px", backgroundColor: "transparent" }}
             placeholder="Type your product ..."
@@ -142,22 +142,22 @@ function Header() {
   };
 
   return (
-    <Layout.Header style={{ height: 70, padding: "0 15px", backgroundColor: "#fff" }}>
-      <Row justify="space-between" align="middle">
-        <Col span={7}>{renderHeaderLeft()}</Col>
-        <Col span={10}>{renderHeaderCenter()}</Col>
-        <Col span={4}>
-          <Row align="middle" justify="end">
-            {!user ? renderLoginWrapper() : renderDropdownMenu()}
-          </Row>
-        </Col>
-        <Col span={3}>
-          <Row align="bottom" justify="end">
-            {renderHeaderNav()}
-          </Row>
-        </Col>
-      </Row>
-    </Layout.Header>
+      <Layout.Header style={{ height: "auto", backgroundColor: "#fff" }}>
+        <Row justify="space-between" align="middle">
+          <Col span={7}>{renderHeaderLeft()}</Col>
+          <Col span={10}>{renderHeaderCenter()}</Col>
+          <Col span={4}>
+            <Row align="middle" justify="end">
+              {!user ? renderLoginWrapper() : renderDropdownMenu()}
+            </Row>
+          </Col>
+          <Col span={3}>
+            <Row align="bottom" justify="end">
+              {renderHeaderNav()}
+            </Row>
+          </Col>
+        </Row>
+      </Layout.Header>
   );
 }
 export default Header;

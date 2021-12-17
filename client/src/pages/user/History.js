@@ -1,19 +1,24 @@
 import React from "react";
 
+import { Form, Layout, Input, Button, Typography, Row, Col, Space, Card } from "antd";
 import Profile from "../../components/profile/Profile";
 import UserNav from "../../components/nav/UserNav";
 function History() {
 
   return (
-    <div className="container dashboard">
-      <div className="dashboard-left">
-        <Profile />
-        <UserNav/>
-      </div>
-      <div className="dashboard-right">
-        <h1 className="text-demo">User history page</h1>
-      </div>
-    </div>
+    <Layout.Content>
+      <Row gutter={[24, 24]}>
+        <Col flex="none">
+          <Profile />
+          <UserNav />
+        </Col>
+        <Col flex="auto">
+          <Card>
+            <h1 className="text-demo">User AdminDashboard page</h1>
+          </Card>
+        </Col>
+      </Row>
+    </Layout.Content>
   );
 }
 

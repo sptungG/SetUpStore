@@ -2,7 +2,7 @@ import React from "react";
 import { auth } from "../../common/firebase";
 
 import { toast } from "react-toastify";
-import { Form, Input, Button, Typography, Row, Col, Space, Card } from "antd";
+import { Layout, Form, Input, Button, Typography, Row, Col, Space, Card } from "antd";
 
 import { HiOutlineLockClosed } from "react-icons/hi";
 import { FaUserLock } from "react-icons/fa";
@@ -60,15 +60,17 @@ function Setting() {
   );
 
   return (
-    <Row style={{ padding: 24}} gutter={[24, 24]}>
-      <Col flex="none">
-        <Profile />
-        <UserNav />
-      </Col>
-      <Col flex="auto">
-        <Card>{passwordUpdateForm()}</Card>
-      </Col>
-    </Row>
+    <Layout.Content>
+      <Row gutter={[24, 24]}>
+        <Col flex="none">
+          <Profile />
+          <UserNav />
+        </Col>
+        <Col flex="auto">
+          <Card>{passwordUpdateForm()}</Card>
+        </Col>
+      </Row>
+    </Layout.Content>
   );
 }
 
