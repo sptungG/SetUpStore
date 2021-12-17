@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { auth } from "./common/firebase";
-import './App.less'
+import "./App.less";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

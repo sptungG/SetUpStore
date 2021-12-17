@@ -1,8 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+
+import { Avatar, Tag, Space, Row, Col, Typography, Card, Button } from "antd";
+
 import { FaHeart } from "react-icons/fa";
-import { RiHistoryFill, RiEdit2Fill } from "react-icons/ri";
+import { RiHistoryFill } from "react-icons/ri";
 import { AiFillStar } from "react-icons/ai";
 
 function Profile() {
@@ -10,42 +12,41 @@ function Profile() {
 
   const renderTotal = () => {
     return (
-      <ul className="total-list">
-        <li className="total-item">
-          <FaHeart />
-          <span className="total-num">{100}</span>
-        </li>
-        <li className="total-item">
-          <RiHistoryFill />
-          <span className="total-num">{100}</span>
-        </li>
-        <li className="total-item">
-          <AiFillStar />
-          <span className="total-num">{100}</span>
-        </li>
-      </ul>
+      <Space id="profile-total" size="small" style={{ marginTop: 10 }}>
+        <Tag color="volcano" icon={<FaHeart />}>
+          {100}
+        </Tag>
+        <Tag color="orange" icon={<RiHistoryFill />}>
+          {100}
+        </Tag>
+        <Tag color="gold" icon={<AiFillStar />}>
+          {100}
+        </Tag>
+      </Space>
     );
   };
 
   return (
-    <div className="profile-info">
-      <div className="profile-image">
-        <div className="profile-wallpaper">
-          <img src="https://source.unsplash.com/random/?vietnam,nature" alt="wallpaper" />
-        </div>
-        <div className="profile-avt">
-          <img src={user.picture} alt="avatar" />
-          <Link to="/user/setting" className="profile-edit">
-            <RiEdit2Fill />
-          </Link>
-        </div>
-      </div>
-      <div className="profile-content">
-        <div className="profile-name">{user.name}</div>
-        <div className="profile-email">{user.email}</div>
-        {user.role === "admin" ? "" : renderTotal()}
-      </div>
-    </div>
+    <Card>
+      <Row align="middle" style={{ flexFlow: "row nowrap" }}>
+        <Col flex="none">
+          <Button size="large" shape="circle" style={{ height: 110, width: 110, padding: 2 }}>
+            <Avatar size={{ xs: 100, sm: 100, md: 100, lg: 100, xl: 100, xxl: 100 }} src={user.picture} />
+          </Button>
+        </Col>
+        <Col flex="auto" style={{ paddingLeft: 10 }}>
+          <Row>
+            <Typography.Title level={3} style={{ width: 150 }} ellipsis>{user.name}</Typography.Title>
+          </Row>
+          <Row>
+            <Typography.Text style={{ width: 150 }} ellipsis>
+              {user.email}
+            </Typography.Text>
+          </Row>
+          <Row>{user.role === "admin" ? "" : renderTotal()}</Row>
+        </Col>
+      </Row>
+    </Card>
   );
 }
 

@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { toast } from "react-toastify";
-import { HiOutlineMail } from "react-icons/hi";
+import { Form, Input, Button, Typography, Row, Col, Space, Divider } from "antd";
+
+import { HiOutlineMail, HiOutlineLockClosed } from "react-icons/hi";
 import { FcGoogle } from "react-icons/fc";
 
 import { auth, googleAuthProvider } from "../../common/firebase";
-import FormGroup from "../../components/form/FormGroup";
 import { createOrUpdateUser } from "../../functions/auth";
 
 function Login({ history }) {
@@ -15,6 +16,7 @@ function Login({ history }) {
   const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   let dispatch = useDispatch();
+  const [form] = Form.useForm();
 
   const { user } = useSelector((state) => ({ ...state }));
 
@@ -30,8 +32,7 @@ function Login({ history }) {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setLoading(true);
     try {
       const result = await auth.signInWithEmailAndPassword(email, password);
@@ -72,7 +73,7 @@ function Login({ history }) {
       .then(async (result) => {
         const { user } = result;
         const idTokenResult = await user.getIdTokenResult();
-        
+
         createOrUpdateUser(idTokenResult.token)
           .then((res) => {
             // console.log("CREATE OR UPDATE RES", res);
@@ -100,29 +101,59 @@ function Login({ history }) {
       });
   };
 
-  const LoginForm = () => (
-    <form className="form" onSubmit={handleSubmit}>
-      {loading ? <h1 className="text-loader">Loading...</h1> : <h1 className="form-title">React Login</h1>}
-      <FormGroup id="email" label="Email" type="email" value={email} placeholder="Nhập email..." onChange={(e) => setEmail(e.target.value)} />
-      <FormGroup id="password" label="Password" type="password" value={password} placeholder="Nhập password..." onChange={(e) => setPassword(e.target.value)} />
-      <button type="submit" className="btn btn-primary" disabled={!email || password.length < 6}>
-        <HiOutlineMail size={24} /> Login with Email/Password
-      </button>
-    </form>
-  );
+  const LoginForm = () => {
+    return (
+      <Form form={form} name="form-container" onFinish={handleSubmit} size="large" layout="vertical">
+        {loading ? <Typography.Title>Loading...</Typography.Title> : <Typography.Title>Welcome back</Typography.Title>}
+        <Typography.Title level={5} type="secondary">
+          Come to the Dashboard
+        </Typography.Title>
+        <Space align="baseline">
+          <span>Login with: </span>
+          <Button onClick={googleLogin} size="large">
+            <FcGoogle size={24} />
+          </Button>
+        </Space>
+        <Divider plain>Or</Divider>
+        <Form.Item>
+          <Input prefix={<HiOutlineMail size={24} />} value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email..." />
+        </Form.Item>
+        <Form.Item>
+          <Input.Password
+            prefix={<HiOutlineLockClosed size={24} />}
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password..."
+          />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" className="login-form-button" style={{ width: "100%" }}>
+            Login with Email/Password
+          </Button>
+          <p style={{ textAlign: "right" }}>
+            <Link to="/forgot/password">Forgot Password</Link>
+          </p>
+        </Form.Item>
+      </Form>
+    );
+  };
 
   return (
-    <div className="container">
-      <div className="form-container">
+    <Row style={{ padding: "24px 0" }} align="middle">
+      <Col span={10} offset={1} style={{ padding: "0 24px" }}>
         {LoginForm()}
-        <button type="submit" className="btn btn-google" onClick={googleLogin}>
-          <FcGoogle size={24} /> Login with Google
-        </button>
-        <Link to="/forgot/password" className="text-forgot">
-          Forgot Password
-        </Link>
-      </div>
-    </div>
+        <p style={{ textAlign: "center" }}>
+          Don't have an account? <Link to="/register">Create now</Link>
+        </p>
+      </Col>
+      <Col span={12}>
+        <img
+          src="https://mixkit.imgix.net/art/preview/mixkit-left-handed-man-sitting-at-a-table-writing-in-a-notebook-27-original-large.png?q=80&auto=format%2Ccompress&h=700"
+          alt="Login"
+        />
+      </Col>
+    </Row>
   );
 }
 export default Login;

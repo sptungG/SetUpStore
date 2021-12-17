@@ -1,14 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { auth } from "../../common/firebase";
 
 import { toast } from "react-toastify";
+import { Form, Input, Button, Typography, Row, Col } from "antd";
 
-import FormGroup from "../../components/form/FormGroup";
+import { HiOutlineMail } from "react-icons/hi";
 
-function ForgotPassword({ history }){
+function ForgotPassword({ history }) {
   const [email, setEmail] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const [form] = Form.useForm();
 
   const { user } = useSelector((state) => ({ ...state }));
 
@@ -16,8 +19,7 @@ function ForgotPassword({ history }){
     if (user && user.token) history.push("/");
   }, [history, user]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setLoading(true);
 
     const config = {
@@ -38,28 +40,39 @@ function ForgotPassword({ history }){
         console.log("ERROR MSG IN FORGOT PASSWORD", error);
       });
   };
+  const ForgotPasswordForm = () => (
+    <Form form={form} size="large" layout="vertical" onFinish={handleSubmit}>
+      {loading ? <Typography.Title>Loading...</Typography.Title> : <Typography.Title>Forgot Password</Typography.Title>}
+      <Typography.Title level={5} type="secondary">
+        Just one more step
+      </Typography.Title>
+      <Form.Item>
+        <Input prefix={<HiOutlineMail size={24} />} value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email..." />
+      </Form.Item>
+      <Form.Item>
+        <Button type="primary" htmlType="submit" style={{ width: "100%" }} disabled={!email}>
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+  );
 
   return (
-    <div className="container">
-      <div className="form-container">
-        <form className="form" onSubmit={handleSubmit}>
-          {loading ? <h1 className="text-loader">Loading</h1> : <h1 className="form-title">Forgot Password</h1>}
-          <FormGroup
-            id="email"
-            label="Email"
-            type="email"
-            value={email}
-            placeholder="Nhập email..."
-            autoFocus={true}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button type="submit" className="btn btn-primary" disabled={!email}>
-            Register
-          </button>
-        </form>
-      </div>
-    </div>
+    <Row style={{ padding: "24px 0" }} align="middle">
+      <Col span={10} offset={1} style={{ padding: "0 24px" }}>
+        {ForgotPasswordForm()}
+        <p style={{ textAlign: "right" }}>
+          <Link to="/login">Back to login</Link>
+        </p>
+      </Col>
+      <Col span={12}>
+        <img
+          src="https://mixkit.imgix.net/art/preview/mixkit-left-handed-man-sitting-at-a-table-writing-in-a-notebook-27-original-large.png?q=80&auto=format%2Ccompress&h=700"
+          alt="Login"
+        />
+      </Col>
+    </Row>
   );
-};
+}
 
 export default ForgotPassword;

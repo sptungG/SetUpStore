@@ -2,14 +2,17 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { toast } from "react-toastify";
+import { Form, Input, Button, Typography, Row, Col} from "antd";
+
+import { HiOutlineMail, HiOutlineLockClosed } from "react-icons/hi";
 
 import { auth } from "../../common/firebase";
-import FormGroup from "../../components/form/FormGroup";
 import { createOrUpdateUser } from "../../functions/auth";
 
 function RegisterComplete({ history }) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [form] = Form.useForm();
 
   const { user } = useSelector((state) => ({ ...state }));
   let dispatch = useDispatch();
@@ -24,8 +27,7 @@ function RegisterComplete({ history }) {
     // console.log(window.localStorage.getItem("emailForRegistration"));
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     try {
       if (!email || !password) throw new Error("Email and password is required");
       if (password.length < 6) throw new Error("Password must be at least 6 characters long");
@@ -66,20 +68,43 @@ function RegisterComplete({ history }) {
   };
 
   const completeRegistrationForm = () => (
-    <form className="form" onSubmit={handleSubmit}>
-      <h1 className="form-title">React Register</h1>
-      <FormGroup id="email" label="Email" type="email" value={email} placeholder="Nhập email..." disabled={true} onChange={(e) => setEmail(e.target.value)} />
-      <FormGroup id="password" label="Password" type="password" value={password} placeholder="Nhập password..." onChange={(e) => setPassword(e.target.value)} />
-      <button type="submit" className="btn btn-primary">
-        Complete Registration
-      </button>
-    </form>
+    <Form form={form} name="form-container" onFinish={handleSubmit} size="large" layout="vertical">
+      <Typography.Title>Register Complete</Typography.Title>
+      <Typography.Title level={5} type="secondary">
+        The last step
+      </Typography.Title>
+      <Form.Item>
+        <Input prefix={<HiOutlineMail size={24} />} value={email} onChange={(e) => setEmail(e.target.value)} disabled />
+      </Form.Item>
+      <Form.Item>
+        <Input.Password
+          prefix={<HiOutlineLockClosed size={24} />}
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Enter your password..."
+        />
+      </Form.Item>
+      <Form.Item>
+        <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
+          Complete Registration
+        </Button>
+      </Form.Item>
+    </Form>
   );
 
   return (
-    <div className="container">
-      <div className="form-container">{completeRegistrationForm()}</div>
-    </div>
+    <Row style={{ padding: "24px 0" }} align="middle">
+      <Col span={10} offset={1} style={{ padding: "0 24px" }}>
+        {completeRegistrationForm()}
+      </Col>
+      <Col span={12}>
+        <img
+          src="https://mixkit.imgix.net/art/preview/mixkit-left-handed-man-sitting-at-a-table-writing-in-a-notebook-27-original-large.png?q=80&auto=format%2Ccompress&h=700"
+          alt="Login"
+        />
+      </Col>
+    </Row>
   );
 }
 export default RegisterComplete;

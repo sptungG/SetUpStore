@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import firebase from "firebase";
 
-import { Row, Col, Layout, Menu, Dropdown, Badge, Button, Avatar, Typography } from "antd";
+import { Row, Col, Layout, Menu, Dropdown, Badge, Button, Avatar, Typography, Input, Form, Space } from "antd";
 
 import { FaSearch, FaStore, FaShoppingCart, FaChevronDown, FaRegUserCircle } from "react-icons/fa";
 import { FiLogOut, FiHeart } from "react-icons/fi";
@@ -13,7 +13,6 @@ function Header() {
   let dispatch = useDispatch();
   let history = useHistory();
   let { user } = useSelector((state) => ({ ...state }));
-  const size = "large";
 
   const logout = () => {
     firebase.auth().signOut();
@@ -26,7 +25,7 @@ function Header() {
 
   const renderHeaderNav = () => {
     return (
-      <Menu mode="horizontal" style={{ marginLeft: "20px", lineHeight: "46px", backgroundColor: "transparent" }}>
+      <Menu mode="horizontal" style={{ lineHeight: "46px", backgroundColor: "transparent", borderBottom: "none" }}>
         <Menu.Item key="store">
           <Link to="/store">
             <FaStore size={30} />
@@ -46,10 +45,10 @@ function Header() {
   const renderLoginWrapper = () => {
     return (
       <>
-        <Button type="link" shape="round" size={size}>
+        <Button type="link" shape="round" size="large">
           <Link to="/login">Login</Link>
         </Button>
-        <Button type="primary" shape="round" size={size}>
+        <Button type="primary" shape="round" size="large">
           <Link to="/register">Register</Link>
         </Button>
       </>
@@ -58,53 +57,53 @@ function Header() {
 
   const renderDropdownMenu = () => {
     const iconSize = 22;
-    const dropdownItemStyle = "rounded-[4px]";
-    const dropdownTextStyle = "p-[10px] flex items-center justify-between font-bold";
+    const dropdownItemStyle = { borderRadius: 8 };
+    const dropdownTextStyle = { padding: 10, display: "flex", alignItems: "center", justifyContent: "space-between", fontWeight: "bold" };
     const menu = (
       <Menu style={{ borderRadius: 8, padding: 8 }}>
         {user.role !== "admin" ? (
           <>
-            <Menu.Item className={dropdownItemStyle}>
-              <Link to="/user/history" className={dropdownTextStyle}>
-                View profile <FaRegUserCircle size={iconSize} />
+            <Menu.Item style={dropdownItemStyle} key="profile">
+              <Link to="/user/history" style={dropdownTextStyle}>
+                Profile <FaRegUserCircle size={iconSize} />
               </Link>
             </Menu.Item>
-            <Menu.Item className={dropdownItemStyle}>
-              <Link to="/user/wishlist" className={dropdownTextStyle}>
+            <Menu.Item style={dropdownItemStyle} key="wishlist">
+              <Link to="/user/wishlist" style={dropdownTextStyle}>
                 Wishlist <FiHeart size={iconSize} />
               </Link>
             </Menu.Item>
-            <Menu.Item className={dropdownItemStyle}>
-              <Link to="/user/history" className={dropdownTextStyle}>
+            <Menu.Item style={dropdownItemStyle} key="history">
+              <Link to="/user/history" style={dropdownTextStyle}>
                 History <RiHistoryFill size={iconSize} />
               </Link>
             </Menu.Item>
           </>
         ) : (
-          <Menu.Item className={dropdownItemStyle}>
-            <Link to="/admin/dashboard" className={dropdownTextStyle}>
+          <Menu.Item style={dropdownItemStyle} key="dashboard">
+            <Link to="/admin/dashboard" style={dropdownTextStyle}>
               Dashboard <RiAdminLine size={iconSize} />
             </Link>
           </Menu.Item>
         )}
-        <Menu.Item className={dropdownItemStyle} onClick={logout}>
-          <span className={dropdownTextStyle + " font-normal"}>
-            Logout <FiLogOut size={iconSize} />
+        <Menu.Item style={dropdownItemStyle} onClick={logout} key="logout">
+          <span style={dropdownTextStyle}>
+            <span style={{ fontWeight: "normal" }}>Logout</span> <FiLogOut size={iconSize} />
           </span>
         </Menu.Item>
       </Menu>
     );
     return (
       <Dropdown overlay={menu} placement="bottomRight" arrow>
-        <div className="flex items-center">
-          <div className="flex items-center p-[2px] rounded-full border-solid border">
+        <Space size="small" align="center">
+          <Button size="large" shape="circle" style={{ height: 50, width: 50, padding: 2 }}>
             <Avatar size="large" src={user.picture} alt="avatar" />
-          </div>
-          <Typography.Text type="secondary" style={{ width: 100, marginLeft: 5 }} ellipsis>
+          </Button>
+          <Typography.Text type="secondary" style={{ width: 80, fontWeight: "bold" }} ellipsis>
             {user.name}
           </Typography.Text>
           <FaChevronDown className="dropdown-caret" />
-        </div>
+        </Space>
       </Dropdown>
     );
   };
@@ -117,7 +116,7 @@ function Header() {
           alt="logo"
           style={{ height: "inherit" }}
         />
-        <Link to="/" className="text-2xl font-bold">
+        <Link to="/" style={{ fontSize: 28, fontWeight: "bold" }}>
           SetUpStore
         </Link>
       </Row>
@@ -127,24 +126,33 @@ function Header() {
   const renderHeaderCenter = () => {
     return (
       <Row align="middle" justify="center">
-        <form className="w-full p-[5px] h-[52px] flex items-center rounded-full border-solid border">
-          <input className="w-full p-[10px] h-[50px] bg-transparent border-none outline-0" type="text" placeholder="Type your product ..." />
-          <Button type="primary" shape="round" size="large">
-            <FaSearch size={18} />
-          </Button>
-        </form>
+        <Form name="header-search" style={{ width: "100%", paddingBottom: "1px" }}>
+          <Input
+            style={{ borderRadius: 100, padding: "5px 8px 5px 20px", backgroundColor: "transparent" }}
+            placeholder="Type your product ..."
+            suffix={
+              <Button type="primary" shape="round" size="large">
+                <FaSearch size={18} />
+              </Button>
+            }
+          />
+        </Form>
       </Row>
     );
   };
 
   return (
-    <Layout.Header style={{ height: 70, background: "#fff", padding: "0 15px" }}>
+    <Layout.Header style={{ height: 70, padding: "0 15px", backgroundColor: "#fff" }}>
       <Row justify="space-between" align="middle">
         <Col span={7}>{renderHeaderLeft()}</Col>
         <Col span={10}>{renderHeaderCenter()}</Col>
-        <Col span={7}>
+        <Col span={4}>
           <Row align="middle" justify="end">
             {!user ? renderLoginWrapper() : renderDropdownMenu()}
+          </Row>
+        </Col>
+        <Col span={3}>
+          <Row align="bottom" justify="end">
             {renderHeaderNav()}
           </Row>
         </Col>
