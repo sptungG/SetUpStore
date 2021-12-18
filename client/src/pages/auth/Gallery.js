@@ -17,7 +17,7 @@ function Gallery() {
       <Col span={8}>
         <Space direction="vertical" size={24}>
           {list.map((item) => (
-            <Image width={"100%"} height={"100%"} src={item.urls.regular} alt="Login" />
+            <Image key={item.id} width={"100%"} height={"100%"} src={item.urls.regular} alt="Login" />
           ))}
         </Space>
       </Col>
@@ -25,7 +25,7 @@ function Gallery() {
   };
 
   return (
-    <Row gutter={[24, 24]}>
+    <Row id="gallery" gutter={[24, 24]}>
       <Image.PreviewGroup>
         {renderGalleryColumn(photos.slice(0, 3))}
         {renderGalleryColumn(photos.slice(3, 6))}

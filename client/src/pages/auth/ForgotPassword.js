@@ -42,7 +42,7 @@ function ForgotPassword({ history }) {
       });
   };
   const ForgotPasswordForm = () => (
-    <Form form={form} size="large" layout="vertical" onFinish={handleSubmit}>
+    <Form form={form} name="form-container" size="large" layout="vertical" onFinish={handleSubmit}>
       {loading ? <Typography.Title>Loading...</Typography.Title> : <Typography.Title>Forgot Password</Typography.Title>}
       <Typography.Title level={5} type="secondary">
         Just one more step

@@ -53,7 +53,7 @@ function UserNav() {
     );
   };
   return (
-    <Card style={{ marginTop: 24 }}>
+    <Card>
       <Space>
         <CgMenuBoxed size={24} />
         <Typography.Title level={3}>Menu</Typography.Title>

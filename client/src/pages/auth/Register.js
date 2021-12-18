@@ -42,7 +42,7 @@ function Register({ history }) {
   };
 
   const RegistrationForm = () => (
-    <Form form={form} size="large" layout="vertical" onFinish={handleSubmit}>
+    <Form form={form} name="form-container" size="large" layout="vertical" onFinish={handleSubmit}>
       <Typography.Title>Create new account</Typography.Title>
       <Typography.Title level={5} type="secondary">
         Just one more step
