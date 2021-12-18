@@ -2,12 +2,13 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { toast } from "react-toastify";
-import { Form, Input, Button, Typography, Row, Col} from "antd";
+import { Form, Input, Button, Typography, Row, Col, Layout } from "antd";
 
 import { HiOutlineMail, HiOutlineLockClosed } from "react-icons/hi";
 
 import { auth } from "../../common/firebase";
 import { createOrUpdateUser } from "../../functions/auth";
+import Gallery from "./Gallery";
 
 function RegisterComplete({ history }) {
   const [email, setEmail] = React.useState("");
@@ -94,17 +95,16 @@ function RegisterComplete({ history }) {
   );
 
   return (
-    <Row style={{ padding: "24px 0" }} align="middle">
-      <Col span={10} offset={1} style={{ padding: "0 24px" }}>
-        {completeRegistrationForm()}
-      </Col>
-      <Col span={12}>
-        <img
-          src="https://mixkit.imgix.net/art/preview/mixkit-left-handed-man-sitting-at-a-table-writing-in-a-notebook-27-original-large.png?q=80&auto=format%2Ccompress&h=700"
-          alt="Login"
-        />
-      </Col>
-    </Row>
+    <Layout.Content>
+      <Row wrap={false} gutter={[54, 48]}>
+        <Col flex="480px">
+          {completeRegistrationForm()}
+        </Col>
+        <Col flex="auto">
+        <Gallery />
+        </Col>
+      </Row>
+    </Layout.Content>
   );
 }
 export default RegisterComplete;

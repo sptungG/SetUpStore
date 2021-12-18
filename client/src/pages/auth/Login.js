@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { toast } from "react-toastify";
-import { Form, Input, Button, Typography, Row, Col, Space, Divider } from "antd";
+import { Form, Input, Button, Layout, Typography, Row, Col, Space, Divider } from "antd";
 
 import { HiOutlineMail, HiOutlineLockClosed } from "react-icons/hi";
 import { FcGoogle } from "react-icons/fc";
 
 import { auth, googleAuthProvider } from "../../common/firebase";
 import { createOrUpdateUser } from "../../functions/auth";
+import Gallery from "./Gallery";
 
 function Login({ history }) {
   const [email, setEmail] = React.useState("");
@@ -103,7 +104,7 @@ function Login({ history }) {
 
   const LoginForm = () => {
     return (
-      <Form form={form} name="form-container" onFinish={handleSubmit} size="large" layout="vertical">
+      <Form form={form} name="form-container" onFinish={handleSubmit} size="large" layout="vertical" autoComplete>
         {loading ? <Typography.Title>Loading...</Typography.Title> : <Typography.Title>Welcome back</Typography.Title>}
         <Typography.Title level={5} type="secondary">
           Come to the Dashboard
@@ -140,20 +141,19 @@ function Login({ history }) {
   };
 
   return (
-    <Row style={{ padding: "24px 0" }} align="middle">
-      <Col span={10} offset={1} style={{ padding: "0 24px" }}>
-        {LoginForm()}
-        <p style={{ textAlign: "center" }}>
-          Don't have an account? <Link to="/register">Create now</Link>
-        </p>
-      </Col>
-      <Col span={12}>
-        <img
-          src="https://mixkit.imgix.net/art/preview/mixkit-left-handed-man-sitting-at-a-table-writing-in-a-notebook-27-original-large.png?q=80&auto=format%2Ccompress&h=700"
-          alt="Login"
-        />
-      </Col>
-    </Row>
+    <Layout.Content>
+      <Row gutter={[54, 48]} wrap={false}>
+        <Col flex="480px">
+          {LoginForm()}
+          <p style={{ textAlign: "center" }}>
+            Don't have an account? <Link to="/register">Create now</Link>
+          </p>
+        </Col>
+        <Col flex="auto">
+          <Gallery />
+        </Col>
+      </Row>
+    </Layout.Content>
   );
 }
 export default Login;
