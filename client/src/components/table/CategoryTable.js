@@ -13,7 +13,7 @@ function CategoryTable({ data, handleRemove }) {
   dayjs.extend(relativeTime);
   const columns = [
     {
-      title: "Name",
+      title: "Category",
       dataIndex: "name",
       key: "name",
       render: (text) => <Typography.Text>{text}</Typography.Text>,
@@ -21,7 +21,7 @@ function CategoryTable({ data, handleRemove }) {
       sortDirections: ["ascend"],
     },
     {
-      title: "Updated At",
+      title: "Updated",
       dataIndex: "updatedAt",
       key: "updatedAt",
       width: 170,
@@ -30,7 +30,7 @@ function CategoryTable({ data, handleRemove }) {
       sorter: (a, b) => dayjs(b.updatedAt) - dayjs(a.updatedAt),
     },
     {
-      title: "Create At",
+      title: "Created",
       dataIndex: "createdAt",
       key: "createdAt",
       width: 170,
