@@ -14,14 +14,14 @@ function UserNav() {
 
   const renderUserNav = () => {
     return (
-      <Menu mode="inline" selectedKeys={[pathname]}>
-        <Menu.Item icon={<FiHeart />} key="/user/wishlist">
+      <Menu mode="inline" selectedKeys={[pathname.split("/")[2]]}>
+        <Menu.Item icon={<FiHeart />} key="wishlist">
           <Link to="/user/wishlist">Wishlist</Link>
         </Menu.Item>
-        <Menu.Item icon={<RiHistoryFill />} key="/user/history">
+        <Menu.Item icon={<RiHistoryFill />} key="history">
           <Link to="/user/history">History</Link>
         </Menu.Item>
-        <Menu.Item icon={<RiSettings4Line />} key="/user/setting">
+        <Menu.Item icon={<RiSettings4Line />} key="setting">
           <Link to="/user/setting">Setting</Link>
         </Menu.Item>
       </Menu>
@@ -30,23 +30,23 @@ function UserNav() {
 
   const renderAdminNav = () => {
     return (
-      <Menu mode="inline" selectedKeys={[pathname]}>
-        <Menu.Item icon={<RiDashboardLine />} key="/admin/dashboard">
+      <Menu mode="inline" selectedKeys={[pathname.split("/")[2]]}>
+        <Menu.Item icon={<RiDashboardLine />} key="dashboard">
           <Link to="/admin/dashboard">Dashboard</Link>
         </Menu.Item>
-        <Menu.Item icon={<BiStore />} key="/admin/product">
+        <Menu.Item icon={<BiStore />} key="product">
           <Link to="/admin/product">Product</Link>
         </Menu.Item>
-        <Menu.Item icon={<BiCategory />} key="/admin/category">
+        <Menu.Item icon={<BiCategory />} key="category">
           <Link to="/admin/category">Category</Link>
         </Menu.Item>
-        <Menu.Item icon={<BiCategory />} key="/admin/sub">
+        <Menu.Item icon={<BiCategory />} key="sub">
           <Link to="/admin/sub">Sub-category</Link>
         </Menu.Item>
-        <Menu.Item icon={<RiCouponLine />} key="/admin/coupon">
+        <Menu.Item icon={<RiCouponLine />} key="coupon">
           <Link to="/admin/coupon">Coupon</Link>
         </Menu.Item>
-        <Menu.Item icon={<RiSettings4Line />} key="/user/setting">
+        <Menu.Item icon={<RiSettings4Line />} key="setting">
           <Link to="/user/setting">Setting</Link>
         </Menu.Item>
       </Menu>

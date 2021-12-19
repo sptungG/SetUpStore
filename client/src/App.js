@@ -15,8 +15,7 @@ import History from "./pages/user/History";
 import Setting from "./pages/user/Setting";
 import Wishlist from "./pages/user/Wishlist";
 import AdminDashboard from "./pages/admin/AdminDashboard";
-import CategoryCreate from "./pages/admin/category/CategoryCreate";
-import CategoryUpdate from "./pages/admin/category/CategoryUpdate";
+import CategoryPage from "./pages/admin/category/CategoryPage";
 
 import UserRoute from "./components/routes/UserRoute";
 import AdminRoute from "./components/routes/AdminRoute";
@@ -70,8 +69,8 @@ function App() {
         <UserRoute exact path="/user/setting" component={Setting} />
         <UserRoute exact path="/user/wishlist" component={Wishlist} />
         <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
-        <AdminRoute exact path="/admin/category" component={CategoryCreate} />
-        <AdminRoute exact path="/admin/category/:slug" component={CategoryUpdate} />
+        <AdminRoute exact path="/admin/category" component={CategoryPage} />
+        <AdminRoute exact path="/admin/category/:slug" component={CategoryPage} />
       </Switch>
     </BrowserRouter>
   );
