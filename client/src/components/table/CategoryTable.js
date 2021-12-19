@@ -51,7 +51,7 @@ function CategoryTable({ data, handleRemove }) {
           <Popconfirm
             title={
               <p>
-                Sure to delete <b>{record.name}</b>
+                Sure to delete <b>{record.name}</b> ?
               </p>
             }
             placement="topRight"

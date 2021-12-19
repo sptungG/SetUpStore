@@ -33,7 +33,6 @@ function Setting() {
 
   const passwordUpdateForm = () => (
     <Form form={form} size="large" layout="vertical" onFinish={handleSubmit}>
-      <Form.Item>
         {loading ? (
           <Typography.Title level={2}>Loading...</Typography.Title>
         ) : (
@@ -42,6 +41,7 @@ function Setting() {
             <Typography.Title level={3}>Password Update</Typography.Title>
           </Space>
         )}
+      <Form.Item>
         <Input.Password
           prefix={<HiOutlineLockClosed size={24} />}
           type="password"
