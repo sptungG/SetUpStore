@@ -56,7 +56,7 @@ function UserNav() {
     <Card>
       <Space>
         <CgMenuBoxed size={24} />
-        <Typography.Title level={3}>Menu</Typography.Title>
+        <Typography.Title level={4}>Menu</Typography.Title>
       </Space>
       {user.role === "admin" ? renderAdminNav() : renderUserNav()}
     </Card>

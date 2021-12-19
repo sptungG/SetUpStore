@@ -57,7 +57,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ToastContainer theme="dark" />
+      <ToastContainer theme="light" />
       <Header />
       <Switch>
         <Route exact path="/" component={Home} />

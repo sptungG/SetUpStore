@@ -27,8 +27,8 @@ function Profile() {
   };
 
   return (
-    <Card>
-      <Row align="middle" style={{ flexFlow: "row nowrap" }}>
+    <Card cover={<img alt="example" height={100} src="https://source.unsplash.com/random?setup%20desk" />}>
+      <Row align="middle" wrap={false}>
         <Col flex="none">
           <Button size="large" shape="circle" style={{ height: 110, width: 110, padding: 2 }}>
             <Avatar size={{ xs: 100, sm: 100, md: 100, lg: 100, xl: 100, xxl: 100 }} src={user.picture} />

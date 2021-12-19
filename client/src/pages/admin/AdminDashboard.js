@@ -7,7 +7,7 @@ import UserNav from "../../components/nav/UserNav";
 function AdminDashboard() {
   return (
     <Layout.Content>
-      <Row gutter={[24, 24]}>
+      <Row gutter={[24, 24]} wrap={false}>
         <Col flex="none">
           <Profile />
           <UserNav />
