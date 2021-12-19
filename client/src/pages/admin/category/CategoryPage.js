@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { createCategory, getCategories, removeCategory, getCategory, updateCategory } from "../../../functions/category";
 
 import { toast } from "react-toastify";
-import { Form,  Layout, Row, Col, Card } from "antd";
+import { Form, Layout, Row, Col, Card } from "antd";
 
 import Profile from "../../../components/profile/Profile";
 import UserNav from "../../../components/nav/UserNav";
@@ -29,8 +29,7 @@ function CategoryPage({ history, match }) {
     if (slug) {
       const loadCategory = () => getCategory(slug).then((c) => setCategory(c.data.name));
       loadCategory();
-    }
-    loadCategories();
+    } else loadCategories();
   }, [slug]);
 
   const loadCategories = () => getCategories().then((c) => setCategories(c.data));
@@ -60,6 +59,7 @@ function CategoryPage({ history, match }) {
       .then((res) => {
         setLoading(false);
         toast.error(`${res.data.name} deleted`);
+        history.replace("/admin/category");
         loadCategories();
       })
       .catch((err) => {
@@ -79,7 +79,8 @@ function CategoryPage({ history, match }) {
         setLoading(false);
         form.resetFields();
         toast.success(`"${res.data.name}" is updated`);
-        history.push("/admin/category");
+        history.replace("/admin/category");
+        loadCategories();
       })
       .catch((err) => {
         console.log(err);
