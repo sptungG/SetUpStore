@@ -16,6 +16,7 @@ import Setting from "./pages/user/Setting";
 import Wishlist from "./pages/user/Wishlist";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import CategoryPage from "./pages/admin/category/CategoryPage";
+import SubPage from "./pages/admin/sub/SubPage";
 
 import UserRoute from "./components/routes/UserRoute";
 import AdminRoute from "./components/routes/AdminRoute";
@@ -71,6 +72,8 @@ function App() {
         <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
         <AdminRoute exact path="/admin/category" component={CategoryPage} />
         <AdminRoute exact path="/admin/category/:slug" component={CategoryPage} />
+        <AdminRoute exact path="/admin/sub" component={SubPage} />
+        <AdminRoute exact path="/admin/sub/:slug" component={SubPage} />
       </Switch>
     </BrowserRouter>
   );

@@ -13,7 +13,7 @@ function CategoryTable({ data, handleRemove }) {
   dayjs.extend(relativeTime);
   const columns = [
     {
-      title: "Category",
+      title: "Name",
       dataIndex: "name",
       key: "name",
       render: (text) => <Typography.Text>{text}</Typography.Text>,

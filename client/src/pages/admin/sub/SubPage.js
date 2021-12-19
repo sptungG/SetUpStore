@@ -1,23 +1,23 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { createCategory, getCategories, removeCategory, getCategory, updateCategory } from "../../../functions/category";
+import { useSelector } from "react-redux";
+import {  getCategories } from "../../../functions/category";
+import { createSub, getSub, removeSub, getSubs, updateSub } from "../../../functions/sub";
 
 import { toast } from "react-toastify";
-import { Form, Layout, Row, Col, Card, Typography, Space, Tooltip, Button, Input } from "antd";
+import { Form, Layout, Row, Col, Card, Typography, Space, Tooltip, Button, Select, Input } from "antd";
 
 import Profile from "../../../components/profile/Profile";
 import UserNav from "../../../components/nav/UserNav";
 import LocalSearch from "../../../components/form/LocalSearch";
 import CategoryTable from "../../../components/table/CategoryTable";
-
-import { BsArrowReturnRight, BsBackspaceReverse } from "react-icons/bs";
-
-function CategoryPage({ history, match }) {
+import { BsBackspaceReverse, BsArrowReturnRight } from "react-icons/bs";
+function SubPage({ history, match }) {
   const { user } = useSelector((state) => ({ ...state }));
   const [form] = Form.useForm();
 
   const [category, setCategory] = React.useState("");
+  const [sub, setSub] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [categories, setCategories] = React.useState([]);
   const [keyword, setKeyword] = React.useState("");
@@ -29,11 +29,9 @@ function CategoryPage({ history, match }) {
 
   React.useEffect(() => {
     if (slug) {
-      const loadCategory = () => getCategory(slug).then((c) => setCategory(c.data.name));
+      const loadCategory = () => getSub(slug).then((c) => setCategory(c.data.name));
       loadCategory();
-    } else {
-      loadCategories();
-    }
+    } else loadCategories();
   }, [slug]);
 
   const loadCategories = () => getCategories().then((c) => setCategories(c.data));
@@ -41,7 +39,7 @@ function CategoryPage({ history, match }) {
   const handleCreate = ({ name }) => {
     // console.log(name);
     setLoading(true);
-    createCategory({ name }, user.token)
+    createSub({ name, parent: category }, user.token)
       .then((res) => {
         // console.log(res)
         setLoading(false);
@@ -59,7 +57,7 @@ function CategoryPage({ history, match }) {
   const handleRemove = async (slug) => {
     // console.log(answer, slug);
     setLoading(true);
-    removeCategory(slug, user.token)
+    removeSub(slug, user.token)
       .then((res) => {
         setLoading(false);
         toast.error(`${res.data.name} deleted`);
@@ -78,7 +76,7 @@ function CategoryPage({ history, match }) {
   const handleEdit = ({ name }) => {
     // console.log(name);
     setLoading(true);
-    updateCategory(slug, { name }, user.token)
+    updateSub(slug, { name }, user.token)
       .then((res) => {
         // console.log(res)
         setLoading(false);
@@ -100,10 +98,10 @@ function CategoryPage({ history, match }) {
         {loading ? (
           <Typography.Title level={4}>Loading...</Typography.Title>
         ) : (
-          <Typography.Title level={4}>{slug ? `Update ${category}` : "Create new category"}</Typography.Title>
+          <Typography.Title level={4}>{slug ? `Update` : "Create new subcategory"}</Typography.Title>
         )}
         {slug ? (
-          <Link to="/admin/category">
+          <Link to="/admin/sub">
             <Tooltip placement="topLeft" title="Back to create">
               <Button type="text" icon={<BsBackspaceReverse size={20} />}></Button>
             </Tooltip>
@@ -114,10 +112,21 @@ function CategoryPage({ history, match }) {
       </Space>
     );
   };
+
   const renderForm = () => {
     if (slug) form.setFieldsValue({ name: category });
     return (
       <Form form={form} onFinish={slug ? handleEdit : handleCreate} layout="inline" requiredMark={false} size="large">
+        <Form.Item>
+          <Select placeholder="Please select..." style={{ width: 200 }} onChange={(value) => setCategory(value)}>
+            {categories.length > 0 &&
+              categories.map((c) => (
+                <Select.Option key={c._id} value={c._id}>
+                  {c.name}
+                </Select.Option>
+              ))}
+          </Select>
+        </Form.Item>
         <Form.Item name="name" rules={[{ required: true, message: "Please input category!" }]}>
           <Input prefix={<BsArrowReturnRight />} placeholder="Enter category name..." autoFocus />
         </Form.Item>
@@ -143,6 +152,7 @@ function CategoryPage({ history, match }) {
           <Card>
             {renderFormTitle()}
             {renderForm()}
+            {JSON.stringify(category)}
           </Card>
           <Card>
             <LocalSearch keyword={keyword} setKeyword={setKeyword} />
@@ -154,4 +164,4 @@ function CategoryPage({ history, match }) {
   );
 }
 
-export default CategoryPage;
+export default SubPage;
