@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Card, Form, Input, Button, Typography, Space } from "antd";
+import { Card, Form, Input, Button, Typography, Space, Tooltip } from "antd";
 
-import { BsArrowReturnRight, BsBackspace } from "react-icons/bs";
+import { BsArrowReturnRight, BsBackspaceReverse } from "react-icons/bs";
 
 function CategoryForm({ loading = true, slug = "", category = "", handleEdit, handleCreate }) {
   const [form] = Form.useForm();
@@ -18,7 +18,9 @@ function CategoryForm({ loading = true, slug = "", category = "", handleEdit, ha
         )}
         {slug ? (
           <Link to="/admin/category">
-            <Button type="link" icon={<BsBackspace size={20} />}></Button>
+            <Tooltip placement="topLeft" title="Back to create">
+              <Button type="text" icon={<BsBackspaceReverse size={20} />}></Button>
+            </Tooltip>
           </Link>
         ) : (
           ""
