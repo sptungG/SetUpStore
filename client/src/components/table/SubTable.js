@@ -9,7 +9,7 @@ import { Table, Button, Typography, Space, Popconfirm } from "antd";
 import { BsTrash, BsThreeDots, BsCheckLg, BsXLg } from "react-icons/bs";
 import { BiEdit } from "react-icons/bi";
 
-function CategoryTable({ data, handleRemove }) {
+function SubTable({ data, handleRemove }) {
   dayjs.extend(relativeTime);
   const columns = [
     {
@@ -20,6 +20,16 @@ function CategoryTable({ data, handleRemove }) {
       sorter: (a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0),
       sortDirections: ["ascend"],
     },
+    // {
+    //   title: "Parent",
+    //   dataIndex: "parent",
+    //   key: "parent",
+    //   render: (text) => <Typography.Text>{text}</Typography.Text>,
+    //   sorter: (a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0),
+    //   sortDirections: ["ascend"],
+    //   filters: [...new Set(parents.map((item) => ({ text: item.name, value: item.name })))],
+    //   onFilter: (value, record) => record.parent.indexOf(value) === 0,
+    // },
     {
       title: "Updated",
       dataIndex: "updatedAt",
@@ -45,7 +55,7 @@ function CategoryTable({ data, handleRemove }) {
       width: 170,
       render: (text, record) => (
         <Space size="middle">
-          <Link to={`/admin/category/${record.slug}`}>
+          <Link to={`/admin/sub/${record.slug}`}>
             <Button size="large" type="text" icon={<BiEdit />}></Button>
           </Link>
           <Popconfirm
@@ -82,4 +92,4 @@ function CategoryTable({ data, handleRemove }) {
   );
 }
 
-export default CategoryTable;
+export default SubTable;

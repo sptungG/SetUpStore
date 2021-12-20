@@ -17,7 +17,7 @@ function LocalSearch({ keyword, setKeyword }) {
       onChange={handleSearchChange}
       allowClear
       prefix={<FaSearch size={18} />}
-      style={{ width: 200 }}
+      style={{ width: 257 }}
     />
   );
 }

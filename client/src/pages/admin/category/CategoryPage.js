@@ -29,12 +29,16 @@ function CategoryPage({ history, match }) {
 
   React.useEffect(() => {
     if (slug) {
-      const loadCategory = () => getCategory(slug).then((c) => setCategory(c.data.name));
+      const loadCategory = () =>
+        getCategory(slug).then((c) => {
+          setCategory(c.data.name);
+          form.setFieldsValue({ name: c.data.name });
+        });
       loadCategory();
     } else {
       loadCategories();
     }
-  }, [slug]);
+  }, [form, slug]);
 
   const loadCategories = () => getCategories().then((c) => setCategories(c.data));
 
@@ -105,7 +109,7 @@ function CategoryPage({ history, match }) {
         {slug ? (
           <Link to="/admin/category">
             <Tooltip placement="topLeft" title="Back to create">
-              <Button type="text" icon={<BsBackspaceReverse size={20} />}></Button>
+              <Button type="text" icon={<BsBackspaceReverse size={20} onClick={() => form.resetFields()} />}></Button>
             </Tooltip>
           </Link>
         ) : (
@@ -115,7 +119,6 @@ function CategoryPage({ history, match }) {
     );
   };
   const renderForm = () => {
-    if (slug) form.setFieldsValue({ name: category });
     return (
       <Form form={form} onFinish={slug ? handleEdit : handleCreate} layout="inline" requiredMark={false} size="large">
         <Form.Item name="name" rules={[{ required: true, message: "Please input category!" }]}>
