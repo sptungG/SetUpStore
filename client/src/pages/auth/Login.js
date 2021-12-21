@@ -13,8 +13,6 @@ import { createOrUpdateUser } from "../../functions/auth";
 import Gallery from "./Gallery";
 
 function Login({ history }) {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   let dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -33,7 +31,7 @@ function Login({ history }) {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async ({ email, password }) => {
     setLoading(true);
     try {
       const result = await auth.signInWithEmailAndPassword(email, password);
@@ -104,7 +102,7 @@ function Login({ history }) {
 
   const LoginForm = () => {
     return (
-      <Form form={form} name="form-container" onFinish={handleSubmit} size="large" layout="vertical" autoComplete>
+      <Form form={form} name="form-container" onFinish={handleSubmit} size="large" layout="vertical" requiredMark={false}>
         {loading ? <Typography.Title>Loading...</Typography.Title> : <Typography.Title>Welcome back</Typography.Title>}
         <Typography.Title level={5} type="secondary">
           Come to the Dashboard
@@ -116,17 +114,11 @@ function Login({ history }) {
           </Button>
         </Space>
         <Divider plain>Or</Divider>
-        <Form.Item>
-          <Input prefix={<HiOutlineMail size={24} />} value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email..." />
+        <Form.Item name="email" rules={[{ required: true }]}>
+          <Input prefix={<HiOutlineMail size={24} />} placeholder="Enter your email..." />
         </Form.Item>
-        <Form.Item>
-          <Input.Password
-            prefix={<HiOutlineLockClosed size={24} />}
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password..."
-          />
+        <Form.Item name="password" rules={[{ required: true }]}>
+          <Input.Password prefix={<HiOutlineLockClosed size={24} />} type="password" placeholder="Enter your password..." />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" className="login-form-button" style={{ width: "100%" }}>

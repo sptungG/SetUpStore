@@ -10,11 +10,10 @@ import { FaUserLock } from "react-icons/fa";
 import Profile from "../../components/profile/Profile";
 import UserNav from "../../components/nav/UserNav";
 function Setting() {
-  const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [form] = Form.useForm();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async ({ password }) => {
     setLoading(true);
     // console.log(password);
 
@@ -22,7 +21,7 @@ function Setting() {
       .updatePassword(password)
       .then(() => {
         setLoading(false);
-        setPassword("");
+        form.resetFields();
         toast.success("Password updated");
       })
       .catch((err) => {
@@ -32,27 +31,20 @@ function Setting() {
   };
 
   const passwordUpdateForm = () => (
-    <Form form={form} size="large" layout="vertical" onFinish={handleSubmit}>
-        {loading ? (
-          <Typography.Title level={2}>Loading...</Typography.Title>
-        ) : (
-          <Space align="baseline">
-            <FaUserLock size={28} />
-            <Typography.Title level={3}>Password Update</Typography.Title>
-          </Space>
-        )}
-      <Form.Item>
-        <Input.Password
-          prefix={<HiOutlineLockClosed size={24} />}
-          type="password"
-          value={password}
-          disabled={loading}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter your password..."
-        />
+    <Form form={form} size="large" layout="vertical" onFinish={handleSubmit} requiredMark={false}>
+      {loading ? (
+        <Typography.Title level={2}>Loading...</Typography.Title>
+      ) : (
+        <Space align="baseline">
+          <FaUserLock size={28} />
+          <Typography.Title level={3}>Password Update</Typography.Title>
+        </Space>
+      )}
+      <Form.Item name="password" rules={[{ required: true }, { min: 6 }]}>
+        <Input.Password prefix={<HiOutlineLockClosed size={24} />} type="password" disabled={loading} placeholder="Enter your new password..." />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" style={{ width: "100%" }} disabled={!password || password.length < 6 || loading}>
+        <Button type="primary" htmlType="submit" style={{ width: "100%" }} disabled={loading}>
           Submit
         </Button>
       </Form.Item>

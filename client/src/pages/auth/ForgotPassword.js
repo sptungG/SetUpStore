@@ -10,7 +10,6 @@ import { HiOutlineMail } from "react-icons/hi";
 import Gallery from "./Gallery";
 
 function ForgotPassword({ history }) {
-  const [email, setEmail] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [form] = Form.useForm();
 
@@ -20,7 +19,7 @@ function ForgotPassword({ history }) {
     if (user && user.token) history.push("/");
   }, [history, user]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async ({ email }) => {
     setLoading(true);
 
     const config = {
@@ -31,7 +30,7 @@ function ForgotPassword({ history }) {
     await auth
       .sendPasswordResetEmail(email, config)
       .then(() => {
-        setEmail("");
+        form.resetFields();
         setLoading(false);
         toast.success("Check your email for password reset link");
       })
@@ -42,16 +41,16 @@ function ForgotPassword({ history }) {
       });
   };
   const ForgotPasswordForm = () => (
-    <Form form={form} name="form-container" size="large" layout="vertical" onFinish={handleSubmit}>
+    <Form form={form} name="form-container" size="large" layout="vertical" onFinish={handleSubmit} requiredMark={false}>
       {loading ? <Typography.Title>Loading...</Typography.Title> : <Typography.Title>Forgot Password</Typography.Title>}
       <Typography.Title level={5} type="secondary">
         Just one more step
       </Typography.Title>
-      <Form.Item>
-        <Input prefix={<HiOutlineMail size={24} />} value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email..." />
+      <Form.Item name="email" rules={[{ required: true }]}>
+        <Input prefix={<HiOutlineMail size={24} />} placeholder="Enter your email..." />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" style={{ width: "100%" }} disabled={!email}>
+        <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
           Submit
         </Button>
       </Form.Item>
@@ -68,7 +67,7 @@ function ForgotPassword({ history }) {
           </p>
         </Col>
         <Col flex="auto">
-        <Gallery />
+          <Gallery />
         </Col>
       </Row>
     </Layout.Content>
