@@ -12,6 +12,12 @@ import UserNav from "../../components/nav/UserNav";
 function Setting() {
   const [loading, setLoading] = React.useState(false);
   const [form] = Form.useForm();
+  const [, forceUpdate] = React.useState({});
+
+  // To disable submit button at the beginning.
+  React.useEffect(() => {
+    forceUpdate({});
+  }, []);
 
   const handleSubmit = async ({ password }) => {
     setLoading(true);
@@ -31,7 +37,7 @@ function Setting() {
   };
 
   const passwordUpdateForm = () => (
-    <Form form={form} size="large" layout="vertical" onFinish={handleSubmit} requiredMark={false}>
+    <Space direction="vertical">
       {loading ? (
         <Typography.Title level={2}>Loading...</Typography.Title>
       ) : (
@@ -40,15 +46,24 @@ function Setting() {
           <Typography.Title level={3}>Password Update</Typography.Title>
         </Space>
       )}
-      <Form.Item name="password" rules={[{ required: true }, { min: 6 }]}>
-        <Input.Password prefix={<HiOutlineLockClosed size={24} />} type="password" disabled={loading} placeholder="Enter your new password..." />
-      </Form.Item>
-      <Form.Item>
-        <Button type="primary" htmlType="submit" style={{ width: "100%" }} disabled={loading}>
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+      <Form form={form} size="large" layout="inline" onFinish={handleSubmit} requiredMark={false}>
+        <Form.Item name="password" rules={[{ required: true }, { min: 6 }]}>
+          <Input.Password prefix={<HiOutlineLockClosed size={24} />} type="password" disabled={loading} placeholder="Enter your new password..." />
+        </Form.Item>
+        <Form.Item shouldUpdate>
+          {() => (
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{ width: "100%" }}
+              disabled={loading || !form.isFieldsTouched(true) || !!form.getFieldsError().filter(({ errors }) => errors.length).length}
+            >
+              Submit
+            </Button>
+          )}
+        </Form.Item>
+      </Form>
+    </Space>
   );
 
   return (
