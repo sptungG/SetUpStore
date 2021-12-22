@@ -9,8 +9,7 @@ const { create, read, update, remove, list } = require("./product.controller");
 
 // routes
 router.post("/product", authCheck, adminCheck, create);
-router.get("/products", list);
-router.get("/product/:slug", read);
+router.get("/products", read);
 router.put("/product/:slug", authCheck, adminCheck, update);
 router.delete("/product/:slug", authCheck, adminCheck, remove);
 

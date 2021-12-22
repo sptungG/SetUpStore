@@ -3,21 +3,24 @@ const slugify = require("slugify");
 
 exports.create = async (req, res) => {
   try {
-    const { name, parent } = req.body;
-    const category = await new Product({ name, parent, slug: slugify(name) }).save();
-    res.json(category);
+    // console.log(req.body);
+    req.body.slug = slugify(req.body.name);
+    const newProduct = await new Product(req.body).save();
+    res.json(newProduct);
   } catch (err) {
     // console.log(err);
-    res.status(400).send("Create SubCategory failed");
+    res.status(400).json({
+      err: err.message,
+    });
   }
 };
 
-exports.list = async (req, res) => res.json(await Product.find({}).sort({ createdAt: -1 }).exec());
-
 exports.read = async (req, res) => {
-  let category = await Product.findOne({ slug: req.params.slug }).exec();
-  res.json(category);
+  let products = await Product.find({});
+  res.json(products);
 };
+
+exports.list = async (req, res) => res.json(await Product.find({}).sort({ createdAt: -1 }).exec());
 
 exports.update = async (req, res) => {
   const { name, parent } = req.body;
