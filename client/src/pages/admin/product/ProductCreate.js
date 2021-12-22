@@ -1,38 +1,19 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import Resizer from "react-image-file-resizer";
-import axios from "axios";
+
 import { createProduct } from "../../../functions/product";
 import { getCategories, getCategorySubs } from "../../../functions/category";
 import { uploadImage, removeImage } from "../../../functions/cloudinary";
+
 import { toast } from "react-toastify";
-import { Form, Layout, Row, Col, Card, Typography, Space, Tooltip, Button, Input, InputNumber, Select, Radio, Upload, Avatar, Badge } from "antd";
+import { Form, Layout, Row, Col, Card, Typography, Space, Button, Input, InputNumber, Select, Radio, Upload } from "antd";
 
 import Profile from "../../../components/profile/Profile";
 import UserNav from "../../../components/nav/UserNav";
-import LocalSearch from "../../../components/form/LocalSearch";
-import CategoryTable from "../../../components/table/CategoryTable";
-
-import { BsArrowReturnRight, BsBackspaceReverse } from "react-icons/bs";
 import { AiOutlineInbox } from "react-icons/ai";
 
-const initialState = {
-  name: "",
-  desc: "",
-  price: "",
-  categories: [],
-  category: "",
-  subs: [],
-  shipping: "",
-  quantity: "",
-  images: [],
-  colors: ["Black", "Brown", "Silver", "White", "Blue"],
-  color: "",
-  brand: "",
-};
-
-function ProductCreate({ history, match }) {
+function ProductCreate() {
   const { user } = useSelector((state) => ({ ...state }));
   const [form] = Form.useForm();
   const colors = ["Black", "Brown", "Silver", "White", "Blue"];
@@ -42,7 +23,6 @@ function ProductCreate({ history, match }) {
   const [subOptions, setSubOptions] = React.useState([]);
   const [showSub, setShowSub] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  const slug = match.params.slug;
 
   React.useEffect(() => {
     const loadCategories = () => getCategories().then((c) => setCategories(c.data));
@@ -70,7 +50,7 @@ function ProductCreate({ history, match }) {
       </Space>
     );
   };
-  
+
   const fileUploadAndResize = ({ file, fileList }) => {
     if (file.status !== "removed") {
       let allUploadedFiles = images;
