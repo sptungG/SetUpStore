@@ -10,6 +10,8 @@ import { FcGoogle } from "react-icons/fc";
 
 import { auth, googleAuthProvider } from "../../common/firebase";
 import { createOrUpdateUser } from "../../functions/auth";
+
+import Loader from "../../components/loader/Loader";
 import Gallery from "./Gallery";
 
 function Login({ history }) {
@@ -103,7 +105,7 @@ function Login({ history }) {
   const LoginForm = () => {
     return (
       <Form form={form} name="form-container" onFinish={handleSubmit} size="large" layout="vertical" requiredMark={false}>
-        {loading ? <Typography.Title>Loading...</Typography.Title> : <Typography.Title>Welcome back</Typography.Title>}
+        <Typography.Title>Welcome back</Typography.Title>
         <Typography.Title level={5} type="secondary">
           Come to the Dashboard
         </Typography.Title>
@@ -134,6 +136,7 @@ function Login({ history }) {
 
   return (
     <Layout.Content>
+      {loading ? <Loader /> : ""}
       <Row gutter={[54, 48]} wrap={false}>
         <Col flex="480px">
           {LoginForm()}

@@ -7,8 +7,9 @@ import { getCategories, getCategorySubs } from "../../../functions/category";
 import { uploadImage, removeImage } from "../../../functions/cloudinary";
 
 import { toast } from "react-toastify";
-import { Form, Layout, Row, Col, Card, Typography, Space, Button, Input, InputNumber, Select, Radio, Upload } from "antd";
+import { Form, Layout, Row, Col, Card, Typography, Button, Input, InputNumber, Select, Radio, Upload } from "antd";
 
+import Loader from "../../../components/loader/Loader";
 import Profile from "../../../components/profile/Profile";
 import UserNav from "../../../components/nav/UserNav";
 import { AiOutlineInbox } from "react-icons/ai";
@@ -41,14 +42,6 @@ function ProductCreate() {
         console.log(err);
         if (err.response.status === 400) toast.error(err.response.data);
       });
-  };
-
-  const renderFormTitle = () => {
-    return (
-      <Space size="small" align="start">
-        {loading ? <Typography.Title level={4}>Loading...</Typography.Title> : <Typography.Title level={4}>{"Create new product"}</Typography.Title>}
-      </Space>
-    );
   };
 
   const fileUploadAndResize = ({ file, fileList }) => {
@@ -111,6 +104,9 @@ function ProductCreate() {
   const renderForm = () => {
     return (
       <Form form={form} onFinish={handleCreate} layout="vertical" requiredMark={false} size="large">
+        <Form.Item>
+          <Typography.Title level={4}>{"Create new product"}</Typography.Title>
+        </Form.Item>
         <Form.Item name="name" label="Name" rules={[{ required: true }]}>
           <Input placeholder="Enter product name..." autoFocus />
         </Form.Item>
@@ -194,6 +190,7 @@ function ProductCreate() {
 
   return (
     <Layout.Content>
+      {loading ? <Loader /> : ""}
       <Row gutter={[24, 24]} wrap={false}>
         <Col flex="none">
           <Profile />
@@ -201,7 +198,6 @@ function ProductCreate() {
         </Col>
         <Col flex="auto">
           <Card>
-            {renderFormTitle()}
             {renderForm()}
           </Card>
         </Col>

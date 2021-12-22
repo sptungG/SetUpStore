@@ -8,6 +8,7 @@ import { HiOutlineMail, HiOutlineLockClosed } from "react-icons/hi";
 
 import { auth } from "../../common/firebase";
 import { createOrUpdateUser } from "../../functions/auth";
+
 import Gallery from "./Gallery";
 
 function RegisterComplete({ history }) {

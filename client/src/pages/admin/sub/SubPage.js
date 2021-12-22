@@ -7,6 +7,7 @@ import { createSub, getSub, removeSub, getSubs, updateSub } from "../../../funct
 import { toast } from "react-toastify";
 import { Form, Layout, Row, Col, Card, Typography, Space, Tooltip, Button, Select, Input } from "antd";
 
+import Loader from "../../../components/loader/Loader";
 import Profile from "../../../components/profile/Profile";
 import UserNav from "../../../components/nav/UserNav";
 import LocalSearch from "../../../components/form/LocalSearch";
@@ -108,11 +109,7 @@ function SubPage({ history, match }) {
   const renderFormTitle = () => {
     return (
       <Space size="small" align="start">
-        {loading ? (
-          <Typography.Title level={4}>Loading...</Typography.Title>
-        ) : (
-          <Typography.Title level={4}>{slug ? `Update ${sub}` : "Create new subcategory"}</Typography.Title>
-        )}
+        <Typography.Title level={4}>{slug ? `Update ${sub}` : "Create new subcategory"}</Typography.Title>
         {slug ? (
           <Link to="/admin/sub">
             <Tooltip placement="topLeft" title="Back to create">
@@ -155,6 +152,7 @@ function SubPage({ history, match }) {
 
   return (
     <Layout.Content>
+      {loading ? <Loader /> : ""}
       <Row gutter={[24, 24]} wrap={false}>
         <Col flex="none">
           <Profile />

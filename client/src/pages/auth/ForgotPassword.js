@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import { Form, Input, Layout, Button, Typography, Row, Col } from "antd";
 
 import { HiOutlineMail } from "react-icons/hi";
+
+import Loader from "../../components/loader/Loader";
 import Gallery from "./Gallery";
 
 function ForgotPassword({ history }) {
@@ -42,7 +44,7 @@ function ForgotPassword({ history }) {
   };
   const ForgotPasswordForm = () => (
     <Form form={form} name="form-container" size="large" layout="vertical" onFinish={handleSubmit} requiredMark={false}>
-      {loading ? <Typography.Title>Loading...</Typography.Title> : <Typography.Title>Forgot Password</Typography.Title>}
+      <Typography.Title>Forgot Password</Typography.Title>
       <Typography.Title level={5} type="secondary">
         Just one more step
       </Typography.Title>
@@ -59,6 +61,7 @@ function ForgotPassword({ history }) {
 
   return (
     <Layout.Content>
+      {loading ? <Loader /> : ""}
       <Row wrap={false} gutter={[54, 48]}>
         <Col flex="480px">
           {ForgotPasswordForm()}

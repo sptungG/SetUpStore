@@ -7,6 +7,7 @@ import { Layout, Form, Input, Button, Typography, Row, Col, Space, Card } from "
 import { HiOutlineLockClosed } from "react-icons/hi";
 import { FaUserLock } from "react-icons/fa";
 
+import Loader from "../../components/loader/Loader";
 import Profile from "../../components/profile/Profile";
 import UserNav from "../../components/nav/UserNav";
 function Setting() {
@@ -38,14 +39,10 @@ function Setting() {
 
   const passwordUpdateForm = () => (
     <Space direction="vertical">
-      {loading ? (
-        <Typography.Title level={2}>Loading...</Typography.Title>
-      ) : (
-        <Space align="baseline">
-          <FaUserLock size={28} />
-          <Typography.Title level={3}>Password Update</Typography.Title>
-        </Space>
-      )}
+      <Space align="baseline">
+        <FaUserLock size={28} />
+        <Typography.Title level={3}>Password Update</Typography.Title>
+      </Space>
       <Form form={form} size="large" layout="inline" onFinish={handleSubmit} requiredMark={false}>
         <Form.Item name="password" rules={[{ required: true }, { min: 6 }]}>
           <Input.Password prefix={<HiOutlineLockClosed size={24} />} type="password" disabled={loading} placeholder="Enter your new password..." />
@@ -68,6 +65,7 @@ function Setting() {
 
   return (
     <Layout.Content>
+      {loading ? <Loader /> : ""}
       <Row gutter={[24, 24]}>
         <Col flex="none">
           <Profile />
