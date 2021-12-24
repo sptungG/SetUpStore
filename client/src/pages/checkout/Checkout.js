@@ -122,12 +122,28 @@ const Checkout = () => {
           <Divider type="vertical" style={{ height: "100vh" }} />
 
           <div style={{ width: "40%", padding: "1rem" }}>
-            <div style={{ display: "flex", flexGrow: "1" }}>
+            <div style={{ display: "flex", width: "100%" }}>
               <Image width={100} src={PROPS.productImg} />
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  flex: "1",
+                  margin: "auto 1rem",
+                }}
+              >
                 <Typography.Text>{PROPS.productName}</Typography.Text>
                 <Typography.Text>${PROPS.productPrice}</Typography.Text>
               </div>
+            </div>
+
+            <div>
+              <Typography.Text>Subtotal</Typography.Text>
+              <Typography.Text>${PROPS.productPrice}</Typography.Text>
+            </div>
+            <div>
+              <Typography.Text>Shipping</Typography.Text>
+              <Typography.Text>${PROPS.shippingFee}</Typography.Text>
             </div>
           </div>
         </Layout>
