@@ -15,8 +15,10 @@ import History from "./pages/user/History";
 import Setting from "./pages/user/Setting";
 import Wishlist from "./pages/user/Wishlist";
 import AdminDashboard from "./pages/admin/AdminDashboard";
-import CategoryCreate from "./pages/admin/category/CategoryCreate";
-import CategoryUpdate from "./pages/admin/category/CategoryUpdate";
+import CategoryPage from "./pages/admin/category/CategoryPage";
+import SubPage from "./pages/admin/sub/SubPage";
+import ProductPage from "./pages/admin/product/ProductPage";
+import ProductCreate from "./pages/admin/product/ProductCreate";
 import Checkout from "./pages/checkout/Checkout";
 
 import UserRoute from "./components/routes/UserRoute";
@@ -59,7 +61,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ToastContainer theme="dark" />
+      <ToastContainer theme="light" />
       <Header />
       <Switch>
         <Route exact path="/" component={Home} />
@@ -72,12 +74,12 @@ function App() {
         <UserRoute exact path="/user/setting" component={Setting} />
         <UserRoute exact path="/user/wishlist" component={Wishlist} />
         <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
-        <AdminRoute exact path="/admin/category" component={CategoryCreate} />
-        <AdminRoute
-          exact
-          path="/admin/category/:slug"
-          component={CategoryUpdate}
-        />
+        <AdminRoute exact path="/admin/category" component={CategoryPage} />
+        <AdminRoute exact path="/admin/category/:slug" component={CategoryPage} />
+        <AdminRoute exact path="/admin/sub" component={SubPage} />
+        <AdminRoute exact path="/admin/sub/:slug" component={SubPage} />
+        <AdminRoute exact path="/admin/product" component={ProductCreate} />
+        {/* <AdminRoute exact path="/admin/product/:slug" component={ProductPage} /> */}
       </Switch>
     </BrowserRouter>
   );

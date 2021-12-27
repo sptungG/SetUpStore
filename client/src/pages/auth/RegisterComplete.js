@@ -8,11 +8,10 @@ import { HiOutlineMail, HiOutlineLockClosed } from "react-icons/hi";
 
 import { auth } from "../../common/firebase";
 import { createOrUpdateUser } from "../../functions/auth";
+
 import Gallery from "./Gallery";
 
 function RegisterComplete({ history }) {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
   const [form] = Form.useForm();
 
   const { user } = useSelector((state) => ({ ...state }));
@@ -23,12 +22,12 @@ function RegisterComplete({ history }) {
   }, [history, user]);
 
   React.useEffect(() => {
-    setEmail(window.localStorage.getItem("emailForRegistration"));
+    form.setFieldsValue({ email: window.localStorage.getItem("emailForRegistration") });
     // console.log(window.location.href);
     // console.log(window.localStorage.getItem("emailForRegistration"));
-  }, []);
+  }, [form]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async ({ email, password }) => {
     try {
       if (!email || !password) throw new Error("Email and password is required");
       if (password.length < 6) throw new Error("Password must be at least 6 characters long");
@@ -69,22 +68,16 @@ function RegisterComplete({ history }) {
   };
 
   const completeRegistrationForm = () => (
-    <Form form={form} name="form-container" onFinish={handleSubmit} size="large" layout="vertical">
+    <Form form={form} name="form-container" onFinish={handleSubmit} size="large" layout="vertical" requiredMark={false}>
       <Typography.Title>Register Complete</Typography.Title>
       <Typography.Title level={5} type="secondary">
         The last step
       </Typography.Title>
-      <Form.Item>
-        <Input prefix={<HiOutlineMail size={24} />} value={email} onChange={(e) => setEmail(e.target.value)} disabled />
+      <Form.Item name="email" rules={[{ required: true }]}>
+        <Input prefix={<HiOutlineMail size={24} />} disabled />
       </Form.Item>
-      <Form.Item>
-        <Input.Password
-          prefix={<HiOutlineLockClosed size={24} />}
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter your password..."
-        />
+      <Form.Item name="password" rules={[{ required: true }]}>
+        <Input.Password prefix={<HiOutlineLockClosed size={24} />} type="password" placeholder="Enter your password..." />
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
@@ -97,11 +90,9 @@ function RegisterComplete({ history }) {
   return (
     <Layout.Content>
       <Row wrap={false} gutter={[54, 48]}>
-        <Col flex="480px">
-          {completeRegistrationForm()}
-        </Col>
+        <Col flex="480px">{completeRegistrationForm()}</Col>
         <Col flex="auto">
-        <Gallery />
+          <Gallery />
         </Col>
       </Row>
     </Layout.Content>

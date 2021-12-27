@@ -11,7 +11,6 @@ import { validateEmail } from "../../common/utils";
 import Gallery from "./Gallery";
 
 function Register({ history }) {
-  const [email, setEmail] = React.useState("");
   const { user } = useSelector((state) => ({ ...state }));
   const [form] = Form.useForm();
 
@@ -19,7 +18,7 @@ function Register({ history }) {
     if (user && user.token) history.push("/");
   }, [history, user]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async ({ email }) => {
     try {
       if (email.trim() === "") throw new Error("Invalid email");
       if (!validateEmail(email)) throw new Error(`${email} is not an email!`);
@@ -35,20 +34,20 @@ function Register({ history }) {
       // save user email in local storage
       window.localStorage.setItem("emailForRegistration", email);
       // clear state
-      setEmail("");
+      form.resetFields();
     } catch (error) {
       toast.error(error.message);
     }
   };
 
   const RegistrationForm = () => (
-    <Form form={form} name="form-container" size="large" layout="vertical" onFinish={handleSubmit}>
+    <Form form={form} name="form-container" size="large" layout="vertical" onFinish={handleSubmit} requiredMark={false}>
       <Typography.Title>Create new account</Typography.Title>
       <Typography.Title level={5} type="secondary">
         Just one more step
       </Typography.Title>
-      <Form.Item>
-        <Input prefix={<HiOutlineMail size={24} />} value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email..." />
+      <Form.Item name="email" rules={[{ required: true }]}>
+        <Input prefix={<HiOutlineMail size={24} />} placeholder="Enter your email..." />
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
@@ -68,7 +67,7 @@ function Register({ history }) {
           </p>
         </Col>
         <Col flex="auto">
-        <Gallery />
+          <Gallery />
         </Col>
       </Row>
     </Layout.Content>
