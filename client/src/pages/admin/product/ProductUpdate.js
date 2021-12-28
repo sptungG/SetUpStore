@@ -1,18 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { createProduct, getProduct, updateProduct } from "../../../functions/product";
+import { getProduct, updateProduct } from "../../../functions/product";
 import { getCategories, getCategorySubs } from "../../../functions/category";
 
 import { toast } from "react-toastify";
-import { Form, Layout, Row, Col, Card, Typography, Button, Input, InputNumber, Select, Radio, Upload } from "antd";
+import { Form, Layout, Row, Col, Card} from "antd";
 
 import Loader from "../../../components/loader/Loader";
 import Profile from "../../../components/profile/Profile";
 import UserNav from "../../../components/nav/UserNav";
 import ProductUpdateForm from "../../../components/form/ProductUpdateForm";
-import { AiOutlineInbox } from "react-icons/ai";
 
 const initialState = {
   name: "",
