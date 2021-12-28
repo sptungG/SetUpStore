@@ -15,28 +15,45 @@ exports.create = async (req, res) => {
   }
 };
 
-exports.read = async (req, res) => {
-  let products = await Product.find({});
+exports.listAll = async (req, res) => {
+  let products = await Product.find({})
+    .limit(parseInt(req.params.limit))
+    .populate("category")
+    .populate("subs")
+    .sort([["createdAt", "desc"]])
+    .exec();
   res.json(products);
 };
 
-exports.list = async (req, res) => res.json(await Product.find({}).sort({ createdAt: -1 }).exec());
+exports.read = async (req, res) => {
+  const product = await Product.findOne({ slug: req.params.slug }).populate("category").populate("subs").exec();
+  res.json(product);
+};
 
 exports.update = async (req, res) => {
-  const { name, parent } = req.body;
   try {
-    const updated = await Product.findOneAndUpdate({ slug: req.params.slug }, { name, parent, slug: slugify(name) }, { new: true });
+    if (req.body.name) {
+      req.body.slug = slugify(req.body.name);
+    }
+    const updated = await Product.findOneAndUpdate({ slug: req.params.slug }, req.body, { new: true }).exec();
     res.json(updated);
   } catch (err) {
-    res.status(400).send("SubCategory update failed");
+    console.log("PRODUCT UPDATE ERROR ----> ", err);
+    // return res.status(400).send("Product update failed");
+    res.status(400).json({
+      err: err.message,
+    });
   }
 };
 
 exports.remove = async (req, res) => {
   try {
-    const deleted = await Product.findOneAndDelete({ slug: req.params.slug });
+    const deleted = await Product.findOneAndRemove({
+      slug: req.params.slug,
+    }).exec();
     res.json(deleted);
   } catch (err) {
-    res.status(400).send("SubCategory delete failed");
+    console.log(err);
+    return res.status(400).send("Product delete failed");
   }
 };

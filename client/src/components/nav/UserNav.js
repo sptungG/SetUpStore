@@ -34,8 +34,8 @@ function UserNav() {
         <Menu.Item icon={<RiDashboardLine />} key="dashboard">
           <Link to="/admin/dashboard">Dashboard</Link>
         </Menu.Item>
-        <Menu.Item icon={<BiStore />} key="product">
-          <Link to="/admin/product">Product</Link>
+        <Menu.Item icon={<BiStore />} key="products">
+          <Link to="/admin/products">Product</Link>
         </Menu.Item>
         <Menu.Item icon={<BiCategory />} key="category">
           <Link to="/admin/category">Category</Link>

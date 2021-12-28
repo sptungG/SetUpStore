@@ -19,6 +19,7 @@ import CategoryPage from "./pages/admin/category/CategoryPage";
 import SubPage from "./pages/admin/sub/SubPage";
 import ProductPage from "./pages/admin/product/ProductPage";
 import ProductCreate from "./pages/admin/product/ProductCreate";
+import ProductUpdate from "./pages/admin/product/ProductUpdate";
 
 import UserRoute from "./components/routes/UserRoute";
 import AdminRoute from "./components/routes/AdminRoute";
@@ -77,7 +78,8 @@ function App() {
         <AdminRoute exact path="/admin/sub" component={SubPage} />
         <AdminRoute exact path="/admin/sub/:slug" component={SubPage} />
         <AdminRoute exact path="/admin/product" component={ProductCreate} />
-        {/* <AdminRoute exact path="/admin/product/:slug" component={ProductPage} /> */}
+        <AdminRoute exact path="/admin/products" component={ProductPage} />
+        <AdminRoute exact path="/admin/product/:slug" component={ProductUpdate} />
       </Switch>
     </BrowserRouter>
   );

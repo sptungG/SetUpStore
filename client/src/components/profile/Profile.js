@@ -37,7 +37,9 @@ function Profile() {
         </Col>
         <Col flex="auto" style={{ paddingLeft: 10 }}>
           <Row>
-            <Typography.Title level={3} style={{ width: 150 }} ellipsis>{user.name}</Typography.Title>
+            <Typography.Title level={3} style={{ width: 150 }} ellipsis>
+              {user.name}
+            </Typography.Title>
           </Row>
           <Row>
             <Typography.Text style={{ width: 150 }} ellipsis>

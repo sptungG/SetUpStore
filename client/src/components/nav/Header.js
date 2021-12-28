@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import firebase from "firebase";
 
@@ -13,6 +13,7 @@ function Header() {
   let dispatch = useDispatch();
   let history = useHistory();
   let { user } = useSelector((state) => ({ ...state }));
+  let { pathname } = useLocation();
 
   const logout = () => {
     firebase.auth().signOut();
@@ -25,7 +26,7 @@ function Header() {
 
   const renderHeaderNav = () => {
     return (
-      <Menu mode="horizontal" style={{ lineHeight: "46px", backgroundColor: "transparent", borderBottom: "none" }}>
+      <Menu mode="horizontal" selectedKeys={[pathname.split("/")[1]]} style={{ lineHeight: "46px", backgroundColor: "transparent", borderBottom: "none" }}>
         <Menu.Item key="store">
           <Link to="/store">
             <FaStore size={30} />
@@ -142,22 +143,22 @@ function Header() {
   };
 
   return (
-      <Layout.Header style={{ height: "auto", backgroundColor: "#fff" }}>
-        <Row justify="space-between" align="middle">
-          <Col span={7}>{renderHeaderLeft()}</Col>
-          <Col span={10}>{renderHeaderCenter()}</Col>
-          <Col span={4}>
-            <Row align="middle" justify="end">
-              {!user ? renderLoginWrapper() : renderDropdownMenu()}
-            </Row>
-          </Col>
-          <Col span={3}>
-            <Row align="bottom" justify="end">
-              {renderHeaderNav()}
-            </Row>
-          </Col>
-        </Row>
-      </Layout.Header>
+    <Layout.Header style={{ height: "auto", backgroundColor: "#fff" }}>
+      <Row justify="space-between" align="middle">
+        <Col span={7}>{renderHeaderLeft()}</Col>
+        <Col span={10}>{renderHeaderCenter()}</Col>
+        <Col span={4}>
+          <Row align="middle" justify="end">
+            {!user ? renderLoginWrapper() : renderDropdownMenu()}
+          </Row>
+        </Col>
+        <Col span={3}>
+          <Row align="bottom" justify="end">
+            {renderHeaderNav()}
+          </Row>
+        </Col>
+      </Row>
+    </Layout.Header>
   );
 }
 export default Header;
