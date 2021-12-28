@@ -3,7 +3,7 @@ import React from "react";
 import { Form, Typography, Button, Input, InputNumber, Select, Radio } from "antd";
 import UploadImage from "./UploadImage";
 
-function ProductForm({ form, onFinish, categories, handleCategoryChange, showSub, subOptions, setLoading }) {
+function ProductCreateForm({ form, onFinish, categories, handleCategoryChange, showSub, subOptions, setLoading }) {
   const colors = ["Black", "Brown", "Silver", "White", "Blue"];
   return (
     <Form form={form} onFinish={onFinish} layout="vertical" requiredMark={false} size="large">
@@ -75,4 +75,4 @@ function ProductForm({ form, onFinish, categories, handleCategoryChange, showSub
   );
 }
 
-export default ProductForm;
+export default ProductCreateForm;

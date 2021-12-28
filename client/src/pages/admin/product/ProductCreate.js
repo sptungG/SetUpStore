@@ -10,7 +10,7 @@ import { Form, Layout, Row, Col, Card} from "antd";
 import Loader from "../../../components/loader/Loader";
 import Profile from "../../../components/profile/Profile";
 import UserNav from "../../../components/nav/UserNav";
-import ProductForm from "../../../components/form/ProductForm";
+import ProductCreateForm from "../../../components/form/ProductCreateForm";
 
 function ProductCreate({ history }) {
   const { user } = useSelector((state) => ({ ...state }));
@@ -57,7 +57,7 @@ function ProductCreate({ history }) {
         </Col>
         <Col flex="auto">
           <Card>
-            <ProductForm
+            <ProductCreateForm
               form={form}
               onFinish={handleCreate}
               categories={categories}
