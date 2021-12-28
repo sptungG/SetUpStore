@@ -24,3 +24,10 @@ export const updateProduct = async (slug, product, authtoken) =>
       authtoken,
     },
   });
+
+export const getSortedProducts = async (sort, order, limit) =>
+  await axios.post(`${process.env.REACT_APP_API}/products`, {
+    sort,
+    order,
+    limit,
+  });
