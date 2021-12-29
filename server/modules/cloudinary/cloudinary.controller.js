@@ -15,7 +15,9 @@ exports.upload = async (req, res) => {
   });
   res.json({
     public_id: result.public_id,
+    uid: result.public_id,
     url: result.secure_url,
+    thumbUrl: result.secure_url,
   });
 };
 

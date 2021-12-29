@@ -8,7 +8,7 @@ import { BiEdit, BiTrash } from "react-icons/bi";
 
 function AdminProductCard({ product, handleRemove }) {
   // const [visible, setVisible] = React.useState(false);
-  const { _id, name, desc, images, slug } = product;
+  const { name, desc, images, slug } = product;
 
   const renderThumbnail = () => (
     <>
@@ -18,13 +18,13 @@ function AdminProductCard({ product, handleRemove }) {
         style={{ borderRadius: 4 }}
         src={images && images.length ? images[0].url : "https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg"}
         preview={{
-        visible: false,
-        mask: (
-          <Space size={16}>
-            <Button type="primary" shape="circle" size="large" icon={<BsSearch />}></Button>
-          </Space>
-        ),
-      }}
+          visible: false,
+          mask: (
+            <Space size={16}>
+              <Button type="primary" shape="circle" size="large" icon={<BsSearch />}></Button>
+            </Space>
+          ),
+        }}
       />
       {/* <div style={{ display: "none" }}>
         <Image.PreviewGroup preview={{ visible, onVisibleChange: (vis) => setVisible(vis) }}>
@@ -38,7 +38,7 @@ function AdminProductCard({ product, handleRemove }) {
 
   const renderContent = () => (
     <Space direction="vertical">
-      <Typography.Title level={4} style={{ marginBottom: 0 }} ellipsis>
+      <Typography.Title level={4} style={{ maxWidth: 220, marginBottom: 0 }} ellipsis>
         {name}
       </Typography.Title>
       <Typography.Paragraph ellipsis={{ rows: 2 }} style={{ maxWidth: 240, marginBottom: 0 }}>
@@ -68,7 +68,7 @@ function AdminProductCard({ product, handleRemove }) {
 
   return (
     <Col sm={12} lg={8} xl={6} xxl={6}>
-      <Card bordered={false} size="small" key={_id} cover={renderThumbnail()}>
+      <Card bordered={false} size="small" cover={renderThumbnail()}>
         {renderContent()}
       </Card>
     </Col>

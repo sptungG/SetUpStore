@@ -66,7 +66,7 @@ function ProductPage() {
           <Card>
             <Row gutter={[24, 24]}>
               {products.map((product) => (
-                <AdminProductCard product={product} handleRemove={handleRemove} />
+                <AdminProductCard key={product._id} product={product} handleRemove={handleRemove} />
               ))}
             </Row>
           </Card>

@@ -11,13 +11,12 @@ function Home() {
   return (
     <Layout.Content>
       <Row justify="center">
-        <Typography.Link style={{fontSize: 40}}>
+        <Typography.Link style={{ fontSize: 40 }}>
           <TypeWriter text={["Latest Products", "New Arrivals", "Best Sellers"]} />
         </Typography.Link>
       </Row>
-      <Typography.Title level={3}>New Arrivals</Typography.Title>
+
       <NewArrivals />
-      <Typography.Title level={3}>Best Sellers</Typography.Title>
       <BestSellers />
     </Layout.Content>
   );

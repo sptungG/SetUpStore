@@ -7,9 +7,9 @@ function LoadingCard({ count }) {
 
     for (let i = 0; i < count; i++) {
       totalCards.push(
-        <Col sm={12} lg={8} xl={6} xxl={6}>
-          <Card>
-            <Skeleton active></Skeleton>
+        <Col sm={12} lg={8} xl={6} xxl={6} key={i}>
+          <Card key={i}>
+            <Skeleton key={i} active></Skeleton>
           </Card>
         </Col>
       );

@@ -46,7 +46,7 @@ function ProductCard({ product }) {
 
   return (
     <Col sm={12} lg={8} xl={6} xxl={6}>
-      <Card style={{ padding: 16 }} hoverable bordered={false} size="small" key={_id} cover={renderThumbnail()}>
+      <Card style={{ padding: 16 }} hoverable bordered={false} size="small" cover={renderThumbnail()}>
         {renderContent()}
       </Card>
     </Col>

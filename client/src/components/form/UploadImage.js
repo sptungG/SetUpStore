@@ -37,7 +37,7 @@ function UploadImage({ form, setLoading, imagesList = [] }) {
                 // console.log("IMAGE UPLOAD RES DATA", res);
                 setLoading(false);
                 allUploadedFiles.push(res.data);
-                setImages(allUploadedFiles.map((item) => ({ public_id: item.public_id, uid: item.public_id, url: item.url, thumbUrl: item.url })));
+                setImages([...allUploadedFiles]);
                 form.setFieldsValue({ images: allUploadedFiles });
                 toast.success("Uploaded successfully");
               })
