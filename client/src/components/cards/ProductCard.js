@@ -7,7 +7,7 @@ import { FiHeart } from "react-icons/fi";
 import { BsCartPlus, BsSearch } from "react-icons/bs";
 
 function ProductCard({ product }) {
-  const { _id, name, desc, images, slug, price } = product;
+  const { name, desc, images, slug, price } = product;
 
   const renderThumbnail = () => (
     <Image
@@ -30,10 +30,10 @@ function ProductCard({ product }) {
 
   const renderContent = () => (
     <Space direction="vertical">
-      <Typography.Title level={3} style={{ marginBottom: 0 }} ellipsis>
+      <Typography.Title level={3} style={{ maxWidth: 260, marginBottom: 0 }} ellipsis>
         {name}
       </Typography.Title>
-      <Typography.Text ellipsis style={{ maxWidth: 240 }}>
+      <Typography.Text ellipsis style={{ maxWidth: 280 }}>
         {desc}
       </Typography.Text>
       {/* <Statistic value={price} suffix={<Typography.Text underline>đ</Typography.Text>}/> */}

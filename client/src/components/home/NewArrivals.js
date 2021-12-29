@@ -12,14 +12,6 @@ function NewArrivals() {
   const [productsCount, setProductsCount] = React.useState(0);
   const [currentPage, setCurrentPage] = React.useState(1);
 
-  React.useEffect(() => {
-    loadAllProducts();
-  }, [currentPage]);
-
-  React.useEffect(() => {
-    getProductsCount().then((res) => setProductsCount(res.data));
-  }, []);
-
   const loadAllProducts = () => {
     setLoading(true);
     // sort, order, limit
@@ -28,6 +20,15 @@ function NewArrivals() {
       setLoading(false);
     });
   };
+  
+  React.useEffect(() => {
+    loadAllProducts();
+  }, [currentPage]);
+
+  React.useEffect(() => {
+    getProductsCount().then((res) => setProductsCount(res.data));
+  }, []);
+
   return (
     <>
       <Row justify="space-between" align="bottom" style={{ margin: "16px 0" }}>

@@ -61,7 +61,7 @@ exports.remove = async (req, res) => {
 // WITHOUT PAGINATION
 // exports.list = async (req, res) => {
 //   try {
-//     // createdAt/updatedAt, desc/asc, 3
+//     // createdAt/updatedAt, desc/asc, 4
 //     const { sort, order, limit } = req.body;
 //     const products = await Product.find({})
 //       .populate("category")
@@ -77,12 +77,12 @@ exports.remove = async (req, res) => {
 
 // WITH PAGINATION
 exports.list = async (req, res) => {
-  console.table(req.body);
+  // console.table(req.body);
   try {
-    // createdAt/updatedAt, desc/asc, 3
+    // createdAt/updatedAt, desc/asc, 4
     const { sort, order, page } = req.body;
     const currentPage = page || 1;
-    const perPage = 4; // 3
+    const perPage = 4; // 4
 
     const products = await Product.find({})
       .skip((currentPage - 1) * perPage)
