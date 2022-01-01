@@ -3,7 +3,8 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import firebase from "firebase";
 
-import { Row, Col, Layout, Menu, Dropdown, Badge, Button, Avatar, Typography, Input, Form, Space } from "antd";
+import { Row, Col, Layout, Menu, Dropdown, Badge, Button, Avatar, Typography, Affix, Form, Space } from "antd";
+import Search from "../form/Search";
 
 import { FaSearch, FaStore, FaShoppingCart, FaChevronDown, FaRegUserCircle } from "react-icons/fa";
 import { FiLogOut, FiHeart } from "react-icons/fi";
@@ -14,6 +15,7 @@ function Header() {
   let history = useHistory();
   let { user } = useSelector((state) => ({ ...state }));
   let { pathname } = useLocation();
+  const [affixed, setAffixed] = React.useState(false);
 
   const logout = () => {
     firebase.auth().signOut();
@@ -124,41 +126,27 @@ function Header() {
     );
   };
 
-  const renderHeaderCenter = () => {
-    return (
-      <Row align="middle" justify="center">
-        <Form name="header-search" style={{ width: "100%" }}>
-          <Input
-            style={{ borderRadius: 100, padding: "5px 8px 5px 20px", backgroundColor: "transparent" }}
-            placeholder="Type your product ..."
-            suffix={
-              <Button type="primary" shape="round" size="large">
-                <FaSearch size={18} />
-              </Button>
-            }
-          />
-        </Form>
-      </Row>
-    );
-  };
-
   return (
-    <Layout.Header style={{ height: "auto", backgroundColor: "#fff" }}>
-      <Row justify="space-between" align="middle">
-        <Col span={7}>{renderHeaderLeft()}</Col>
-        <Col span={10}>{renderHeaderCenter()}</Col>
-        <Col span={4}>
-          <Row align="middle" justify="end">
-            {!user ? renderLoginWrapper() : renderDropdownMenu()}
-          </Row>
-        </Col>
-        <Col span={3}>
-          <Row align="bottom" justify="end">
-            {renderHeaderNav()}
-          </Row>
-        </Col>
-      </Row>
-    </Layout.Header>
+    <Affix offsetTop={affixed ?? 0} onChange={(affixed) => setAffixed(affixed)}>
+      <Layout.Header style={{ height: "auto", backgroundColor: "#fff" }} className="boxshadow">
+        <Row justify="space-between" align="middle">
+          <Col span={7}>{renderHeaderLeft()}</Col>
+          <Col span={10}>
+            <Search />
+          </Col>
+          <Col span={4}>
+            <Row align="middle" justify="end">
+              {!user ? renderLoginWrapper() : renderDropdownMenu()}
+            </Row>
+          </Col>
+          <Col span={3}>
+            <Row align="bottom" justify="end">
+              {renderHeaderNav()}
+            </Row>
+          </Col>
+        </Row>
+      </Layout.Header>
+    </Affix>
   );
 }
 export default Header;

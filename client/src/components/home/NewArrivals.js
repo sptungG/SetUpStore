@@ -14,8 +14,8 @@ function NewArrivals() {
 
   const loadAllProducts = () => {
     setLoading(true);
-    // sort, order, limit
-    getProducts("createdAt", "desc", currentPage).then((res) => {
+    // sort, order, page
+    getProducts("createdAt", "desc", currentPage, 8).then((res) => {
       setProducts(res.data);
       setLoading(false);
     });
@@ -35,10 +35,10 @@ function NewArrivals() {
         <Typography.Title level={3} style={{ marginBottom: 8 }}>
           New Arrivals
         </Typography.Title>
-        <Pagination current={currentPage} total={(productsCount / 4) * 10} onChange={(page) => setCurrentPage(page)} />
+        <Pagination current={currentPage} total={(productsCount / 8) * 10} onChange={(page) => setCurrentPage(page)} />
       </Row>
       {loading ? (
-        <LoadingCard count={4} />
+        <LoadingCard count={8} />
       ) : (
         <Row gutter={[16, 16]}>
           {products.map((product) => (

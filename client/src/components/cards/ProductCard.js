@@ -6,7 +6,7 @@ import { Card, Col, Image, Typography, Space, Button, Statistic, Rate, Divider, 
 import { FiHeart } from "react-icons/fi";
 import { BsCartPlus, BsSearch } from "react-icons/bs";
 
-function ProductCard({ product }) {
+function ProductCard({ product, size = "default" }) {
   const { name, desc, images, slug, price } = product;
 
   const renderThumbnail = () => (
@@ -19,7 +19,9 @@ function ProductCard({ product }) {
         visible: false,
         mask: (
           <Space size={16}>
-            <Button type="primary" shape="circle" size="large" icon={<BsSearch />}></Button>
+            <Link to={`/product/${slug}`}>
+              <Button type="primary" shape="circle" size="large" icon={<BsSearch />}></Button>
+            </Link>
             <Button type="primary" shape="circle" size="large" icon={<BsCartPlus />}></Button>
             <Button type="primary" shape="circle" size="large" icon={<FiHeart />}></Button>
           </Space>
@@ -30,12 +32,26 @@ function ProductCard({ product }) {
 
   const renderContent = () => (
     <Space direction="vertical">
-      <Typography.Title level={3} style={{ maxWidth: 260, marginBottom: 0 }} ellipsis>
-        {name}
-      </Typography.Title>
-      <Typography.Text ellipsis style={{ maxWidth: 280 }}>
-        {desc}
-      </Typography.Text>
+      {size === "default" ? (
+        <>
+          <Typography.Title level={3} style={{ maxWidth: 260, marginBottom: 0 }} ellipsis>
+            {name}
+          </Typography.Title>
+          <Typography.Text ellipsis style={{ maxWidth: 280 }}>
+            {desc}
+          </Typography.Text>
+        </>
+      ) : (
+        <>
+          <Typography.Title level={4} style={{ maxWidth: 220, marginBottom: 0 }} ellipsis>
+            {name}
+          </Typography.Title>
+          <Typography.Text ellipsis style={{ maxWidth: 240 }}>
+            {desc}
+          </Typography.Text>
+        </>
+      )}
+
       {/* <Statistic value={price} suffix={<Typography.Text underline>đ</Typography.Text>}/> */}
       <Space split={<Divider type="vertical" />}>
         <Rate disabled allowHalf defaultValue={2.5} />

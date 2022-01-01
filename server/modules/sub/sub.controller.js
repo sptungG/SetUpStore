@@ -1,11 +1,12 @@
 const Sub = require("./sub");
+const Product = require("../product/product");
 const slugify = require("slugify");
 
 exports.create = async (req, res) => {
   try {
     const { name, parent } = req.body;
-    const category = await new Sub({ name, parent, slug: slugify(name) }).save();
-    res.json(category);
+    const sub = await new Sub({ name, parent, slug: slugify(name) }).save();
+    res.json(sub);
   } catch (err) {
     // console.log(err);
     res.status(400).send("Create SubCategory failed");
@@ -15,8 +16,13 @@ exports.create = async (req, res) => {
 exports.list = async (req, res) => res.json(await Sub.find({}).sort({ createdAt: -1 }).exec());
 
 exports.read = async (req, res) => {
-  let category = await Sub.findOne({ slug: req.params.slug }).exec();
-  res.json(category);
+  let sub = await Sub.findOne({ slug: req.params.slug }).exec();
+  const products = await Product.find({ subs: sub }).populate("category").exec();
+
+  res.json({
+    sub,
+    products,
+  });
 };
 
 exports.update = async (req, res) => {

@@ -29,7 +29,6 @@ function ProductCreate({ history }) {
   const handleCreate = (values) => {
     createProduct(values, user.token)
       .then((res) => {
-        console.log(res);
         toast.success(`"${res.data.name}" is created`);
         form.resetFields();
         history.push("/admin/products");

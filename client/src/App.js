@@ -26,6 +26,10 @@ import AdminRoute from "./components/routes/AdminRoute";
 
 import Header from "./components/nav/Header";
 import Home from "./pages/Home";
+import Product from "./pages/Product";
+import CategoryHome from "./pages/category/CategoryHome";
+import SubHome from "./pages/sub/SubHome";
+import Store from "./pages/Store";
 import { currentUser } from "./functions/auth";
 
 function App() {
@@ -80,6 +84,10 @@ function App() {
         <AdminRoute exact path="/admin/product" component={ProductCreate} />
         <AdminRoute exact path="/admin/products" component={ProductPage} />
         <AdminRoute exact path="/admin/product/:slug" component={ProductUpdate} />
+        <Route exact path="/product/:slug" component={Product} />
+        <Route exact path="/category/:slug" component={CategoryHome} />
+        <Route exact path="/sub/:slug" component={SubHome} />
+        <Route exact path="/store" component={Store} />
       </Switch>
     </BrowserRouter>
   );
