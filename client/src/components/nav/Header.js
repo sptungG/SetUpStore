@@ -3,17 +3,17 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import firebase from "firebase";
 
-import { Row, Col, Layout, Menu, Dropdown, Badge, Button, Avatar, Typography, Affix, Form, Space } from "antd";
+import { Row, Col, Layout, Menu, Dropdown, Badge, Button, Avatar, Typography, Affix, Space } from "antd";
 import Search from "../form/Search";
 
-import { FaSearch, FaStore, FaShoppingCart, FaChevronDown, FaRegUserCircle } from "react-icons/fa";
+import { FaStore, FaShoppingCart, FaChevronDown, FaRegUserCircle } from "react-icons/fa";
 import { FiLogOut, FiHeart } from "react-icons/fi";
 import { RiHistoryFill, RiAdminLine } from "react-icons/ri";
 
 function Header() {
   let dispatch = useDispatch();
   let history = useHistory();
-  let { user } = useSelector((state) => ({ ...state }));
+  let { user, cart } = useSelector((state) => ({ ...state }));
   let { pathname } = useLocation();
   const [affixed, setAffixed] = React.useState(false);
 
@@ -35,7 +35,7 @@ function Header() {
           </Link>
         </Menu.Item>
         <Menu.Item key="cart">
-          <Badge count={0} showZero>
+          <Badge count={cart.length}>
             <Link to="/cart">
               <FaShoppingCart size={28} />
             </Link>
@@ -127,8 +127,10 @@ function Header() {
   };
 
   return (
-    <Affix offsetTop={affixed ?? 0} onChange={(affixed) => setAffixed(affixed)}>
-      <Layout.Header style={{ height: "auto", backgroundColor: "#fff" }} className="boxshadow">
+    <>
+    {/* <Layout.Header style={{ height: 8 }}></Layout.Header> */}
+    <Affix offsetTop={affixed && 0.000001} onChange={(affixed) => setAffixed(affixed)}>
+      <Layout.Header style={{ height: "auto", backgroundColor: "#fff" }} className={"boxshadow"}>
         <Row justify="space-between" align="middle">
           <Col span={7}>{renderHeaderLeft()}</Col>
           <Col span={10}>
@@ -147,6 +149,7 @@ function Header() {
         </Row>
       </Layout.Header>
     </Affix>
+    </>
   );
 }
 export default Header;

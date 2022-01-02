@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Card, Row, Col, Image, Typography, Space, Button, Statistic, Rate, Divider, Tag } from "antd";
-
 function ProductListItems({ product }) {
   const { name, desc, price, category, subs, shipping, color, brand, quantity, sold } = product;
 

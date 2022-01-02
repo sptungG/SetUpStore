@@ -2,9 +2,9 @@ import React from "react";
 
 import { Form, Typography, Button, Input, InputNumber, Select, Radio } from "antd";
 import UploadImage from "./UploadImage";
+import { colors } from "../../common/constant";
 
 function ProductCreateForm({ form, onFinish, categories, handleCategoryChange, showSub, subOptions, setLoading }) {
-  const colors = ["Black", "Brown", "Silver", "White", "Blue"];
   return (
     <Form form={form} onFinish={onFinish} layout="vertical" requiredMark={false} size="large">
       <Form.Item>

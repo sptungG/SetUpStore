@@ -25,11 +25,14 @@ import UserRoute from "./components/routes/UserRoute";
 import AdminRoute from "./components/routes/AdminRoute";
 
 import Header from "./components/nav/Header";
+import SideDrawer from "./components/nav/SideDrawer";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
 import CategoryHome from "./pages/category/CategoryHome";
 import SubHome from "./pages/sub/SubHome";
 import Store from "./pages/Store";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 import { currentUser } from "./functions/auth";
 
 function App() {
@@ -67,6 +70,7 @@ function App() {
     <BrowserRouter>
       <ToastContainer theme="light" />
       <Header />
+      <SideDrawer />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
@@ -88,6 +92,8 @@ function App() {
         <Route exact path="/category/:slug" component={CategoryHome} />
         <Route exact path="/sub/:slug" component={SubHome} />
         <Route exact path="/store" component={Store} />
+        <Route exact path="/cart" component={Cart} />
+        <UserRoute exact path="/checkout" component={Checkout} />
       </Switch>
     </BrowserRouter>
   );

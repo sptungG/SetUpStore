@@ -21,7 +21,9 @@ function AdminProductCard({ product, handleRemove }) {
           visible: false,
           mask: (
             <Space size={16}>
-              <Button type="primary" shape="circle" size="large" icon={<BsSearch />}></Button>
+              <Link to={`/product/${slug}`}>
+                <Button type="primary" shape="circle" size="large" icon={<BsSearch />}></Button>
+              </Link>
             </Space>
           ),
         }}

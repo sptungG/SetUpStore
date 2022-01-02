@@ -1,37 +1,51 @@
 import React from "react";
-import { Row, Col, Image, Space } from "antd";
+import { Image, Skeleton, List } from "antd";
 import axios from "axios";
 
 function Gallery() {
   const [photos, setPhotos] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
   const accessKey = "uCQCPXNFMbJKFb4xJjlnd8Yiuz03HBIoGMGhK1SCZ8c";
-  const getPhotos = async () => await axios.get(`https://api.unsplash.com/photos/random?client_id=${accessKey}&orientation=landscape&query=setup%20desk&count=9`);
+  const getPhotos = async () =>
+    await axios.get(`https://api.unsplash.com/photos/random?client_id=${accessKey}&orientation=landscape&query=setup%20desk&count=9`);
 
   React.useEffect(() => {
-    const loadPhotos = () => getPhotos().then((p) => setPhotos(p.data));
+    setLoading(true);
+    const loadPhotos = () =>
+      getPhotos().then((p) => {
+        setPhotos(p.data);
+        setLoading(false);
+      });
     loadPhotos();
   }, []);
 
-  const renderGalleryColumn = (list) => {
-    return (
-      <Col span={8}>
-        <Space direction="vertical" size={24}>
-          {list.map((item) => (
-            <Image key={item.id} width={"100%"} height={"100%"} src={item.urls.regular} alt="Login" />
-          ))}
-        </Space>
-      </Col>
-    );
-  };
-
   return (
-    <Row id="gallery" gutter={[24, 24]}>
-      <Image.PreviewGroup>
-        {renderGalleryColumn(photos.slice(0, 3))}
-        {renderGalleryColumn(photos.slice(3, 6))}
-        {renderGalleryColumn(photos.slice(6, 9))}
-      </Image.PreviewGroup>
-    </Row>
+    <>
+      {loading ? (
+        <List
+          grid={{ gutter: [24, 24], column: 3 }}
+          dataSource={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+          rowKey={(item) => item}
+          renderItem={(item) => (
+            <List.Item key={item}>
+              <Skeleton active></Skeleton>
+            </List.Item>
+          )}
+        />
+      ) : (
+        <List
+          id="gallery"
+          grid={{ gutter: 24, column: 3 }}
+          dataSource={photos}
+          rowKey={(item) => item.id}
+          renderItem={(item) => (
+            <List.Item key={item.id}>
+              <Image width={"100%"} height={"100%"} src={item.urls.regular} alt={item.id} />
+            </List.Item>
+          )}
+        />
+      )}
+    </>
   );
 }
 

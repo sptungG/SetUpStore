@@ -4,7 +4,7 @@ import { Row, Col, Layout, Divider, Empty } from "antd";
 
 import { getSub } from "../../functions/sub";
 import ProductCard from "../../components/cards/ProductCard";
-import SubList from "../../components/sub/SubList";
+import SubList from "../../components/list/SubList";
 
 function SubHome({ match }) {
   const [sub, setSub] = React.useState({});

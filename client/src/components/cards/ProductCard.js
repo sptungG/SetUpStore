@@ -1,13 +1,52 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
-import { Card, Col, Image, Typography, Space, Button, Statistic, Rate, Divider, Badge } from "antd";
+import { Card, Col, Image, Typography, Space, Button, Statistic, Rate, Divider, Tooltip } from "antd";
 
 import { FiHeart } from "react-icons/fi";
 import { BsCartPlus, BsSearch } from "react-icons/bs";
+import _ from "lodash";
 
 function ProductCard({ product, size = "default" }) {
   const { name, desc, images, slug, price } = product;
+  const [tooltip, setTooltip] = React.useState("Click to add");
+
+  const { user, cart } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    // create cart array
+    let cart = [];
+    if (typeof window !== "undefined") {
+      // if cart is in local storage GET it
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+      // push new product to cart
+      cart.push({
+        ...product,
+        count: 1,
+      });
+      // remove duplicates
+      let unique = _.uniqWith(cart, _.isEqual);
+      // save to local storage
+      // console.log('unique', unique)
+      localStorage.setItem("cart", JSON.stringify(unique));
+      // show tooltip
+      setTooltip("Added");
+      // add to redux state
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: unique,
+      });
+      // show cart items in side drawer
+      dispatch({
+        type: "SET_VISIBLE",
+        payload: true,
+      });
+    }
+  };
 
   const renderThumbnail = () => (
     <Image
@@ -22,7 +61,9 @@ function ProductCard({ product, size = "default" }) {
             <Link to={`/product/${slug}`}>
               <Button type="primary" shape="circle" size="large" icon={<BsSearch />}></Button>
             </Link>
-            <Button type="primary" shape="circle" size="large" icon={<BsCartPlus />}></Button>
+            <Tooltip title={tooltip}>
+              <Button type="primary" shape="circle" size="large" onClick={handleAddToCart} icon={<BsCartPlus />}></Button>
+            </Tooltip>
             <Button type="primary" shape="circle" size="large" icon={<FiHeart />}></Button>
           </Space>
         ),

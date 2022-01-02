@@ -2,6 +2,7 @@ import React from "react";
 
 import { Form, Typography, Button, Input, InputNumber, Select, Radio } from "antd";
 import UploadImage from "./UploadImage";
+import { colors } from "../../common/constant";
 
 function ProductUpdateForm({
   form,
@@ -15,7 +16,6 @@ function ProductUpdateForm({
   setArrayOfSubs,
   selectedCategory,
 }) {
-  const colors = ["Black", "Brown", "Silver", "White", "Blue"];
   const { name, brand, desc, price, quantity, shipping, color, category, images } = values;
   form.setFieldsValue({
     name,

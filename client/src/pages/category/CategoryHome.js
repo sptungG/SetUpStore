@@ -5,7 +5,7 @@ import { Row, Col, Layout, Divider, Empty } from "antd";
 
 import { getCategory } from "../../functions/category";
 import ProductCard from "../../components/cards/ProductCard";
-import CategoryList from "../../components/category/CategoryList";
+import CategoryList from "../../components/list/CategoryList";
 
 function CategoryHome({ match }) {
   const [category, setCategory] = React.useState({});

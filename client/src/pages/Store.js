@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Layout, Typography, Row, Col, Empty, Menu, Slider, Checkbox, Space, Tag, Card } from "antd";
+import { Layout, Typography, Row, Col, Empty, Menu, Slider, Checkbox, Space, Tag} from "antd";
 
 import { getCategories } from "../functions/category";
 import { getSubs } from "../functions/sub";
@@ -54,6 +54,15 @@ function Store() {
       setProducts(res.data);
     });
   };
+  const resetStates = () => {
+    setPrice("");
+    setCategoryIds([]);
+    setStar("");
+    setSub("");
+    setBrand("");
+    setColor("");
+    setShipping("");
+  };
   // load products on user search input
   React.useEffect(() => {
     const delayed = setTimeout(() => {
@@ -68,20 +77,14 @@ function Store() {
   // load products based on price range
   React.useEffect(() => {
     if (ok) fetchProducts({ price });
-  }, [ok, price]);
+  }, [ok]);
 
   const handleSlider = (value) => {
     dispatch({
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
-    // reset
-    setCategoryIds([]);
-    setStar("");
-    setSub("");
-    setBrand("");
-    setColor("");
-    setShipping("");
+    resetStates();
 
     setPrice(value);
     setTimeout(() => {
@@ -107,13 +110,8 @@ function Store() {
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
-    setPrice([0, 0]);
-    setStar("");
-    setSub("");
-    setBrand("");
-    setColor("");
-    setShipping("");
-
+    resetStates();
+    
     let inTheState = [...categoryIds];
     let justChecked = e.target.value;
     let foundInTheState = inTheState.indexOf(justChecked);
@@ -124,24 +122,17 @@ function Store() {
       inTheState.splice(foundInTheState, 1);
     }
     setCategoryIds(inTheState);
-    console.log(inTheState);
     if (inTheState.length > 0) fetchProducts({ category: inTheState });
     else loadAllProducts();
   };
-  // 5. show products by star rating
+  // show products by star rating
   const handleStarClick = (num) => {
     // console.log(num);
     dispatch({
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
-    setPrice([0, 0]);
-    setCategoryIds([]);
-    setStar(num);
-    setSub("");
-    setBrand("");
-    setColor("");
-    setShipping("");
+    resetStates();
     console.log(num);
     // fetchProducts({ stars: num });
   };
@@ -168,12 +159,7 @@ function Store() {
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
-    setPrice([0, 0]);
-    setCategoryIds([]);
-    setStar("");
-    setBrand("");
-    setColor("");
-    setShipping("");
+    resetStates();
 
     setSub(sub);
     fetchProducts({ sub });
@@ -191,18 +177,13 @@ function Store() {
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
-    setSub("");
-    setPrice([0, 0]);
-    setCategoryIds([]);
-    setStar("");
-    setBrand("");
-    setShipping("");
+    resetStates();
 
     setColor(color);
     fetchProducts({ color });
   };
 
-  // 9. show products based on shipping yes/no
+  // show products based on shipping yes/no
   const showShipping = () => (
     <>
       <Checkbox onChange={handleShippingChange} value="Yes" checked={shipping === "Yes"}>
@@ -219,19 +200,14 @@ function Store() {
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
-    setSub("");
-    setPrice([0, 0]);
-    setCategoryIds([]);
-    setStar("");
-    setBrand("");
-    setColor("");
+    resetStates();
 
     setShipping(e.target.value);
     fetchProducts({ shipping: e.target.value });
   };
 
   const renderMenu = () => (
-    <Menu defaultOpenKeys={["1", "2", "3", "4", "5", "6"]} mode="inline" theme="light">
+    <Menu defaultOpenKeys={["1", "2", "3", "4", "5", "6"]} mode="inline" theme="light" style={{ paddingRight: 8, marginBottom: 8 }}>
       <Menu.SubMenu key="1" icon={<AiOutlineDollar />} title={<span>Price</span>}>
         <div style={{ margin: "24px 8px" }}>
           <Slider tipFormatter={(v) => `$${v}`} range max="1999" value={price} onChange={handleSlider} />
@@ -264,7 +240,6 @@ function Store() {
           <Typography.Title level={3} style={{ marginBottom: 8 }}>
             Products
           </Typography.Title>
-
           {products.length < 1 && <Empty />}
 
           {loading ? (

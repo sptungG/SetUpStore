@@ -124,7 +124,7 @@ const handleQuery = async (req, res, query) => {
     .populate("category", "_id name")
     .populate("subs", "_id name")
     .exec();
-  console.log(products);
+  // console.log(products);
   res.json(products);
 };
 
@@ -196,7 +196,7 @@ exports.searchFilters = async (req, res) => {
     console.log("sub ---> ", sub);
     await handleSub(req, res, sub);
   }
-  
+
   if (shipping) {
     console.log("shipping ---> ", shipping);
     await handleShipping(req, res, shipping);

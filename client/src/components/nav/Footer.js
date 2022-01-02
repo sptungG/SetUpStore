@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Layout, Affix, Row, Col, Space, Button, Typography } from "antd";
+import { Layout,  Row, Col, Space, Button, Typography } from "antd";
 import { FaFacebookF, FaTwitter, FaGoogle } from "react-icons/fa";
 
 function Footer() {
   return (
-    <Layout.Footer style={{ backgroundColor: "#1e2f47", padding: "32px 16px 32px", marginTop: 24 }}>
-    <Row justify="center" gutter={[16, 24]}></Row>
+    <Layout.Footer style={{ backgroundColor: "#ffc1bd", padding: 24, marginTop: 24 }}>
+    <Row justify="center" gutter={[24, 24]}>
+    <Typography.Title level={4}>Footer</Typography.Title>
+    </Row>
   </Layout.Footer>
   );
 }
