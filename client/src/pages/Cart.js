@@ -21,7 +21,7 @@ function Cart({ history }) {
     // console.log("cart", JSON.stringify(cart, null, 4));
     userCart(cart, user.token)
       .then((res) => {
-        console.log("CART POST RES", res);
+        // console.log("CART POST RES", res);
         if (res.data.ok) history.push("/checkout");
       })
       .catch((err) => console.log("cart save err", err));
@@ -29,7 +29,7 @@ function Cart({ history }) {
 
   return (
     <Layout.Content>
-      <Row wrap={false} style={{ marginTop: 24 }} gutter={[24, 24]}>
+      <Row wrap={false} gutter={[24, 24]}>
         <Col flex="auto">
           <Typography.Title level={3}>
             Cart <Typography.Link>{cart.length}</Typography.Link> product
@@ -47,7 +47,7 @@ function Cart({ history }) {
           )}
         </Col>
         <Col flex="360px">
-          <Card>
+          <Card style={{ marginTop: 48 }}>
             <Typography.Title level={3}>Order Summary</Typography.Title>
             <List
               itemLayout="vertical"

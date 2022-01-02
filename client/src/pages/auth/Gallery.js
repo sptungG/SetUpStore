@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Skeleton, List } from "antd";
+import { Image, Skeleton, List, Card } from "antd";
 import axios from "axios";
 
 function Gallery() {
@@ -28,7 +28,9 @@ function Gallery() {
           rowKey={(item) => item}
           renderItem={(item) => (
             <List.Item key={item}>
-              <Skeleton active></Skeleton>
+              <Card size="small" style={{ margin: 0 }}>
+                <Skeleton active></Skeleton>
+              </Card>
             </List.Item>
           )}
         />

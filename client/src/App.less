@@ -16,6 +16,26 @@ img {
 // #header-search .ant-input-affix-wrapper {
 //   border: 1px solid rgba(217, 217, 217);
 // }
+.wrapper{
+  position: relative;
+}
+.wrapper::before{
+  content: "";
+  position: absolute;
+  height: 50vh;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(245, 103, 102, 0.4) 1%, rgba(255, 255, 255, 0) 99%);
+}
+.gradientWrapperB {
+  background: linear-gradient(15.69deg, #f56766 10.16%, rgba(255, 255, 255, 0) 89.84%);
+}
+.gradientWrapperT {
+  background: linear-gradient(160deg, #f56766 10.16%, rgba(255, 255, 255, 0) 89.84%);
+}
+
 .ant-layout-header .ant-row {
   max-width: 1440px;
   margin: 0 auto;

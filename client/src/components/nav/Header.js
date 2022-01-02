@@ -99,7 +99,11 @@ function Header() {
     return (
       <Dropdown overlay={menu} placement="bottomRight" arrow>
         <Space size="small" align="center">
-          <Button size="large" shape="circle" style={{ height: 50, width: 50, padding: 2 }}>
+          <Button
+            size="large"
+            shape="circle"
+            style={{ height: 50, width: 50, padding: 2, backgroundColor: affixed ? "transparent" : "rgba(245, 103, 102, 0.1)" }}
+          >
             <Avatar size="large" src={user.picture} alt="avatar" />
           </Button>
           <Typography.Text type="secondary" style={{ width: 80, fontWeight: "bold" }} ellipsis>
@@ -128,27 +132,27 @@ function Header() {
 
   return (
     <>
-    {/* <Layout.Header style={{ height: 8 }}></Layout.Header> */}
-    <Affix offsetTop={affixed && 0.000001} onChange={(affixed) => setAffixed(affixed)}>
-      <Layout.Header style={{ height: "auto", backgroundColor: "#fff" }} className={"boxshadow"}>
-        <Row justify="space-between" align="middle">
-          <Col span={7}>{renderHeaderLeft()}</Col>
-          <Col span={10}>
-            <Search />
-          </Col>
-          <Col span={4}>
-            <Row align="middle" justify="end">
-              {!user ? renderLoginWrapper() : renderDropdownMenu()}
-            </Row>
-          </Col>
-          <Col span={3}>
-            <Row align="bottom" justify="end">
-              {renderHeaderNav()}
-            </Row>
-          </Col>
-        </Row>
-      </Layout.Header>
-    </Affix>
+      <Layout.Header style={{ height: 8 }}></Layout.Header>
+      <Affix offsetTop={affixed && 0.000001} onChange={(affixed) => setAffixed(affixed)}>
+        <Layout.Header style={{ height: "auto", backgroundColor: affixed ? "#fff" : "transparent" }} className={affixed && "boxshadow"}>
+          <Row justify="space-between" align="middle">
+            <Col span={7}>{renderHeaderLeft()}</Col>
+            <Col span={10}>
+              <Search affixed={affixed} />
+            </Col>
+            <Col span={4}>
+              <Row align="middle" justify="end">
+                {!user ? renderLoginWrapper() : renderDropdownMenu()}
+              </Row>
+            </Col>
+            <Col span={3}>
+              <Row align="bottom" justify="end">
+                {renderHeaderNav()}
+              </Row>
+            </Col>
+          </Row>
+        </Layout.Header>
+      </Affix>
     </>
   );
 }
