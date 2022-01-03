@@ -25,10 +25,10 @@ export const emptyUserCart = async (authtoken) =>
     },
   });
 
-export const saveUserAddress = async (authtoken, address) =>
+export const saveUserAddress = async (authtoken, area, address) =>
   await axios.post(
     `${process.env.REACT_APP_API}/user/address`,
-    { address },
+    { area, address },
     {
       headers: {
         authtoken,

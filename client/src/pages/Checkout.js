@@ -3,14 +3,17 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { toast } from "react-toastify";
-import { Layout, Typography, Row, Col, Empty, Button, Statistic, Form, Input, Divider, Tag, Space, List, Card } from "antd";
-import { FaMapMarkedAlt } from "react-icons/fa";
+import { Layout, Typography, Row, Col, Popconfirm, Button, Statistic, Form, Input, Select, Tag, Space, List, Card } from "antd";
+import { BsCheckLg, BsXLg } from "react-icons/bs";
 import { getUserCart, emptyUserCart, saveUserAddress } from "../functions/user";
+import { areas } from "../common/constant";
+import { vietnameseSlug } from "../common/utils";
 
 function Checkout() {
   const [form] = Form.useForm();
   const [products, setProducts] = React.useState([]);
   const [total, setTotal] = React.useState(0);
+  const [areaSaved, setAreaSaved] = React.useState(false);
   const [addressSaved, setAddressSaved] = React.useState(false);
 
   const dispatch = useDispatch();
@@ -42,10 +45,11 @@ function Checkout() {
     });
   };
 
-  const saveAddressToDb = ({ address }) => {
-    // console.log(address);
-    saveUserAddress(user.token, address).then((res) => {
+  const saveAddressToDb = ({ area, address }) => {
+    // console.log(area, address);
+    saveUserAddress(user.token, area, address).then((res) => {
       if (res.data.ok) {
+        setAreaSaved(true);
         setAddressSaved(true);
         toast.success("Address saved");
       }
@@ -58,14 +62,31 @@ function Checkout() {
         <Col flex="auto">
           <Card>
             <Typography.Title level={3}>Delivery Address</Typography.Title>
-            <Form form={form} size="large" layout="inline" requiredMark={false} onFinish={saveAddressToDb}>
+            <Form form={form} size="large" layout="vertical" requiredMark={false} onFinish={saveAddressToDb}>
+              <Form.Item name="area" label="Area" colon={false} rules={[{ required: true }]}>
+                <Select
+                  showSearch
+                  optionFilterProp="children"
+                  filterOption={(input, option) => vietnameseSlug(option.children, " ").indexOf(vietnameseSlug(input, " ")) >= 0}
+                  placeholder="Select your area ..."
+                >
+                  {areas.map((item) => (
+                    <Select.Option value={item}>{item}</Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
               <Form.Item name="address" label="Detail Address" colon={false} rules={[{ required: true }]}>
-                <Input prefix={<FaMapMarkedAlt />} placeholder="Enter your address ..." style={{ width: 400 }} />
+                <Input.TextArea showCount maxLength={300} placeholder="Enter your address ..." />
               </Form.Item>
               <Form.Item>
-                <Button size="large" type="primary" htmlType="submit">
-                  Save
-                </Button>
+                <Space>
+                  <Button size="large" type="primary" htmlType="submit">
+                    Save
+                  </Button>
+                  <Button size="large" type="text" htmlType="button" onClick={() => form.resetFields()}>
+                    Reset
+                  </Button>
+                </Space>
               </Form.Item>
             </Form>
           </Card>
@@ -98,12 +119,14 @@ function Checkout() {
             />
 
             <Space size={24}>
-              <Button size="large" type="primary" disabled={!addressSaved || !products.length}>
+              <Button size="large" type="primary" disabled={!areaSaved || !addressSaved || !products.length}>
                 Place Order
               </Button>
-              <Button size="large" type="text" disabled={!products.length} onClick={emptyCart}>
-                Empty Cart
-              </Button>
+              <Popconfirm title={<p>Sure to empty cart ?</p>} placement="topRight" okText={<BsCheckLg />} cancelText={<BsXLg />} onConfirm={() => emptyCart()}>
+                <Button size="large" type="text" disabled={!products.length}>
+                  Empty Cart
+                </Button>
+              </Popconfirm>
             </Space>
           </Card>
         </Col>

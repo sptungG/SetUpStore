@@ -102,6 +102,7 @@ function Header() {
           <Button
             size="large"
             shape="circle"
+            ghost
             style={{ height: 50, width: 50, padding: 2, backgroundColor: affixed ? "transparent" : "rgba(245, 103, 102, 0.1)" }}
           >
             <Avatar size="large" src={user.picture} alt="avatar" />
@@ -132,7 +133,7 @@ function Header() {
 
   return (
     <>
-      <Layout.Header style={{ height: 8 }}></Layout.Header>
+      <Layout.Header style={{ height: 0.1, backgroundColor: "transparent" }}></Layout.Header>
       <Affix offsetTop={affixed && 0.000001} onChange={(affixed) => setAffixed(affixed)}>
         <Layout.Header style={{ height: "auto", backgroundColor: affixed ? "#fff" : "transparent" }} className={affixed && "boxshadow"}>
           <Row justify="space-between" align="middle">
