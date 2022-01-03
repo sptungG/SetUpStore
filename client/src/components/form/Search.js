@@ -19,13 +19,12 @@ function Search({ affixed }) {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     history.push(`/store?${text}`);
   };
   return (
     <Row align="middle" justify="center">
-      <form name="header-search" style={{ width: "100%", lineHeight: 1.4 }} onSubmit={handleSubmit}>
+      <Form name="header-search" style={{ width: "100%", lineHeight: 1.4 }} onFinish={handleSubmit}>
         <Input
           style={{
             borderRadius: 100,
@@ -44,7 +43,7 @@ function Search({ affixed }) {
             </Button>
           }
         />
-      </form>
+      </Form>
     </Row>
   );
 }
