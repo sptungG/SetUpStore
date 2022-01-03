@@ -19,8 +19,8 @@ function ProductListItems({ product }) {
         <Typography.Title level={2}>{name}</Typography.Title>
         <Typography.Text type="secondary">{brand}</Typography.Text>
       </Space>
-      <Typography.Paragraph style={{margin: 0}}>{desc}</Typography.Paragraph>
-      <Space split={<Divider type="vertical" />} style={{marginBottom: 16}}>
+      <Typography.Paragraph style={{ margin: 0 }}>{desc}</Typography.Paragraph>
+      <Space split={<Divider type="vertical" />} style={{ marginBottom: 16 }}>
         <Space>
           <Rate disabled allowHalf defaultValue={2.5} />
           <Typography.Text>{0}</Typography.Text>
@@ -47,20 +47,9 @@ function ProductListItems({ product }) {
       )}
       {renderDetail(
         <Typography.Text>Shipping</Typography.Text>,
-        shipping && (
-          <Tag color={shipping.toLowerCase() === "yes" ? "success" : "error"}>
-            {shipping}
-          </Tag>
-        )
+        shipping && <Tag color={shipping.toLowerCase() === "yes" ? "success" : "error"}>{shipping}</Tag>
       )}
-      {renderDetail(
-        <Typography.Text>Color</Typography.Text>,
-        color && (
-          <Tag color={color.toLowerCase() !== "white" && color.toLowerCase()}>
-            {color}
-          </Tag>
-        )
-      )}
+      {renderDetail(<Typography.Text>Color</Typography.Text>, color && <Tag color={color.toLowerCase() !== "white" && color.toLowerCase()}>{color}</Tag>)}
       {renderDetail(<Typography.Text>Brand</Typography.Text>, <Typography.Text>{brand}</Typography.Text>)}
       {renderDetail(<Typography.Text>Available</Typography.Text>, <Typography.Text>{quantity}</Typography.Text>)}
     </Space>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 
-import { Card, Row, Col, Image, Typography, Space, Button, Statistic, Rate, Divider, Tooltip } from "antd";
+import { Card, Row, Col, Space, Button, Tooltip } from "antd";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
@@ -60,26 +60,29 @@ const SingleProduct = ({ product }) => {
       </Col>
       <Col span={12}>
         <Space direction="vertical" size={48}>
-          <ProductListItems product={product} />
-          <Row gutter={[24, 24]} wrap={false} justify="center">
-            <Col span={8}>
-              <Tooltip title={tooltip}>
-                <Button type="primary" block size="large" onClick={handleAddToCart} icon={<BsCartPlus />}>
-                  Add to Cart
+          <Card bordered={false} style={{ margin: 0 }}>
+            <ProductListItems product={product} />
+
+            <Row gutter={[24, 24]} wrap={false} justify="center" style={{ marginTop: 24 }}>
+              <Col span={8}>
+                <Tooltip title={tooltip}>
+                  <Button type="primary" block size="large" onClick={handleAddToCart} icon={<BsCartPlus />}>
+                    Add to Cart
+                  </Button>
+                </Tooltip>
+              </Col>
+              <Col span={8}>
+                <Button type="link" block size="large" icon={<FiHeart />}>
+                  Add to Wishlist
                 </Button>
-              </Tooltip>
-            </Col>
-            <Col span={8}>
-              <Button type="link" block size="large" icon={<FiHeart />}>
-                Add to Wishlist
-              </Button>
-            </Col>
-            <Col span={8}>
-              <Button type="link" block size="large" icon={<BsStar />}>
-                Rating
-              </Button>
-            </Col>
-          </Row>
+              </Col>
+              <Col span={8}>
+                <Button type="link" block size="large" icon={<BsStar />}>
+                  Rating
+                </Button>
+              </Col>
+            </Row>
+          </Card>
         </Space>
       </Col>
     </Row>

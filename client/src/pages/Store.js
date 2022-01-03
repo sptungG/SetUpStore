@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Layout, Typography, Row, Col, Empty, Menu, Slider, Checkbox, Space, Tag} from "antd";
+import { Layout, Typography, Row, Col, Empty, Menu, Slider, Checkbox, Space, Tag, Card } from "antd";
 
 import { getCategories } from "../functions/category";
 import { getSubs } from "../functions/sub";
@@ -111,7 +111,7 @@ function Store() {
       payload: { text: "" },
     });
     resetStates();
-    
+
     let inTheState = [...categoryIds];
     let justChecked = e.target.value;
     let foundInTheState = inTheState.indexOf(justChecked);
@@ -240,7 +240,12 @@ function Store() {
           <Typography.Title level={3} style={{ marginBottom: 8 }}>
             Products
           </Typography.Title>
-          {products.length < 1 && <Empty />}
+
+          {products.length < 1 && (
+            <Card style={{ margin: 0 }}>
+              <Empty />
+            </Card>
+          )}
 
           {loading ? (
             <LoadingCard count={8} />

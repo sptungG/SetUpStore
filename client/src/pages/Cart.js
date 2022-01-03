@@ -35,13 +35,18 @@ function Cart({ history }) {
             Cart <Typography.Link>{cart.length}</Typography.Link> product
           </Typography.Title>
           {!cart.length ? (
-            <Empty
-              description={
-                <span>
-                  Your cart is empty now. <Link to="/store">Continue Shopping.</Link>
-                </span>
-              }
-            />
+            <Card style={{ margin: 0 }}>
+              <Empty
+                description={
+                  <span>
+                    Your cart is empty now.
+                    <b>
+                      <Link to="/store">Continue Shopping.</Link>
+                    </b>
+                  </span>
+                }
+              />
+            </Card>
           ) : (
             <CartTable data={cart} />
           )}
