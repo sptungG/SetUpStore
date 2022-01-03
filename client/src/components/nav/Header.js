@@ -102,7 +102,7 @@ function Header() {
           <Button
             size="large"
             shape="circle"
-            ghost
+            ghost={!affixed}
             style={{ height: 50, width: 50, padding: 2, backgroundColor: affixed ? "transparent" : "rgba(245, 103, 102, 0.1)" }}
           >
             <Avatar size="large" src={user.picture} alt="avatar" />
