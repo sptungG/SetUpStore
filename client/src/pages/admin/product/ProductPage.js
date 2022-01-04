@@ -56,7 +56,7 @@ function ProductPage() {
           <UserNav />
         </Col>
         <Col flex="auto">
-          <Card>
+          <Card style={{ marginBottom: 24 }}>
             <Link to="/admin/product">
               <Button type="primary" size="large">
                 Create new product

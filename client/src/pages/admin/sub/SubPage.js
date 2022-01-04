@@ -159,13 +159,13 @@ function SubPage({ history, match }) {
           <UserNav />
         </Col>
         <Col flex="auto">
-          <Card>
+          <Card style={{ marginBottom: 24 }}>
             {renderFormTitle()}
             {renderForm()}
           </Card>
           <Card>
             <LocalSearch keyword={keyword} setKeyword={setKeyword} />
-            <SubTable data={subs.filter(searched(keyword))} handleRemove={handleRemove} />
+            <SubTable categories={categories} data={subs.filter(searched(keyword))} handleRemove={handleRemove} />
           </Card>
         </Col>
       </Row>

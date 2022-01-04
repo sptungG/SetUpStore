@@ -28,7 +28,7 @@ function Profile() {
 
   return (
     // <Card cover={<img alt="example" height={100} src="https://source.unsplash.com/random?setup%20desk" />}>
-    <Card>
+    <Card style={{ marginBottom: 24 }}>
       <Row align="middle" wrap={false}>
         <Col flex="none">
           <Button size="large" shape="circle" style={{ height: 110, width: 110, padding: 2 }}>

@@ -207,7 +207,7 @@ function Store() {
   };
 
   const renderMenu = () => (
-    <Menu defaultOpenKeys={["1", "2", "3", "4", "5", "6"]} mode="inline" theme="light" style={{ paddingRight: 8, marginBottom: 8 }}>
+    <Menu defaultOpenKeys={["1", "2", "3", "4", "5", "6"]} mode="inline" theme="light" style={{ paddingRight: 8, margin: "32px 0" }}>
       <Menu.SubMenu key="1" icon={<AiOutlineDollar />} title={<span>Price</span>}>
         <div style={{ margin: "24px 8px" }}>
           <Slider tipFormatter={(v) => `$${v}`} range max="1999" value={price} onChange={handleSlider} />
@@ -233,16 +233,14 @@ function Store() {
 
   return (
     <Layout.Content>
-      <Row gutter={[24, 24]} wrap={false} style={{ marginTop: 24 }}>
+      <Row gutter={[24, 24]} wrap={false}>
         <Col flex="280px">{renderMenu()}</Col>
 
         <Col flex="auto">
-          <Typography.Title level={3} style={{ marginBottom: 8 }}>
-            Products
-          </Typography.Title>
+          <Typography.Title level={3}>Products</Typography.Title>
 
           {products.length < 1 && (
-            <Card style={{ margin: 0 }}>
+            <Card>
               <Empty />
             </Card>
           )}

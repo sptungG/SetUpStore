@@ -141,7 +141,7 @@ function CategoryPage({ history, match }) {
           <UserNav />
         </Col>
         <Col flex="auto">
-          <Card>
+          <Card style={{ marginBottom: 24 }}>
             {renderFormTitle()}
             {renderForm()}
           </Card>

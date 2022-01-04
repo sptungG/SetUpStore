@@ -1,13 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import * as dayjs from "dayjs";
+import * as relativeTime from "dayjs/plugin/relativeTime";
+
 import { Table, Button, Typography, Space, Popconfirm } from "antd";
 import { formatFromNow, formatDate, sorterByDate } from "../../common/utils";
 
 import { BsTrash, BsThreeDots, BsCheckLg, BsXLg } from "react-icons/bs";
 import { BiEdit } from "react-icons/bi";
 
-function CategoryTable({ data, handleRemove }) {
+function CouponTable({ data, handleRemove }) {
+  dayjs.extend(relativeTime);
   const columns = [
     {
       title: "Name",
@@ -17,19 +21,27 @@ function CategoryTable({ data, handleRemove }) {
       sorter: (a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0),
     },
     {
-      title: "Updated",
-      dataIndex: "updatedAt",
-      key: "updatedAt",
+      title: "Discount",
+      dataIndex: "discount",
+      key: "discount",
       width: 170,
-      render: (text) => <Typography.Text>{formatFromNow(text)}</Typography.Text>,
-      sorter: (a, b) => sorterByDate("updatedAt")(a, b),
+      render: (text) => <Typography.Text>{text}%</Typography.Text>,
+      sorter: (a, b) => a.discount - b.discount,
+    },
+    {
+      title: "Expiry",
+      dataIndex: "expiry",
+      key: "expiry",
+      width: 170,
+      render: (text) => <Typography.Text>{formatDate(text)}</Typography.Text>,
+      sorter: (a, b) => sorterByDate("expiry")(a, b),
     },
     {
       title: "Created",
       dataIndex: "createdAt",
       key: "createdAt",
       width: 170,
-      render: (text) => <Typography.Text>{formatDate(text)}</Typography.Text>,
+      render: (text) => <Typography.Text>{formatFromNow(text)}</Typography.Text>,
       sorter: (a, b) => sorterByDate("createdAt")(a, b),
     },
     {
@@ -39,9 +51,6 @@ function CategoryTable({ data, handleRemove }) {
       width: 170,
       render: (text, record) => (
         <Space size="middle">
-          <Link to={`/admin/category/${record.slug}`}>
-            <Button size="large" type="text" icon={<BiEdit />}></Button>
-          </Link>
           <Popconfirm
             title={
               <p>
@@ -51,7 +60,7 @@ function CategoryTable({ data, handleRemove }) {
             placement="topRight"
             okText={<BsCheckLg />}
             cancelText={<BsXLg />}
-            onConfirm={() => handleRemove(record.slug)}
+            onConfirm={() => handleRemove(record._id)}
           >
             <Button size="large" type="text" danger icon={<BsTrash />}></Button>
           </Popconfirm>
@@ -76,4 +85,4 @@ function CategoryTable({ data, handleRemove }) {
   );
 }
 
-export default CategoryTable;
+export default CouponTable;

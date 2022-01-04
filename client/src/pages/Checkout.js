@@ -5,29 +5,38 @@ import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { Layout, Typography, Row, Col, Popconfirm, Button, Statistic, Form, Input, Select, Tag, Space, List, Card } from "antd";
 import { BsCheckLg, BsXLg } from "react-icons/bs";
-import { getUserCart, emptyUserCart, saveUserAddress } from "../functions/user";
+import { RiCouponLine } from "react-icons/ri";
+
+import { getUserCart, emptyUserCart, saveUserAddress, applyCoupon } from "../functions/user";
 import { areas } from "../common/constant";
 import { vietnameseSlug } from "../common/utils";
+import CheckoutSteps from "../components/nav/CheckoutSteps";
 
-function Checkout() {
+function Checkout({ history }) {
   const [form] = Form.useForm();
+  const [loading, setLoading] = React.useState(false);
   const [products, setProducts] = React.useState([]);
   const [total, setTotal] = React.useState(0);
   const [areaSaved, setAreaSaved] = React.useState(false);
   const [addressSaved, setAddressSaved] = React.useState(false);
 
+  const [totalAfterDiscount, setTotalAfterDiscount] = React.useState("");
+
   const dispatch = useDispatch();
   const { user } = useSelector((state) => ({ ...state }));
 
   React.useEffect(() => {
+    setLoading(true);
     getUserCart(user.token).then((res) => {
-      console.log("user cart res", JSON.stringify(res.data, null, 4));
+      // console.log("user cart res", JSON.stringify(res.data, null, 4));
       setProducts(res.data.products);
       setTotal(res.data.cartTotal);
+      setLoading(false);
     });
   }, []);
 
   const emptyCart = () => {
+    setLoading(true);
     // remove from local storage
     if (typeof window !== "undefined") {
       localStorage.removeItem("cart");
@@ -41,95 +50,178 @@ function Checkout() {
     emptyUserCart(user.token).then((res) => {
       setProducts([]);
       setTotal(0);
+      setLoading(false);
+      setTotalAfterDiscount(0);
       toast.success("Cart is empty. Continue shopping.");
     });
   };
 
   const saveAddressToDb = ({ area, address }) => {
     // console.log(area, address);
+    setLoading(true);
     saveUserAddress(user.token, area, address).then((res) => {
       if (res.data.ok) {
         setAreaSaved(true);
         setAddressSaved(true);
         toast.success("Address saved");
+        setLoading(false);
       }
     });
   };
 
+  const applyDiscountCoupon = ({ coupon }) => {
+    setLoading(true);
+    console.log("send coupon to backend", coupon);
+    applyCoupon(user.token, coupon).then((res) => {
+      console.log("RES ON COUPON APPLIED", res.data);
+      if (res.data) {
+        setTotalAfterDiscount(res.data);
+        // update redux coupon applied
+        dispatch({
+          type: "COUPON_APPLIED",
+          payload: true,
+        });
+
+        setLoading(false);
+        toast.success("Discount applied successfully!");
+      }
+      // error
+      if (res.data.err) {
+        toast.error(res.data.err);
+        // update redux coupon applied
+        dispatch({
+          type: "COUPON_APPLIED",
+          payload: false,
+        });
+      }
+    });
+  };
+
+  const renderAddressForm = () => (
+    <Card>
+      <Typography.Title level={3}>Delivery Address</Typography.Title>
+      <Form form={form} size="large" layout="vertical" requiredMark={false} onFinish={saveAddressToDb}>
+        <Form.Item name="area" label="Area" colon={false} rules={[{ required: true }]}>
+          <Select
+            showSearch
+            optionFilterProp="children"
+            filterOption={(input, option) => vietnameseSlug(option.children, " ").indexOf(vietnameseSlug(input, " ")) >= 0}
+            placeholder="Select your area ..."
+          >
+            {areas.map((item) => (
+              <Select.Option value={item}>{item}</Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item name="address" label="Detail Address" colon={false} rules={[{ required: true }]}>
+          <Input.TextArea showCount maxLength={300} placeholder="Enter your address ..." />
+        </Form.Item>
+        <Form.Item>
+          <Space size={24}>
+            <Button size="large" type="primary" htmlType="submit" loading={loading} style={{ width: 160 }}>
+              Save
+            </Button>
+            <Button size="large" type="text" htmlType="button" onClick={() => form.resetFields()}>
+              Reset
+            </Button>
+          </Space>
+        </Form.Item>
+      </Form>
+    </Card>
+  );
+
+  const renderCoupon = () => (
+    <Space direction="vertical" style={{ marginTop: 24 }}>
+      <Card style={{ backgroundColor: "rgba(245, 103, 102, 0.02)" }}>
+        <Form layout="vertical" size="large" onFinish={applyDiscountCoupon}>
+          <Typography.Title level={4}>Got Coupon?</Typography.Title>
+          <Form.Item name="coupon" style={{ margin: 0 }}>
+            <Input
+              placeholder="Enter coupon..."
+              style={{ padding: "5px 5px 5px 10px" }}
+              allowClear
+              prefix={<RiCouponLine size={24} />}
+              suffix={
+                <Button loading={loading} type="primary" htmlType="submit" disabled={!products.length}>
+                  Apply
+                </Button>
+              }
+            />
+          </Form.Item>
+        </Form>
+      </Card>
+    </Space>
+  );
+
+  const renderSummary = () => (
+    <Card>
+      <Typography.Title level={3}>Order Summary</Typography.Title>
+      <List
+        loading={loading}
+        itemLayout="vertical"
+        dataSource={products}
+        renderItem={(item) => (
+          <List.Item key={item._id}>
+            <Row justify="space-between">
+              <Typography.Text>
+                {item.product.name} <Tag color={item.color.toLowerCase() !== "white" && item.color.toLowerCase()}>{item.color}</Tag> x <b>{item.count}</b>
+              </Typography.Text>
+              <Typography.Text>
+                <b>${item.product.price * item.count}</b>
+              </Typography.Text>
+            </Row>
+          </List.Item>
+        )}
+        header={<div>Products</div>}
+        footer={
+          totalAfterDiscount > 0 ? (
+            <Statistic
+              title="Total"
+              prefix="$"
+              groupSeparator="."
+              valueStyle={{ color: "#07bc0c" }}
+              value={totalAfterDiscount}
+              suffix={
+                <Typography.Text delete type="danger" style={{ fontSize: 16 }}>
+                  {total}
+                </Typography.Text>
+              }
+            />
+          ) : (
+            <Statistic title="Total" prefix="$" groupSeparator="." value={total} />
+          )
+        }
+      />
+
+      <Space size={24}>
+        <Button
+          size="large"
+          type="primary"
+          loading={loading}
+          onClick={() => history.push("/payment")}
+          disabled={!areaSaved || !addressSaved || !products.length}
+          style={{ width: 160 }}
+        >
+          Place Order
+        </Button>
+        <Popconfirm title={<p>Sure to empty cart ?</p>} placement="topRight" okText={<BsCheckLg />} cancelText={<BsXLg />} onConfirm={() => emptyCart()}>
+          <Button size="large" type="text" disabled={!products.length}>
+            Empty Cart
+          </Button>
+        </Popconfirm>
+      </Space>
+    </Card>
+  );
+
   return (
     <Layout.Content>
-      <Row wrap={false} style={{ marginTop: 24 }} gutter={[24, 24]}>
+      <CheckoutSteps current={1} />
+      <Row wrap={false} gutter={[24, 24]}>
         <Col flex="auto">
-          <Card>
-            <Typography.Title level={3}>Delivery Address</Typography.Title>
-            <Form form={form} size="large" layout="vertical" requiredMark={false} onFinish={saveAddressToDb}>
-              <Form.Item name="area" label="Area" colon={false} rules={[{ required: true }]}>
-                <Select
-                  showSearch
-                  optionFilterProp="children"
-                  filterOption={(input, option) => vietnameseSlug(option.children, " ").indexOf(vietnameseSlug(input, " ")) >= 0}
-                  placeholder="Select your area ..."
-                >
-                  {areas.map((item) => (
-                    <Select.Option value={item}>{item}</Select.Option>
-                  ))}
-                </Select>
-              </Form.Item>
-              <Form.Item name="address" label="Detail Address" colon={false} rules={[{ required: true }]}>
-                <Input.TextArea showCount maxLength={300} placeholder="Enter your address ..." />
-              </Form.Item>
-              <Form.Item>
-                <Space>
-                  <Button size="large" type="primary" htmlType="submit">
-                    Save
-                  </Button>
-                  <Button size="large" type="text" htmlType="button" onClick={() => form.resetFields()}>
-                    Reset
-                  </Button>
-                </Space>
-              </Form.Item>
-            </Form>
-          </Card>
-          <Card>
-            <Typography.Title level={4}>Got Coupon?</Typography.Title>
-            <br />
-            coupon input and apply button
-          </Card>
+          {renderAddressForm()}
+          {renderCoupon()}
         </Col>
-        <Col flex="560px">
-          <Card>
-            <Typography.Title level={3}>Order Summary</Typography.Title>
-            <List
-              itemLayout="vertical"
-              dataSource={products}
-              renderItem={(item) => (
-                <List.Item key={item._id}>
-                  <Row justify="space-between">
-                    <Typography.Text>
-                      {item.product.name} <Tag color={item.color.toLowerCase() !== "white" && item.color.toLowerCase()}>{item.color}</Tag> x <b>{item.count}</b>
-                    </Typography.Text>
-                    <Typography.Text>
-                      <b>${item.product.price * item.count}</b>
-                    </Typography.Text>
-                  </Row>
-                </List.Item>
-              )}
-              header={<div>Products</div>}
-              footer={<Statistic title="Total" prefix="$" groupSeparator="." value={total} />}
-            />
-
-            <Space size={24}>
-              <Button size="large" type="primary" disabled={!areaSaved || !addressSaved || !products.length}>
-                Place Order
-              </Button>
-              <Popconfirm title={<p>Sure to empty cart ?</p>} placement="topRight" okText={<BsCheckLg />} cancelText={<BsXLg />} onConfirm={() => emptyCart()}>
-                <Button size="large" type="text" disabled={!products.length}>
-                  Empty Cart
-                </Button>
-              </Popconfirm>
-            </Space>
-          </Card>
-        </Col>
+        <Col flex="560px">{renderSummary()}</Col>
       </Row>
     </Layout.Content>
   );

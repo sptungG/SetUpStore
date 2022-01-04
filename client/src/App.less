@@ -42,19 +42,15 @@ img {
 .ant-layout-content {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 24px;
 }
-#form-container,
-#gallery {
-  margin-top: 24px;
-}
-.ant-layout-content .ant-card {
-  margin-top: 24px;
-}
-.ant-col-xxl-6 .ant-card {
-  margin-top: 0;
-}
+
 .ant-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ant-btn.ant-btn-lg {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,7 +107,7 @@ img {
 }
 
 .ant-card-small > .ant-card-body {
-  padding: 0 8px;
+  padding: inherit;
 }
 .ant-card-cover .ant-image-mask {
   border-radius: 8px;

@@ -8,7 +8,7 @@ import { userCart } from "../functions/user";
 import CartTable from "../components/table/CartTable";
 import CheckoutSteps from "../components/nav/CheckoutSteps";
 
-function Cart({ history }) {
+function Payment({ history }) {
   const [loading, setLoading] = React.useState(false);
   const { cart, user } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
@@ -74,7 +74,7 @@ function Cart({ history }) {
 
   return (
     <Layout.Content>
-      <CheckoutSteps current={0} />
+      <CheckoutSteps current={2} />
       <Row wrap={false} gutter={[24, 24]}>
         <Col flex="auto">
           {!cart.length ? (
@@ -102,4 +102,4 @@ function Cart({ history }) {
   );
 }
 
-export default Cart;
+export default Payment;

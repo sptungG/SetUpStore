@@ -17,6 +17,7 @@ import Wishlist from "./pages/user/Wishlist";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import CategoryPage from "./pages/admin/category/CategoryPage";
 import SubPage from "./pages/admin/sub/SubPage";
+import CouponPage from "./pages/admin/coupon/CouponPage";
 import ProductPage from "./pages/admin/product/ProductPage";
 import ProductCreate from "./pages/admin/product/ProductCreate";
 import ProductUpdate from "./pages/admin/product/ProductUpdate";
@@ -33,6 +34,7 @@ import SubHome from "./pages/sub/SubHome";
 import Store from "./pages/Store";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import Payment from "./pages/Payment";
 import { currentUser } from "./functions/auth";
 
 function App() {
@@ -88,12 +90,14 @@ function App() {
         <AdminRoute exact path="/admin/product" component={ProductCreate} />
         <AdminRoute exact path="/admin/products" component={ProductPage} />
         <AdminRoute exact path="/admin/product/:slug" component={ProductUpdate} />
+        <AdminRoute exact path="/admin/coupon" component={CouponPage} />
         <Route exact path="/product/:slug" component={Product} />
         <Route exact path="/category/:slug" component={CategoryHome} />
         <Route exact path="/sub/:slug" component={SubHome} />
         <Route exact path="/store" component={Store} />
         <Route exact path="/cart" component={Cart} />
         <UserRoute exact path="/checkout" component={Checkout} />
+        <UserRoute exact path="/payment" component={Payment} />
       </Switch>
     </BrowserRouter>
   );

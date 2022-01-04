@@ -27,8 +27,8 @@ function Gallery() {
           dataSource={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
           rowKey={(item) => item}
           renderItem={(item) => (
-            <List.Item key={item}>
-              <Card size="small" style={{ margin: 0 }}>
+            <List.Item key={item} style={{ margin: 0 }}>
+              <Card>
                 <Skeleton active></Skeleton>
               </Card>
             </List.Item>

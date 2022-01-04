@@ -38,7 +38,7 @@ function Search({ affixed }) {
           onChange={handleChange}
           onPressEnter={handleSubmit}
           suffix={
-            <Button type="primary" shape="round" size="large" onClick={handleSubmit}>
+            <Button type="primary" shape="round" size="large" onClick={handleSubmit} style={{ display: "flex" }}>
               <FaSearch size={18} />
             </Button>
           }

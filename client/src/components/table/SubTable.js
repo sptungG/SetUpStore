@@ -1,16 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import * as dayjs from "dayjs";
-import * as relativeTime from "dayjs/plugin/relativeTime";
-
 import { Table, Button, Typography, Space, Popconfirm } from "antd";
+import { formatFromNow, formatDate, sorterByDate } from "../../common/utils";
 
 import { BsTrash, BsThreeDots, BsCheckLg, BsXLg } from "react-icons/bs";
 import { BiEdit } from "react-icons/bi";
 
-function SubTable({ data, handleRemove }) {
-  dayjs.extend(relativeTime);
+function SubTable({ categories, data, handleRemove }) {
   const columns = [
     {
       title: "Name",
@@ -18,35 +15,32 @@ function SubTable({ data, handleRemove }) {
       key: "name",
       render: (text) => <Typography.Text>{text}</Typography.Text>,
       sorter: (a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0),
-      sortDirections: ["ascend"],
     },
-    // {
-    //   title: "Parent",
-    //   dataIndex: "parent",
-    //   key: "parent",
-    //   render: (text) => <Typography.Text>{text}</Typography.Text>,
-    //   sorter: (a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0),
-    //   sortDirections: ["ascend"],
-    //   filters: [...new Set(parents.map((item) => ({ text: item.name, value: item.name })))],
-    //   onFilter: (value, record) => record.parent.indexOf(value) === 0,
-    // },
+    {
+      title: "Parent",
+      dataIndex: "parent",
+      key: "parent",
+      width: 200,
+      render: (text) => <Typography.Text>{text.name}</Typography.Text>,
+      filters: [...categories.map((item) => ({ value: item._id, text: item.name }))],
+      onFilter: (value, record) => record.parent._id.includes(value),
+      sorter: (a, b) => (a.parent.name > b.parent.name ? 1 : b.parent.name > a.parent.name ? -1 : 0),
+    },
     {
       title: "Updated",
       dataIndex: "updatedAt",
       key: "updatedAt",
       width: 170,
-      render: (text) => <Typography.Text>{dayjs(text).fromNow()}</Typography.Text>,
-      sortDirections: ["ascend"],
-      sorter: (a, b) => dayjs(b.updatedAt) - dayjs(a.updatedAt),
+      render: (text) => <Typography.Text>{formatFromNow(text)}</Typography.Text>,
+      sorter: (a, b) => sorterByDate("updatedAt")(a, b),
     },
     {
       title: "Created",
       dataIndex: "createdAt",
       key: "createdAt",
       width: 170,
-      render: (text) => <Typography.Text>{dayjs(text).format("DD/MM/YYYY")}</Typography.Text>,
-      sortDirections: ["ascend"],
-      sorter: (a, b) => dayjs(a.createdAt) - dayjs(b.createdAt),
+      render: (text) => <Typography.Text>{formatDate(text)}</Typography.Text>,
+      sorter: (a, b) => sorterByDate("createdAt")(a, b),
     },
     {
       title: <BsThreeDots size={24} />,
@@ -85,7 +79,7 @@ function SubTable({ data, handleRemove }) {
           Total <b>{data.length}</b> items
         </p>
       )}
-      rowKey={record => record._id}
+      rowKey={(record) => record._id}
       dataSource={data}
       pagination={{ pageSize: 4 }}
     />

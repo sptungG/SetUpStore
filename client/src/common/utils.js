@@ -1,3 +1,16 @@
+import * as dayjs from "dayjs";
+import * as relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
+
+export const formatFromNow = (date) => dayjs(date).fromNow();
+
+export const formatDate = (date) => dayjs(date).format("DD/MM/YYYY");
+
+export const sorterByWords = (sorterKey) => (a, b) =>
+  vietnameseSlug(a[sorterKey]) > vietnameseSlug(b[sorterKey]) ? 1 : vietnameseSlug(b[sorterKey]) > vietnameseSlug(a[sorterKey]) ? -1 : 0;
+
+export const sorterByDate = (sorterKey) => (a, b) => dayjs(b[sorterKey]) - dayjs(a[sorterKey]);
+
 export function validateEmail(email) {
   const regexEmail =
     /^(([^<>()[\]\\.,;:\s@\\"]+(\.[^<>()[\]\\.,;:\s@\\"]+)*)|(\\".+\\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

@@ -9,7 +9,7 @@ import { BsTrash, BsThreeDots, BsCheckLg, BsXLg } from "react-icons/bs";
 import { BiEdit } from "react-icons/bi";
 import { colors } from "../../common/constant";
 
-function CartTable({ data }) {
+function CartTable({ loading, data }) {
   let dispatch = useDispatch();
 
   const handleQuantityChange = (value, p) => {
@@ -81,11 +81,7 @@ function CartTable({ data }) {
       title: "Image",
       dataIndex: "images",
       key: "images",
-      render: (text) => (
-        <>
-          <Image src={text[0].url} alt={text[0].public_id} key={text[0].public_id} />
-        </>
-      ),
+      render: (text) => <Image src={text[0].url} alt={text[0].public_id} key={text[0].public_id} />,
     },
     {
       title: "Name",
@@ -94,7 +90,6 @@ function CartTable({ data }) {
       width: 160,
       render: (text) => <Typography.Text>{text}</Typography.Text>,
       sorter: (a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0),
-      sortDirections: ["ascend"],
     },
     {
       title: "Brand",
@@ -109,7 +104,7 @@ function CartTable({ data }) {
       key: "price",
       width: 100,
       render: (text) => <Statistic value={text} groupSeparator="." prefix="$"></Statistic>,
-      sortDirections: ["ascend"],
+
       sorter: (a, b) => a.price - b.price,
     },
     {
@@ -118,7 +113,7 @@ function CartTable({ data }) {
       key: "count",
       width: 100,
       render: (text, record) => <InputNumber value={record.count} onChange={(value) => handleQuantityChange(value, record)} />,
-      sortDirections: ["ascend"],
+
       sorter: (a, b) => a.count - b.count,
     },
     {
@@ -174,6 +169,7 @@ function CartTable({ data }) {
 
   return (
     <Table
+      loading={loading}
       columns={columns}
       // title={() => ""}
       footer={() => ""}
