@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Drawer, Button, List, Avatar, Typography, Badge } from "antd";
+import { Drawer, Button, List, Avatar, Typography, Badge, Row } from "antd";
 
 function SideDrawer({ children }) {
   const dispatch = useDispatch();
@@ -20,31 +20,33 @@ function SideDrawer({ children }) {
           payload: false,
         });
       }}
+      footer={
+        <Row justify="center">
+          <Link to="/cart">
+            <Badge count={cart.length}>
+              <Button
+                block
+                type="primary"
+                size="large"
+                style={{ width: 240 }}
+                onClick={() =>
+                  dispatch({
+                    type: "SET_VISIBLE",
+                    payload: false,
+                  })
+                }
+              >
+                Go To Cart
+              </Button>
+            </Badge>
+          </Link>
+        </Row>
+      }
     >
       <List
         itemLayout="vertical"
         dataSource={cart}
         rowKey={(item) => item._id}
-        footer={
-          <Link to="/cart">
-          <Badge count={cart.length}>
-            <Button
-              block
-              type="primary"
-              size="large"
-              style={{width: 320}}
-              onClick={() =>
-                dispatch({
-                  type: "SET_VISIBLE",
-                  payload: false,
-                })
-              }
-            >
-              Go To Cart
-            </Button>
-          </Badge>
-          </Link>
-        }
         renderItem={(item) => (
           <List.Item key={item._id}>
             <List.Item.Meta
@@ -55,7 +57,7 @@ function SideDrawer({ children }) {
                   {item.desc}
                 </Typography.Text>
               }
-              style={{marginBottom: 0}}
+              style={{ marginBottom: 0 }}
             />
           </List.Item>
         )}

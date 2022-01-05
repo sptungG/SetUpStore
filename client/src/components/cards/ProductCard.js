@@ -2,10 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Card, Col, Image, Typography, Space, Button, Statistic, Rate, Divider, Tooltip } from "antd";
+import { Card, Col, Image, Typography, Space, Button, Statistic, Rate, Divider, Tooltip, Tag, Badge } from "antd";
 
 import { FiHeart } from "react-icons/fi";
 import { BsCartPlus, BsSearch } from "react-icons/bs";
+import { ImFire } from "react-icons/im";
 import _ from "lodash";
 
 function ProductCard({ product, size = "default" }) {
@@ -48,31 +49,44 @@ function ProductCard({ product, size = "default" }) {
     }
   };
 
+  const renderBadgeStatus = () => {
+    if (product.quantity < 1) return <Tag color="error">Out of stock</Tag>;
+    else if (product.sold / product.quantity > 0.5)
+      return (
+        <Tag icon={<ImFire />} color="success">
+          Trending
+        </Tag>
+      );
+  };
+
   const renderThumbnail = () => (
-    <Image
-      alt={slug}
-      height={180}
-      style={{ borderRadius: 8 }}
-      src={images && images.length ? images[0].url : "https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg"}
-      preview={{
-        visible: false,
-        mask: (
-          <Space size={16}>
-            <Link to={`/product/${slug}`}>
-              <Button type="primary" shape="circle" size="large" icon={<BsSearch />}></Button>
-            </Link>
-            <Tooltip title={tooltip}>
-              <Button type="primary" shape="circle" size="large" onClick={handleAddToCart} icon={<BsCartPlus />}></Button>
-            </Tooltip>
-            <Button type="primary" shape="circle" size="large" icon={<FiHeart />}></Button>
-          </Space>
-        ),
-      }}
-    />
+    <Badge offset={[-24, 0]} count={renderBadgeStatus()}>
+      <Image
+        alt={slug}
+        height={180}
+        width={"100%"}
+        style={{ borderRadius: 8 }}
+        src={images && images.length ? images[0].url : "https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg"}
+        preview={{
+          visible: false,
+          mask: (
+            <Space size={16}>
+              <Link to={`/product/${slug}`}>
+                <Button type="primary" shape="circle" size="large" icon={<BsSearch />}></Button>
+              </Link>
+              <Tooltip title={product.quantity < 1 ? "Out of Stock" : tooltip}>
+                <Button type="primary" shape="circle" size="large" onClick={handleAddToCart} disabled={product.quantity < 1} icon={<BsCartPlus />}></Button>
+              </Tooltip>
+              <Button type="primary" shape="circle" size="large" icon={<FiHeart />}></Button>
+            </Space>
+          ),
+        }}
+      />
+    </Badge>
   );
 
   const renderContent = () => (
-    <Space direction="vertical">
+    <Space direction="vertical" style={{ margin: "-16px" }}>
       {size === "default" ? (
         <>
           <Typography.Title level={3} style={{ maxWidth: 260, marginBottom: 0 }} ellipsis>
@@ -102,7 +116,7 @@ function ProductCard({ product, size = "default" }) {
   );
 
   return (
-    <Col sm={12} lg={8} xl={6} xxl={6}>
+    <Col sm={12} lg={8} xxl={6}>
       <Card style={{ padding: 16 }} hoverable bordered={false} size="small" cover={renderThumbnail()}>
         {renderContent()}
       </Card>

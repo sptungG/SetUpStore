@@ -65,9 +65,9 @@ const SingleProduct = ({ product }) => {
 
             <Row gutter={[24, 24]} wrap={false} justify="center" style={{ marginTop: 24 }}>
               <Col span={8}>
-                <Tooltip title={tooltip}>
-                  <Button type="primary" block size="large" onClick={handleAddToCart} icon={<BsCartPlus />}>
-                    Add to Cart
+                <Tooltip title={product.quantity < 1 ? "Out of Stock" : tooltip}>
+                  <Button type="primary" block size="large" disabled={product.quantity < 1} onClick={handleAddToCart} icon={<BsCartPlus />}>
+                    {product.quantity < 1 ? "Out of stock" : "Add to Cart"}
                   </Button>
                 </Tooltip>
               </Col>

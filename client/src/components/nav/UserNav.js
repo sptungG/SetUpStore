@@ -31,32 +31,38 @@ function UserNav() {
   const renderAdminNav = () => {
     return (
       <Menu mode="inline" selectedKeys={[pathname.split("/")[2]]}>
-        <Menu.Item icon={<RiDashboardLine />} key="dashboard">
-          <Link to="/admin/dashboard">Dashboard</Link>
-        </Menu.Item>
-        <Menu.Item icon={<BiStore />} key="products">
-          <Link to="/admin/products">Product</Link>
-        </Menu.Item>
-        <Menu.Item icon={<BiCategory />} key="category">
-          <Link to="/admin/category">Category</Link>
-        </Menu.Item>
-        <Menu.Item icon={<BiCategory />} key="sub">
-          <Link to="/admin/sub">Sub-category</Link>
-        </Menu.Item>
-        <Menu.Item icon={<RiCouponLine />} key="coupon">
-          <Link to="/admin/coupon">Coupon</Link>
-        </Menu.Item>
-        <Menu.Item icon={<RiSettings4Line />} key="setting">
-          <Link to="/user/setting">Setting</Link>
-        </Menu.Item>
+        <Menu.ItemGroup title="Admin">
+          <Menu.Item icon={<RiDashboardLine />} key="dashboard">
+            <Link to="/admin/dashboard">Dashboard</Link>
+          </Menu.Item>
+          <Menu.Item icon={<BiStore />} key="products">
+            <Link to="/admin/products">Product</Link>
+          </Menu.Item>
+          <Menu.Item icon={<BiCategory />} key="category">
+            <Link to="/admin/category">Category</Link>
+          </Menu.Item>
+          <Menu.Item icon={<BiCategory />} key="sub">
+            <Link to="/admin/sub">Sub-category</Link>
+          </Menu.Item>
+          <Menu.Item icon={<RiCouponLine />} key="coupon">
+            <Link to="/admin/coupon">Coupon</Link>
+          </Menu.Item>
+        </Menu.ItemGroup>
+        <Menu.ItemGroup title="User">
+          <Menu.Item icon={<FiHeart />} key="wishlist">
+            <Link to="/user/wishlist">Wishlist</Link>
+          </Menu.Item>
+          <Menu.Item icon={<RiHistoryFill />} key="history">
+            <Link to="/user/history">History</Link>
+          </Menu.Item>
+          <Menu.Item icon={<RiSettings4Line />} key="setting">
+            <Link to="/user/setting">Setting</Link>
+          </Menu.Item>
+        </Menu.ItemGroup>
       </Menu>
     );
   };
-  return (
-    <Card>
-      {user.role === "admin" ? renderAdminNav() : renderUserNav()}
-    </Card>
-  );
+  return <Card>{user.role === "admin" ? renderAdminNav() : renderUserNav()}</Card>;
 }
 
 export default UserNav;

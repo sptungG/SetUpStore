@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Card, Row, Col, Image, Typography, Space, Button, Statistic, Rate, Divider, Tag } from "antd";
+import { Card, Row, Col, Avatar, Typography, Space, Progress, Statistic, Rate, Divider, Tag } from "antd";
+import { ImFire } from "react-icons/im";
 function ProductListItems({ product }) {
   const { name, desc, price, category, subs, shipping, color, brand, quantity, sold } = product;
 
@@ -13,24 +14,25 @@ function ProductListItems({ product }) {
     );
   };
 
+  const renderStatus = () => {
+    if (quantity < 1) return <Tag color="error">Out of stock</Tag>;
+    else if (sold / quantity > 0.5)
+      return (
+        <Tag icon={<ImFire />} color="success">
+          Trending
+        </Tag>
+      );
+  };
+
   return (
     <Space size={14} direction="vertical">
       <Space>
         <Typography.Title level={2}>{name}</Typography.Title>
-        <Typography.Text type="secondary">{brand}</Typography.Text>
+        <Typography.Text type="secondary" ellipsis style={{ maxWidth: 240 }}>
+          {brand}
+        </Typography.Text>
       </Space>
       <Typography.Paragraph style={{ margin: 0 }}>{desc}</Typography.Paragraph>
-      <Space split={<Divider type="vertical" />} style={{ marginBottom: 16 }}>
-        <Space>
-          <Rate disabled allowHalf defaultValue={2.5} />
-          <Typography.Text>{0}</Typography.Text>
-        </Space>
-        <Space>
-          <Typography.Text>Sold</Typography.Text>
-          <Statistic groupSeparator="." valueStyle={{ fontSize: 20 }} value={sold} />
-        </Space>
-        <Statistic groupSeparator="." valueStyle={{ fontSize: 20 }} value={price} suffix="$" />
-      </Space>
 
       {renderDetail(<Typography.Text>Category</Typography.Text>, category && <Link to={`/category/${category.slug}`}>{category.name}</Link>)}
       {renderDetail(
@@ -51,7 +53,34 @@ function ProductListItems({ product }) {
       )}
       {renderDetail(<Typography.Text>Color</Typography.Text>, color && <Tag color={color.toLowerCase() !== "white" && color.toLowerCase()}>{color}</Tag>)}
       {renderDetail(<Typography.Text>Brand</Typography.Text>, <Typography.Text>{brand}</Typography.Text>)}
-      {renderDetail(<Typography.Text>Available</Typography.Text>, <Typography.Text>{quantity}</Typography.Text>)}
+      {renderDetail(
+        <Typography.Text>Sold</Typography.Text>,
+        <Progress
+          strokeColor={{
+            from: "#f56766",
+            to: "#faad14",
+          }}
+          percent={((sold / (quantity + sold)) * 100).toFixed(2)}
+          strokeWidth={12}
+          status="active"
+        />
+      )}
+      <Space split={<Divider type="vertical" />} size={24}>
+        <Space direction="vertical">
+          <Rate disabled allowHalf defaultValue={2.5} />
+          <Avatar.Group maxCount={5} maxStyle={{ color: "#f56a00", backgroundColor: "#fde3cf" }}>
+            <Avatar src="https://joeschmoe.io/api/v1/random" />
+            <Avatar style={{ backgroundColor: "#f56a00" }}>A</Avatar>
+            <Avatar style={{ backgroundColor: "#87d068" }}>B</Avatar>
+            <Avatar style={{ backgroundColor: "#1890ff" }}>C</Avatar>
+            <Avatar style={{ backgroundColor: "#f56a01" }}>D</Avatar>
+            <Avatar style={{ backgroundColor: "#f46a01" }}>E</Avatar>
+          </Avatar.Group>
+        </Space>
+        <Statistic title="Sold" groupSeparator="." value={sold} suffix={<Typography.Text style={{ fontSize: 16 }}> of {quantity + sold}</Typography.Text>} />
+        <Statistic title="Price" groupSeparator="." value={price} prefix="$" />
+        {/* {renderStatus()} */}
+      </Space>
     </Space>
   );
 }

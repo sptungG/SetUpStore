@@ -26,21 +26,16 @@ function Checkout({ history }) {
   const { user } = useSelector((state) => ({ ...state }));
 
   React.useEffect(() => {
-    setLoading(true);
     getUserCart(user.token).then((res) => {
-      // console.log("user cart res", JSON.stringify(res.data, null, 4));
       setProducts(res.data.products);
       setTotal(res.data.cartTotal);
-      setLoading(false);
     });
   }, []);
 
   const emptyCart = () => {
     setLoading(true);
     // remove from local storage
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("cart");
-    }
+    if (typeof window !== "undefined") localStorage.removeItem("cart");
     // remove from redux
     dispatch({
       type: "ADD_TO_CART",
@@ -71,9 +66,9 @@ function Checkout({ history }) {
 
   const applyDiscountCoupon = ({ coupon }) => {
     setLoading(true);
-    console.log("send coupon to backend", coupon);
+    // console.log("send coupon to backend", coupon);
     applyCoupon(user.token, coupon).then((res) => {
-      console.log("RES ON COUPON APPLIED", res.data);
+      // console.log("RES ON COUPON APPLIED", res.data);
       if (res.data) {
         setTotalAfterDiscount(res.data);
         // update redux coupon applied
@@ -109,7 +104,9 @@ function Checkout({ history }) {
             placeholder="Select your area ..."
           >
             {areas.map((item) => (
-              <Select.Option value={item}>{item}</Select.Option>
+              <Select.Option key={vietnameseSlug(item)} value={item}>
+                {item}
+              </Select.Option>
             ))}
           </Select>
         </Form.Item>
