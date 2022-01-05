@@ -13,7 +13,7 @@ import { userCart } from "../functions/user";
 import CheckoutSteps from "../components/nav/CheckoutSteps";
 
 // load stripe outside of components render to avoid recreating stripe object on every render
-const promise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
+const promise = loadStripe(process.env.REACT_APP_STRIPE_KEY || "pk_test_");
 
 function Payment({ history }) {
   const [loading, setLoading] = React.useState(false);

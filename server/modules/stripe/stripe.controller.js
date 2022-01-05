@@ -2,14 +2,11 @@ const User = require("../user/user");
 const Cart = require("../user/cart");
 const Product = require("../product/product");
 const Coupon = require("../coupon/coupon");
-const stripe = require("stripe")(process.env.STRIPE_SECRET);
+const stripe = require("stripe")(process.env.STRIPE_SECRET || "sk_test_");
 
 exports.createPaymentIntent = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { couponApplied } = req.body;
-
-  // later apply coupon
-  // later calculate price
 
   // 1 find user
   const user = await User.findOne({ email: req.user.email }).exec();
