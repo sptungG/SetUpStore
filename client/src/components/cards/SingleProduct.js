@@ -1,23 +1,27 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 
+import { toast } from "react-toastify";
 import { Card, Row, Col, Space, Button, Tooltip } from "antd";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import { FiHeart } from "react-icons/fi";
+import { FaHeart } from "react-icons/fa";
 import { BsCartPlus, BsStar } from "react-icons/bs";
 import ProductListItems from "./ProductListItems";
+import { addToWishlist } from "../../functions/user";
 
 const SingleProduct = ({ product }) => {
   const { images, slug } = product;
   const [tooltip, setTooltip] = React.useState("Click to add");
 
   // redux
-  const { user, cart } = useSelector((state) => ({ ...state }));
+  const { user } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
+  let history = useHistory();
 
   const handleAddToCart = () => {
     // create cart array
@@ -47,6 +51,15 @@ const SingleProduct = ({ product }) => {
     }
   };
 
+  const handleAddToWishlist = (e) => {
+    e.preventDefault();
+    addToWishlist(product._id, user.token).then((res) => {
+      // console.log("ADDED TO WISHLIST", res.data);
+      toast.success("Added to wishlist");
+      history.push("/user/wishlist");
+    });
+  };
+
   return (
     <Row gutter={[24, 0]} wrap={false} style={{ marginTop: 24 }}>
       <Col span={12}>
@@ -72,14 +85,32 @@ const SingleProduct = ({ product }) => {
                 </Tooltip>
               </Col>
               <Col span={8}>
-                <Button type="link" block size="large" icon={<FiHeart />}>
-                  Add to Wishlist
-                </Button>
+                {user ? (
+                  product.wishlist && product.wishlist.includes(user._id) ? (
+                    <Button type="link" block size="large" icon={<FaHeart />}>
+                      Added
+                    </Button>
+                  ) : (
+                    <Button type="link" block size="large" onClick={handleAddToWishlist} icon={<FiHeart />}>
+                      Add to Wishlist
+                    </Button>
+                  )
+                ) : (
+                  <Button type="link" block size="large" icon={<FiHeart />} onClick={() => toast.error("Login to add to Wishlist")}>
+                    Add to Wishlist
+                  </Button>
+                )}
               </Col>
               <Col span={8}>
-                <Button type="link" block size="large" icon={<BsStar />}>
-                  Rating
-                </Button>
+                {user ? (
+                  <Button type="link" block size="large" icon={<BsStar />}>
+                    Rating
+                  </Button>
+                ) : (
+                  <Button type="link" block size="large" icon={<BsStar />} onClick={() => toast.error("Login to Rating")}>
+                    Rating
+                  </Button>
+                )}
               </Col>
             </Row>
           </Card>

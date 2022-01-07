@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Form, Typography, Button, Input, InputNumber, Select, Radio } from "antd";
+import { Form, Typography, Button, Input, InputNumber, Select } from "antd";
 import UploadImage from "./UploadImage";
 import { colors } from "../../common/constant";
 
@@ -16,14 +16,13 @@ function ProductUpdateForm({
   setArrayOfSubs,
   selectedCategory,
 }) {
-  const { name, brand, desc, price, quantity, shipping, color, category, images } = values;
+  const { name, brand, desc, price, quantity, color, category, images } = values;
   form.setFieldsValue({
     name,
     brand,
     desc,
     price,
     quantity,
-    shipping,
     color,
     category: selectedCategory ? selectedCategory : category._id,
     subs: arrayOfSubs,
@@ -50,12 +49,6 @@ function ProductUpdateForm({
       </Form.Item>
       <Form.Item name="quantity" label="Quantity" rules={[{ required: true }]}>
         <InputNumber placeholder="Enter quantity..." style={{ width: "50%" }} />
-      </Form.Item>
-      <Form.Item name="shipping" label="Shipping" rules={[{ required: true }]} style={{ flexDirection: "row", columnGap: 20 }}>
-        <Radio.Group>
-          <Radio value="Yes">Yes</Radio>
-          <Radio value="No">No</Radio>
-        </Radio.Group>
       </Form.Item>
       <Form.Item name="color" label="Color" rules={[{ required: true }]}>
         <Select placeholder="Please select color...">

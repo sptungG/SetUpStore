@@ -1,20 +1,25 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
+import { toast } from "react-toastify";
 import { Card, Col, Image, Typography, Space, Button, Statistic, Rate, Divider, Tooltip, Tag, Badge } from "antd";
-
 import { FiHeart } from "react-icons/fi";
 import { BsCartPlus, BsSearch } from "react-icons/bs";
 import { ImFire } from "react-icons/im";
+import { FaHeart } from "react-icons/fa";
+import { AiFillStar } from "react-icons/ai";
+
 import _ from "lodash";
+import { addToWishlist } from "../../functions/user";
 
 function ProductCard({ product, size = "default" }) {
   const { name, desc, images, slug, price } = product;
   const [tooltip, setTooltip] = React.useState("Click to add");
 
-  const { user, cart } = useSelector((state) => ({ ...state }));
+  const { user } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
+  let history = useHistory();
 
   const handleAddToCart = () => {
     // create cart array
@@ -49,9 +54,18 @@ function ProductCard({ product, size = "default" }) {
     }
   };
 
+  const handleAddToWishlist = (e) => {
+    e.preventDefault();
+    addToWishlist(product._id, user.token).then((res) => {
+      // console.log("ADDED TO WISHLIST", res.data);
+      toast.success("Added to wishlist");
+      history.push("/user/wishlist");
+    });
+  };
+
   const renderBadgeStatus = () => {
     if (product.quantity < 1) return <Tag color="error">Out of stock</Tag>;
-    else if (product.sold / product.quantity > 0.5)
+    else if (product.sold / (product.quantity + product.sold) > 0.5)
       return (
         <Tag icon={<ImFire />} color="success">
           Trending
@@ -77,7 +91,17 @@ function ProductCard({ product, size = "default" }) {
               <Tooltip title={product.quantity < 1 ? "Out of Stock" : tooltip}>
                 <Button type="primary" shape="circle" size="large" onClick={handleAddToCart} disabled={product.quantity < 1} icon={<BsCartPlus />}></Button>
               </Tooltip>
-              <Button type="primary" shape="circle" size="large" icon={<FiHeart />}></Button>
+              {user ? (
+                <Tooltip title={product.wishlist && product.wishlist.includes(user._id) ? "Added" : "Click to add"}>
+                  {product.wishlist && product.wishlist.includes(user._id) ? (
+                    <Button type="primary" shape="circle" size="large" icon={<FaHeart />}></Button>
+                  ) : (
+                    <Button type="primary" shape="circle" size="large" onClick={handleAddToWishlist} icon={<FiHeart />}></Button>
+                  )}
+                </Tooltip>
+              ) : (
+                <Button type="primary" shape="circle" size="large" icon={<FiHeart />} onClick={() => toast.error("Login to add to Wishlist")}></Button>
+              )}
             </Space>
           ),
         }}
@@ -95,6 +119,15 @@ function ProductCard({ product, size = "default" }) {
           <Typography.Text ellipsis style={{ maxWidth: 280 }}>
             {desc}
           </Typography.Text>
+          <Space split={<Divider type="vertical" />}>
+            <Rate disabled allowHalf defaultValue={2.5} />
+            <Space>
+              <Statistic groupSeparator="." valueStyle={{ fontSize: 20 }} value={price} suffix="$" />
+              <Tag color="volcano" icon={<FaHeart />} style={{ padding: "4px 8px", border: 0, display: "flex", alignItems: "center", gap: 4 }}>
+                {product.wishlist.length > 0 ? product.wishlist.length : "_"}
+              </Tag>
+            </Space>
+          </Space>
         </>
       ) : (
         <>
@@ -104,14 +137,20 @@ function ProductCard({ product, size = "default" }) {
           <Typography.Text ellipsis style={{ maxWidth: 240 }}>
             {desc}
           </Typography.Text>
+          <Space split={<Divider type="vertical" />}>
+            <Space>
+              <Tag color="gold" icon={<AiFillStar size={16} />} style={{ padding: "4px 8px", border: 0, display: "flex", alignItems: "center", gap: 4 }}>
+                {2.5}
+              </Tag>
+              <Tag color="volcano" icon={<FaHeart />} style={{ padding: "4px 8px", border: 0, display: "flex", alignItems: "center", gap: 4 }}>
+                {product.wishlist.length > 0 ? product.wishlist.length : "_"}
+              </Tag>
+            </Space>
+            <Statistic groupSeparator="." valueStyle={{ fontSize: 20 }} value={price} suffix="$" />
+          </Space>
         </>
       )}
-
       {/* <Statistic value={price} suffix={<Typography.Text underline>đ</Typography.Text>}/> */}
-      <Space split={<Divider type="vertical" />}>
-        <Rate disabled allowHalf defaultValue={2.5} />
-        <Statistic groupSeparator="." valueStyle={{ fontSize: 20 }} value={price} suffix="$" />
-      </Space>
     </Space>
   );
 

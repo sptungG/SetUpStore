@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Row, Col, Tag, Avatar, Space, Skeleton, Button } from "antd";
+import { Row, Avatar, Space, Button } from "antd";
 import { getSubs } from "../../functions/sub";
 
 function SubList({ type = "image" }) {
@@ -22,7 +22,7 @@ function SubList({ type = "image" }) {
         <Link to={`/sub/${s.slug}`}>
           <Avatar size={64} shape="square" src={`https://source.unsplash.com/random?setup,${s.slug}`} />
         </Link>
-        <div key={s._id} style={{ textAlign: "center", fontWeight: "bold" }}>
+        <div style={{ textAlign: "center", fontWeight: "bold" }}>
           <Link to={`/sub/${s.slug}`}>{s.name}</Link>
         </div>
       </Space>

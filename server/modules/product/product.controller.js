@@ -159,11 +159,6 @@ const handleSub = async (req, res, sub) => {
   res.json(products);
 };
 
-const handleShipping = async (req, res, shipping) => {
-  const products = await Product.find({ shipping }).populate("category", "_id name").populate("subs", "_id name").exec();
-  res.json(products);
-};
-
 const handleColor = async (req, res, color) => {
   const products = await Product.find({ color }).populate("category", "_id name").populate("subs", "_id name").exec();
   res.json(products);
@@ -175,7 +170,7 @@ const handleBrand = async (req, res, brand) => {
 };
 
 exports.searchFilters = async (req, res) => {
-  const { query, price, category, sub, shipping, color, brand } = req.body;
+  const { query, price, category, sub, color, brand } = req.body;
 
   if (query) {
     console.log("query --->", query);
@@ -195,11 +190,6 @@ exports.searchFilters = async (req, res) => {
   if (sub) {
     console.log("sub ---> ", sub);
     await handleSub(req, res, sub);
-  }
-
-  if (shipping) {
-    console.log("shipping ---> ", shipping);
-    await handleShipping(req, res, shipping);
   }
 
   if (color) {

@@ -4,7 +4,9 @@ dayjs.extend(relativeTime);
 
 export const formatFromNow = (date) => dayjs(date).fromNow();
 
-export const formatDate = (date) => dayjs(date).format("DD/MM/YYYY");
+export const formatDate = (date, format = "DD/MM/YYYY") => dayjs(date).format(format);
+
+export const isSameTime = (date1, date2) => dayjs(date1).isSame(dayjs(date2));
 
 export const sorterByWords = (sorterKey) => (a, b) =>
   vietnameseSlug(a[sorterKey]) > vietnameseSlug(b[sorterKey]) ? 1 : vietnameseSlug(b[sorterKey]) > vietnameseSlug(a[sorterKey]) ? -1 : 0;
@@ -16,6 +18,13 @@ export function validateEmail(email) {
     /^(([^<>()[\]\\.,;:\s@\\"]+(\.[^<>()[\]\\.,;:\s@\\"]+)*)|(\\".+\\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return regexEmail.test(String(email).toLowerCase());
 }
+
+export const setColor = (status = "") => {
+  // ["Not Processed", "Processing", "Dispatched", "Cancelled", "Completed"]
+  if (status === "Cancelled") return "danger";
+  if (status === "Processing" || status === "Dispatched") return "warning";
+  if (status === "Completed") return "success";
+};
 
 export function vietnameseSlug(str, separator = "-") {
   if (str) {
@@ -37,6 +46,7 @@ export function vietnameseSlug(str, separator = "-") {
     str = str.replace(/ + /g, "");
     // Remove punctuations
     // Bỏ dấu câu, kí tự đặc biệt
+    // eslint-disable-next-line no-useless-escape
     str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g, "");
     str = str.replace(/ +/g, "-");
     if (separator) {

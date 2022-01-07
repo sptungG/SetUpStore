@@ -1,14 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { toast } from "react-toastify";
-import { Form, Layout, Input, Button, Typography, Row, Col, Space, Card, Empty } from "antd";
+import { Layout, Row, Col, Card, Empty } from "antd";
 
 import { getUserOrders } from "../../functions/user";
-import Loader from "../../components/loader/Loader";
 import Profile from "../../components/profile/Profile";
 import UserNav from "../../components/nav/UserNav";
+import OrdersList from "../../components/list/OrdersList";
 
 function History() {
   const [loading, setLoading] = React.useState(false);
@@ -22,7 +21,7 @@ function History() {
   const loadUserOrders = () => {
     setLoading(true);
     getUserOrders(user.token).then((res) => {
-      console.log(JSON.stringify(res.data, null, 4));
+      // console.log(JSON.stringify(res.data, null, 4));
       setOrders(res.data);
       setLoading(false);
     });
@@ -30,8 +29,7 @@ function History() {
 
   return (
     <Layout.Content>
-      {loading ? <Loader /> : ""}
-      <Row gutter={[24, 24]}>
+      <Row gutter={[24, 24]} wrap={false}>
         <Col flex="none">
           <Profile />
           <UserNav />
@@ -40,7 +38,7 @@ function History() {
           <Card>
             <h1 className="text-demo">User History page</h1>
             {orders.length > 0 ? (
-              "User purchase orders"
+              <OrdersList loading={loading} orders={orders} />
             ) : (
               <Card>
                 <Empty

@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { toast } from "react-toastify";
@@ -95,7 +94,14 @@ function Checkout({ history }) {
   const renderAddressForm = () => (
     <Card>
       <Typography.Title level={3}>Delivery Address</Typography.Title>
-      <Form form={form} size="large" layout="vertical" requiredMark={false} onFinish={saveAddressToDb}>
+      <Form
+        form={form}
+        size="large"
+        layout="vertical"
+        requiredMark={false}
+        onFinish={saveAddressToDb}
+        initialValues={{ area: user.area, address: user.address }}
+      >
         <Form.Item name="area" label="Area" colon={false} rules={[{ required: true }]}>
           <Select
             showSearch

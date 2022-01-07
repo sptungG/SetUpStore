@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Card, Row, Col, Avatar, Typography, Space, Progress, Statistic, Rate, Divider, Tag } from "antd";
-import { ImFire } from "react-icons/im";
+import { Row, Col, Avatar, Typography, Space, Progress, Statistic, Rate, Divider, Tag } from "antd";
 function ProductListItems({ product }) {
   const { name, desc, price, category, subs, shipping, color, brand, quantity, sold } = product;
 
@@ -12,16 +11,6 @@ function ProductListItems({ product }) {
         <Col span={12}>{col2}</Col>
       </Row>
     );
-  };
-
-  const renderStatus = () => {
-    if (quantity < 1) return <Tag color="error">Out of stock</Tag>;
-    else if (sold / quantity > 0.5)
-      return (
-        <Tag icon={<ImFire />} color="success">
-          Trending
-        </Tag>
-      );
   };
 
   return (

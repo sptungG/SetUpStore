@@ -51,6 +51,8 @@ function RegisterComplete({ history }) {
                 name: res.data.name,
                 email: res.data.email,
                 picture: res.data.picture,
+                area: res.data.area,
+                address: res.data.address,
                 role: res.data.role,
                 token: idTokenResult.token,
               },

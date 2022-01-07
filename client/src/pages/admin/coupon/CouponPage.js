@@ -1,18 +1,17 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { toast } from "react-toastify";
-import { Form, Layout, Row, Col, Card, Typography, Space, Tooltip, Button, Input, InputNumber } from "antd";
+import { Form, Layout, Row, Col, Card, Typography, Space, Button, Input, InputNumber } from "antd";
 import DatePicker from "../../../components/form/DatePicker";
 import * as dayjs from "dayjs";
 
-import { BsTrash, BsThreeDots, BsCheckLg, BsXLg, BsArrowReturnRight } from "react-icons/bs";
+import { BsArrowReturnRight } from "react-icons/bs";
 
 import { getCoupons, removeCoupon, createCoupon } from "../../../functions/coupon";
 import Loader from "../../../components/loader/Loader";
 import Profile from "../../../components/profile/Profile";
 import UserNav from "../../../components/nav/UserNav";
-import LocalSearch from "../../../components/form/LocalSearch";
 import CouponTable from "../../../components/table/CouponTable";
 
 function CouponPage() {

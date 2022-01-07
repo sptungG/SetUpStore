@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Layout, Typography, Row, Divider, Card, Result, Empty } from "antd";
+import { Layout, Typography, Row, Divider, Empty } from "antd";
 import { getProduct, getRelated } from "../functions/product";
 
 import Loader from "../components/loader/Loader";
@@ -41,13 +41,7 @@ function Product({ match }) {
           <Divider orientation="left">
             <Typography.Link>Related Products</Typography.Link>
           </Divider>
-          <Row gutter={[16, 16]}>
-            {related.length ? (
-              related.map((r) => <ProductCard key={r._id} product={r} />)
-            ) : (
-              <Empty />
-            )}
-          </Row>
+          <Row gutter={[16, 16]}>{related.length ? related.map((r) => <ProductCard key={r._id} product={r} />) : <Empty />}</Row>
         </>
       )}
     </Layout.Content>

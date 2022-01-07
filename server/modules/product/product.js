@@ -46,7 +46,7 @@ const ProductSchema = new mongoose.Schema(
     },
     shipping: {
       type: String,
-      enum: ["Yes", "No"],
+      default: "Yes",
     },
     color: {
       type: String,
@@ -55,6 +55,12 @@ const ProductSchema = new mongoose.Schema(
     brand: {
       type: String,
     },
+    wishlist: [
+      {
+        type: ObjectId,
+        ref: "User",
+      },
+    ],
     // ratings: [
     //   {
     //     star: Number,

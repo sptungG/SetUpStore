@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Tag, Avatar, Space, Button } from "antd";
+import { Row, Avatar, Space } from "antd";
 import { Link } from "react-router-dom";
 import { getCategories } from "../../functions/category";
 
@@ -21,7 +21,7 @@ function CategoryList() {
         <Link to={`/category/${c.slug}`}>
           <Avatar size={64} shape="square" src={`https://source.unsplash.com/random?setup,${c.slug}`} />
         </Link>
-        <div key={c._id} style={{ textAlign: "center", fontWeight: "bold" }}>
+        <div style={{ textAlign: "center", fontWeight: "bold" }}>
           <Link to={`/category/${c.slug}`}>{c.name}</Link>
         </div>
       </Space>

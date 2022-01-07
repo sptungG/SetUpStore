@@ -137,7 +137,34 @@ exports.createOrder = async (req, res) => {
 exports.orders = async (req, res) => {
   let user = await User.findOne({ email: req.user.email }).exec();
 
-  let userOrders = await Order.find({ orderedBy: user._id }).populate("products.product").exec();
+  let userOrders = await Order.find({ orderedBy: user._id })
+    .populate("products.product")
+    .sort([["createdAt", "desc"]])
+    .exec();
 
   res.json(userOrders);
+};
+
+// addToWishlist wishlist removeFromWishlist
+exports.addToWishlist = async (req, res) => {
+  const { productId } = req.body;
+
+  const user = await User.findOneAndUpdate({ email: req.user.email }, { $addToSet: { wishlist: productId } }).exec();
+  const product = await Product.findOneAndUpdate({ _id: productId }, { $addToSet: { wishlist: user._id } }).exec();
+
+  res.json({ ok: true });
+};
+
+exports.wishlist = async (req, res) => {
+  const list = await User.findOne({ email: req.user.email }).select("wishlist").populate("wishlist").exec();
+
+  res.json(list);
+};
+
+exports.removeFromWishlist = async (req, res) => {
+  const { productId } = req.params;
+  const user = await User.findOneAndUpdate({ email: req.user.email }, { $pull: { wishlist: productId } }).exec();
+  const product = await Product.findOneAndUpdate({ _id: productId }, { $pull: { wishlist: user._id } }).exec();
+
+  res.json({ ok: true });
 };

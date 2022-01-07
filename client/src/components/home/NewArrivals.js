@@ -12,6 +12,10 @@ function NewArrivals() {
   const [productsCount, setProductsCount] = React.useState(0);
   const [currentPage, setCurrentPage] = React.useState(1);
 
+  React.useEffect(() => {
+    loadAllProducts();
+  }, [currentPage]);
+
   const loadAllProducts = () => {
     setLoading(true);
     // sort, order, page
@@ -20,10 +24,6 @@ function NewArrivals() {
       setLoading(false);
     });
   };
-  
-  React.useEffect(() => {
-    loadAllProducts();
-  }, [currentPage]);
 
   React.useEffect(() => {
     getProductsCount().then((res) => setProductsCount(res.data));
@@ -42,7 +42,7 @@ function NewArrivals() {
       ) : (
         <Row gutter={[16, 16]}>
           {products.map((product) => (
-            <ProductCard key={product._id} product={product} />
+            <ProductCard key={product.slug} product={product} />
           ))}
         </Row>
       )}

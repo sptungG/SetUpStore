@@ -54,7 +54,7 @@ function Login({ history }) {
 
       createOrUpdateUser(idTokenResult.token)
         .then((res) => {
-          // console.log("CREATE OR UPDATE RES", res);
+          // console.log("CREATE OR UPDATE RES", res.data);
           dispatch({
             type: "LOGGED_IN_USER",
             payload: {
@@ -62,6 +62,8 @@ function Login({ history }) {
               name: res.data.name,
               email: res.data.email,
               picture: res.data.picture,
+              area: res.data.area,
+              address: res.data.address,
               role: res.data.role,
               token: idTokenResult.token,
             },
@@ -96,6 +98,8 @@ function Login({ history }) {
                 name: res.data.name,
                 email: res.data.email,
                 picture: res.data.picture,
+                area: res.data.area,
+                address: res.data.address,
                 role: res.data.role,
                 token: idTokenResult.token,
               },

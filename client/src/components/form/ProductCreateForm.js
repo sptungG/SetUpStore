@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Form, Typography, Button, Input, InputNumber, Select, Radio } from "antd";
+import { Form, Typography, Button, Input, InputNumber, Select } from "antd";
 import UploadImage from "./UploadImage";
 import { colors } from "../../common/constant";
 
@@ -24,12 +24,6 @@ function ProductCreateForm({ form, onFinish, categories, handleCategoryChange, s
       </Form.Item>
       <Form.Item name="quantity" label="Quantity" rules={[{ required: true }]}>
         <InputNumber placeholder="Enter quantity..." style={{ width: "50%" }} />
-      </Form.Item>
-      <Form.Item name="shipping" label="Shipping" rules={[{ required: true }]} style={{ flexDirection: "row", columnGap: 20 }}>
-        <Radio.Group>
-          <Radio value="Yes">Yes</Radio>
-          <Radio value="No">No</Radio>
-        </Radio.Group>
       </Form.Item>
       <Form.Item name="color" label="Color" rules={[{ required: true }]}>
         <Select placeholder="Please select color...">

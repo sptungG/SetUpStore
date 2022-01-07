@@ -1,8 +1,7 @@
 import React from "react";
 
-import { Layout, Typography, Row, Divider, Card } from "antd";
+import { Layout, Typography, Row, Divider } from "antd";
 
-import Loader from "../components/loader/Loader";
 import TypeWriter from "../components/effect/TypeWriter";
 import Footer from "../components/nav/Footer";
 import NewArrivals from "../components/home/NewArrivals";

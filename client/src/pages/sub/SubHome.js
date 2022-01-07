@@ -41,7 +41,7 @@ function SubHome({ match }) {
       ) : (
         <Row gutter={[16, 16]}>
           {products.map((p) => (
-            <ProductCard key={p._id} product={p} />
+            <ProductCard product={p} />
           ))}
         </Row>
       )}

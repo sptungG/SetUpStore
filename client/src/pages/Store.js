@@ -9,10 +9,10 @@ import { getProductsByLimit, fetchProductsByFilter } from "../functions/product"
 import ProductCard from "../components/cards/ProductCard";
 import LoadingCard from "../components/cards/LoadingCard";
 import Star from "../components/form/Star";
+import { colors } from "../common/constant";
 
 import { AiOutlineDollar, AiOutlineBgColors, AiFillStar } from "react-icons/ai";
 import { BiCategory } from "react-icons/bi";
-import { FaShippingFast } from "react-icons/fa";
 
 function Store() {
   const [products, setProducts] = React.useState([]);
@@ -22,13 +22,6 @@ function Store() {
   const [categories, setCategories] = React.useState([]);
   const [categoryIds, setCategoryIds] = React.useState([]);
   const [subs, setSubs] = React.useState([]);
-  const [sub, setSub] = React.useState("");
-  const [star, setStar] = React.useState("");
-  const [brands, setBrands] = React.useState([]);
-  const [brand, setBrand] = React.useState("");
-  const [colors, setColors] = React.useState(["Black", "Brown", "Silver", "White", "Blue"]);
-  const [color, setColor] = React.useState("");
-  const [shipping, setShipping] = React.useState("");
 
   let dispatch = useDispatch();
   let { search } = useSelector((state) => ({ ...state }));
@@ -55,13 +48,8 @@ function Store() {
     });
   };
   const resetStates = () => {
-    setPrice("");
+    setPrice([0, 0]);
     setCategoryIds([]);
-    setStar("");
-    setSub("");
-    setBrand("");
-    setColor("");
-    setShipping("");
   };
   // load products on user search input
   React.useEffect(() => {
@@ -161,7 +149,6 @@ function Store() {
     });
     resetStates();
 
-    setSub(sub);
     fetchProducts({ sub });
   };
   // show products based on color
@@ -179,35 +166,13 @@ function Store() {
     });
     resetStates();
 
-    setColor(color);
     fetchProducts({ color });
   };
 
   // show products based on shipping yes/no
-  const showShipping = () => (
-    <>
-      <Checkbox onChange={handleShippingChange} value="Yes" checked={shipping === "Yes"}>
-        Yes
-      </Checkbox>
-      <Checkbox onChange={handleShippingChange} value="No" checked={shipping === "No"}>
-        No
-      </Checkbox>
-    </>
-  );
-
-  const handleShippingChange = (e) => {
-    dispatch({
-      type: "SEARCH_QUERY",
-      payload: { text: "" },
-    });
-    resetStates();
-
-    setShipping(e.target.value);
-    fetchProducts({ shipping: e.target.value });
-  };
 
   const renderMenu = () => (
-    <Menu defaultOpenKeys={["1", "2", "3", "4", "5", "6"]} mode="inline" theme="light" style={{ paddingRight: 8, margin: "32px 0" }}>
+    <Menu defaultOpenKeys={["1", "2", "3", "4", "5"]} mode="inline" theme="light" style={{ paddingRight: 8, margin: "32px 0" }}>
       <Menu.SubMenu key="1" icon={<AiOutlineDollar />} title={<span>Price</span>}>
         <div style={{ margin: "24px 8px" }}>
           <Slider tipFormatter={(v) => `$${v}`} range max="1999" value={price} onChange={handleSlider} />
@@ -224,9 +189,6 @@ function Store() {
       </Menu.SubMenu>
       <Menu.SubMenu key="5" icon={<AiOutlineBgColors />} title={<span>Colors</span>}>
         <div style={{ margin: "16px 24px" }}>{showColors()}</div>
-      </Menu.SubMenu>
-      <Menu.SubMenu key="6" icon={<FaShippingFast />} title={<span>Shipping</span>}>
-        <div style={{ margin: "16px 24px" }}>{showShipping()}</div>
       </Menu.SubMenu>
     </Menu>
   );

@@ -1,12 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { toast } from "react-toastify";
 import { Table, Button, Typography, Space, Popconfirm, Tag, Image, InputNumber, Select, Statistic } from "antd";
 
 import { BsTrash, BsThreeDots, BsCheckLg, BsXLg } from "react-icons/bs";
-import { BiEdit } from "react-icons/bi";
 import { colors } from "../../common/constant";
 
 function CartTable({ loading, data }) {

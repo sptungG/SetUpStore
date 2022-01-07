@@ -16,10 +16,6 @@ function BestSellers() {
     loadAllProducts();
   }, [currentPage]);
 
-  React.useEffect(() => {
-    getProductsCount().then((res) => setProductsCount(res.data));
-  }, []);
-
   const loadAllProducts = () => {
     setLoading(true);
     // sort, order, limit
@@ -28,6 +24,11 @@ function BestSellers() {
       setLoading(false);
     });
   };
+
+  React.useEffect(() => {
+    getProductsCount().then((res) => setProductsCount(res.data));
+  }, []);
+
   return (
     <>
       <Row justify="space-between" align="bottom" style={{ margin: "16px 0" }}>

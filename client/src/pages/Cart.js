@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { Layout, Typography, Row, Col, Empty, Button, Statistic, Space, List, Card } from "antd";
+import { Layout, Typography, Row, Col, Empty, Button, Statistic, List, Card } from "antd";
 
 import { userCart } from "../functions/user";
 import CartTable from "../components/table/CartTable";
@@ -11,7 +11,6 @@ import CheckoutSteps from "../components/nav/CheckoutSteps";
 function Cart({ history }) {
   const [loading, setLoading] = React.useState(false);
   const { cart, user } = useSelector((state) => ({ ...state }));
-  const dispatch = useDispatch();
 
   const getTotal = () => {
     return cart.reduce((currentValue, nextValue) => {

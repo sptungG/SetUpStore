@@ -5,7 +5,18 @@ const router = express.Router();
 // middlewares
 const { authCheck, adminCheck } = require("../auth/auth.validation");
 // controllers
-const { userCart, getUserCart, emptyCart, saveAddress, applyCouponToUserCart, createOrder, orders } = require("./user.controller");
+const {
+  userCart,
+  getUserCart,
+  emptyCart,
+  saveAddress,
+  applyCouponToUserCart,
+  createOrder,
+  orders,
+  addToWishlist,
+  wishlist,
+  removeFromWishlist,
+} = require("./user.controller");
 
 router.post("/user/cart", authCheck, userCart); // save cart
 router.get("/user/cart", authCheck, getUserCart); // get cart
@@ -14,4 +25,10 @@ router.post("/user/address", authCheck, saveAddress);
 router.post("/user/cart/coupon", authCheck, applyCouponToUserCart);
 router.post("/user/order", authCheck, createOrder);
 router.get("/user/orders", authCheck, orders);
+
+// wishlist
+router.post("/user/wishlist", authCheck, addToWishlist);
+router.get("/user/wishlist", authCheck, wishlist);
+router.put("/user/wishlist/:productId", authCheck, removeFromWishlist);
+
 module.exports = router;

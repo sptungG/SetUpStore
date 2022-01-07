@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Card, Col, Popconfirm, Typography, Image, Space, Button, Divider, Row } from "antd";
+import { Card, Col, Popconfirm, Typography, Image, Space, Button, Row } from "antd";
 
 import { BsCheckLg, BsXLg, BsSearch } from "react-icons/bs";
 import { BiEdit, BiTrash } from "react-icons/bi";
 
 function AdminProductCard({ product, handleRemove }) {
   // const [visible, setVisible] = React.useState(false);
-  const { name, desc, images, slug } = product;
+  const { _id, name, desc, images, slug } = product;
 
   const renderThumbnail = () => (
     <>
@@ -28,13 +28,6 @@ function AdminProductCard({ product, handleRemove }) {
           ),
         }}
       />
-      {/* <div style={{ display: "none" }}>
-        <Image.PreviewGroup preview={{ visible, onVisibleChange: (vis) => setVisible(vis) }}>
-          {images.map((e) => (
-            <Image src={e.url} />
-          ))}
-        </Image.PreviewGroup>
-      </div> */}
     </>
   );
 
@@ -46,7 +39,6 @@ function AdminProductCard({ product, handleRemove }) {
       <Typography.Paragraph ellipsis={{ rows: 2 }} style={{ maxWidth: 240, marginBottom: 0 }}>
         {desc}
       </Typography.Paragraph>
-      {/* <Statistic value={price} suffix={<Typography.Text underline>đ</Typography.Text>}/> */}
       <Row justify="space-between">
         <Link to={`/admin/product/${slug}`}>
           <Button icon={<BiEdit />} style={{ width: 80 }} type="primary"></Button>
@@ -69,7 +61,7 @@ function AdminProductCard({ product, handleRemove }) {
   );
 
   return (
-    <Col sm={12} lg={8} xl={6} xxl={6}>
+    <Col sm={12} lg={8} xl={6} xxl={6} key={_id}>
       <Card bordered={false} size="small" cover={renderThumbnail()}>
         {renderContent()}
       </Card>

@@ -1,17 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
-import * as dayjs from "dayjs";
-import * as relativeTime from "dayjs/plugin/relativeTime";
 
 import { Table, Button, Typography, Space, Popconfirm } from "antd";
 import { formatFromNow, formatDate, sorterByDate } from "../../common/utils";
 
 import { BsTrash, BsThreeDots, BsCheckLg, BsXLg } from "react-icons/bs";
-import { BiEdit } from "react-icons/bi";
 
 function CouponTable({ data, handleRemove }) {
-  dayjs.extend(relativeTime);
   const columns = [
     {
       title: "Name",
@@ -33,7 +27,7 @@ function CouponTable({ data, handleRemove }) {
       dataIndex: "expiry",
       key: "expiry",
       width: 170,
-      render: (text) => <Typography.Text>{formatDate(text)}</Typography.Text>,
+      render: (text) => <Typography.Text>{formatDate(text, "DD/MM/YYYY HH:mm:ss")}</Typography.Text>,
       sorter: (a, b) => sorterByDate("expiry")(a, b),
     },
     {

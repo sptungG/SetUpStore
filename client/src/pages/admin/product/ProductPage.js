@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { toast } from "react-toastify";
-import { Form, Layout, Input, Button, Typography, Row, Col, Space, Card } from "antd";
+import { Layout, Button, Row, Col, Card } from "antd";
 
 import { getProductsByLimit, removeProduct } from "../../../functions/product";
 

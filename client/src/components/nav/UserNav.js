@@ -2,10 +2,9 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { Menu, Card, Space, Typography } from "antd";
+import { Menu, Card } from "antd";
 import { BiCategory, BiStore } from "react-icons/bi";
 import { FiHeart } from "react-icons/fi";
-import { CgMenuBoxed } from "react-icons/cg";
 import { RiHistoryFill, RiSettings4Line, RiDashboardLine, RiCouponLine } from "react-icons/ri";
 
 function UserNav() {

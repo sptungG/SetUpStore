@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import { Row, Col, Layout, Divider, Empty } from "antd";
 
@@ -24,7 +23,7 @@ function CategoryHome({ match }) {
   }, [slug]);
 
   return (
-    <Layout.Content style={{paddingTop: 24}}>
+    <Layout.Content style={{ paddingTop: 24 }}>
       <CategoryList />
       <Row>
         <Col>
@@ -42,7 +41,7 @@ function CategoryHome({ match }) {
       ) : (
         <Row gutter={[16, 16]}>
           {products.map((p) => (
-            <ProductCard key={p._id} product={p} />
+            <ProductCard product={p} />
           ))}
         </Row>
       )}
