@@ -56,6 +56,8 @@ function App() {
                 email: res.data.email,
                 picture: res.data.picture,
                 role: res.data.role,
+                area: res.data.area,
+                address: res.data.address,
                 token: idTokenResult.token,
               },
             });
