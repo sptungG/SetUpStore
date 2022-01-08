@@ -8,6 +8,21 @@ import "./App.less";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// import Header from "./components/nav/Header";
+
+const UserRoute = lazy(() => import("./components/routes/UserRoute"));
+const AdminRoute = lazy(() => import("./components/routes/AdminRoute"));
+
+const Header = lazy(() => import("./components/nav/Header"));
+const SideDrawer = lazy(() => import("./components/nav/SideDrawer"));
+const Home = lazy(() => import("./pages/Home"));
+const Product = lazy(() => import("./pages/Product"));
+const CategoryHome = lazy(() => import("./pages/category/CategoryHome"));
+const SubHome = lazy(() => import("./pages/sub/SubHome"));
+const Store = lazy(() => import("./pages/Store"));
+const Cart = lazy(() => import("./pages/Cart"));
+const Checkout = lazy(() => import("./pages/Checkout"));
+const Payment = lazy(() => import("./pages/Payment"));
 
 const Login = lazy(() => import("./pages/auth/Login"));
 const Register = lazy(() => import("./pages/auth/Register"));
@@ -23,20 +38,6 @@ const CouponPage = lazy(() => import("./pages/admin/coupon/CouponPage"));
 const ProductPage = lazy(() => import("./pages/admin/product/ProductPage"));
 const ProductCreate = lazy(() => import("./pages/admin/product/ProductCreate"));
 const ProductUpdate = lazy(() => import("./pages/admin/product/ProductUpdate"));
-
-const UserRoute = lazy(() => import("./components/routes/UserRoute"));
-const AdminRoute = lazy(() => import("./components/routes/AdminRoute"));
-
-const Header = lazy(() => import("./components/nav/Header"));
-const SideDrawer = lazy(() => import("./components/nav/SideDrawer"));
-const Home = lazy(() => import("./pages/Home"));
-const Product = lazy(() => import("./pages/Product"));
-const CategoryHome = lazy(() => import("./pages/category/CategoryHome"));
-const SubHome = lazy(() => import("./pages/sub/SubHome"));
-const Store = lazy(() => import("./pages/Store"));
-const Cart = lazy(() => import("./pages/Cart"));
-const Checkout = lazy(() => import("./pages/Checkout"));
-const Payment = lazy(() => import("./pages/Payment"));
 
 function App() {
   const dispatch = useDispatch();

@@ -26,28 +26,26 @@ function Header() {
     history.replace("/login");
   };
 
-  const renderHeaderNav = () => {
-    return (
-      <Menu
-        mode="horizontal"
-        selectedKeys={[pathname.split("/")[1]]}
-        style={{ lineHeight: "46px", backgroundColor: "transparent", borderBottom: "none", zIndex: 10 }}
-      >
-        <Menu.Item key="store">
-          <Link to="/store">
-            <FaStore size={30} />
+  const renderHeaderNav = () => (
+    <Menu
+      mode="horizontal"
+      selectedKeys={[pathname.split("/")[1]]}
+      style={{ lineHeight: "46px", backgroundColor: "transparent", borderBottom: "none", zIndex: 10 }}
+    >
+      <Menu.Item key="store">
+        <Link to="/store">
+          <FaStore size={30} />
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="cart">
+        <Badge count={cart.length}>
+          <Link to="/cart">
+            <FaShoppingCart size={28} />
           </Link>
-        </Menu.Item>
-        <Menu.Item key="cart">
-          <Badge count={cart.length}>
-            <Link to="/cart">
-              <FaShoppingCart size={28} />
-            </Link>
-          </Badge>
-        </Menu.Item>
-      </Menu>
-    );
-  };
+        </Badge>
+      </Menu.Item>
+    </Menu>
+  );
 
   const renderLoginWrapper = () => {
     return (
@@ -137,7 +135,7 @@ function Header() {
 
   return (
     <>
-      <Layout.Header style={{ height: 0.1, backgroundColor: "transparent" }}></Layout.Header>
+      <div style={{ height: 0.1, backgroundColor: "transparent" }}></div>
       <Affix offsetTop={affixed && 0.000001} onChange={(affixed) => setAffixed(affixed)}>
         <Layout.Header style={{ height: "auto", backgroundColor: affixed ? "#fff" : "transparent" }} className={affixed && "boxshadow"}>
           <Row justify="space-between" align="middle">

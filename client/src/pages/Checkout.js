@@ -6,7 +6,7 @@ import { Layout, Typography, Row, Col, Popconfirm, Button, Statistic, Form, Inpu
 import { BsCheckLg, BsXLg } from "react-icons/bs";
 import { RiCouponLine } from "react-icons/ri";
 
-import { getUserCart, emptyUserCart, saveUserAddress, applyCoupon } from "../functions/user";
+import { getUserCart, emptyUserCart, saveUserAddress, applyCoupon, createCashOrderForUser } from "../functions/user";
 import { areas } from "../common/constant";
 import { vietnameseSlug } from "../common/utils";
 import CheckoutSteps from "../components/nav/CheckoutSteps";
@@ -22,12 +22,15 @@ function Checkout({ history }) {
   const [totalAfterDiscount, setTotalAfterDiscount] = React.useState("");
 
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => ({ ...state }));
+  const { user, COD } = useSelector((state) => ({ ...state }));
+  const couponState = useSelector((state) => state.coupon);
 
   React.useEffect(() => {
     getUserCart(user.token).then((res) => {
       setProducts(res.data.products);
       setTotal(res.data.cartTotal);
+      setAreaSaved(user.area);
+      setAddressSaved(user.address);
     });
   }, []);
 
@@ -68,7 +71,16 @@ function Checkout({ history }) {
     // console.log("send coupon to backend", coupon);
     applyCoupon(user.token, coupon).then((res) => {
       // console.log("RES ON COUPON APPLIED", res.data);
-      if (res.data) {
+      // error
+      if (res.data.err) {
+        setLoading(false);
+        toast.error(res.data.err);
+        // update redux coupon applied
+        dispatch({
+          type: "COUPON_APPLIED",
+          payload: false,
+        });
+      } else if (res.data) {
         setTotalAfterDiscount(res.data);
         // update redux coupon applied
         dispatch({
@@ -79,14 +91,39 @@ function Checkout({ history }) {
         setLoading(false);
         toast.success("Discount applied successfully!");
       }
-      // error
-      if (res.data.err) {
-        toast.error(res.data.err);
-        // update redux coupon applied
+    });
+  };
+
+  const createCashOrder = () => {
+    setLoading(true);
+    createCashOrderForUser(user.token, COD, couponState).then((res) => {
+      console.log("USER CASH ORDER CREATED RES ", res);
+      // empty cart form redux, local Storage, reset coupon, reset COD, redirect
+      if (res.data.ok) {
+        // empty local storage
+        if (typeof window !== "undefined") localStorage.removeItem("cart");
+        // empty redux cart
+        dispatch({
+          type: "ADD_TO_CART",
+          payload: [],
+        });
+        // empty redux coupon
         dispatch({
           type: "COUPON_APPLIED",
           payload: false,
         });
+        // empty redux COD
+        dispatch({
+          type: "COD",
+          payload: false,
+        });
+        // empty cart from backend
+        emptyUserCart(user.token);
+        // redirect
+        setTimeout(() => {
+          setLoading(false);
+          history.push("/user/history");
+        }, 1000);
       }
     });
   };
@@ -197,16 +234,29 @@ function Checkout({ history }) {
       />
 
       <Space size={24}>
-        <Button
-          size="large"
-          type="primary"
-          loading={loading}
-          onClick={() => history.push("/payment")}
-          disabled={!areaSaved || !addressSaved || !products.length}
-          style={{ width: 160 }}
-        >
-          Place Order
-        </Button>
+        {COD ? (
+          <Button
+            size="large"
+            type="primary"
+            loading={loading}
+            onClick={createCashOrder}
+            disabled={!areaSaved || !addressSaved || !products.length}
+            style={{ width: 160 }}
+          >
+            Place Order
+          </Button>
+        ) : (
+          <Button
+            size="large"
+            type="primary"
+            loading={loading}
+            onClick={() => history.push("/payment")}
+            disabled={!areaSaved || !addressSaved || !products.length}
+            style={{ width: 160 }}
+          >
+            Place Order
+          </Button>
+        )}
         <Popconfirm title={<p>Sure to empty cart ?</p>} placement="topRight" okText={<BsCheckLg />} cancelText={<BsXLg />} onConfirm={() => emptyCart()}>
           <Button size="large" type="text" disabled={!products.length}>
             Empty Cart
