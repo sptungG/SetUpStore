@@ -1,4 +1,5 @@
 export const colors = ["Black", "Brown", "Silver", "White", "Blue"];
+export const orderStatus = ["Not Processed", "Processing", "Dispatched", "Cancelled", "Completed"];
 export const areas = [
   "Hoàng Mai",
   "Long Biên",

@@ -65,7 +65,7 @@ function ProductCard({ product, size = "default" }) {
 
   const renderBadgeStatus = () => {
     if (product.quantity < 1) return <Tag color="error">Out of stock</Tag>;
-    else if (product.sold / (product.quantity + product.sold) > 0.5)
+    else if (product.sold / (product.quantity + product.sold) > 0.8)
       return (
         <Tag icon={<ImFire />} color="success">
           Trending

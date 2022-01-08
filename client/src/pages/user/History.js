@@ -1,13 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { Layout, Row, Col, Card, Empty } from "antd";
+import { Layout, Row, Col, Card, Typography } from "antd";
 
 import { getUserOrders } from "../../functions/user";
 import Profile from "../../components/profile/Profile";
 import UserNav from "../../components/nav/UserNav";
 import OrdersList from "../../components/list/OrdersList";
+import EmptyCard from "../../components/cards/EmptyCard";
 
 function History() {
   const [loading, setLoading] = React.useState(false);
@@ -36,23 +36,8 @@ function History() {
         </Col>
         <Col flex="auto">
           <Card>
-            <h1 className="text-demo">User History page</h1>
-            {orders.length > 0 ? (
-              <OrdersList loading={loading} orders={orders} />
-            ) : (
-              <Card>
-                <Empty
-                  description={
-                    <span>
-                      History is empty now.
-                      <b>
-                        <Link to="/store">Continue Shopping.</Link>
-                      </b>
-                    </span>
-                  }
-                />
-              </Card>
-            )}
+            <Typography.Title level={3}>User History page</Typography.Title>
+            {orders.length > 0 ? <OrdersList loading={loading} orders={orders} /> : <EmptyCard type={"history"} />}
           </Card>
         </Col>
       </Row>

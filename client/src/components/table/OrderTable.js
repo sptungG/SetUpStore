@@ -3,12 +3,17 @@ import React from "react";
 import { Table, Typography, Space, Row, Col, Avatar, Select, Statistic } from "antd";
 
 import { formatDate, sorterByDate } from "../../common/utils";
+import { orderStatus } from "../../common/constant";
 import OrderProductsList from "../list/OrderProductsList";
+import OrderDetail from "../cards/OrderDetail";
 
 function OrderTable({ loading, data, handleStatusChange }) {
+  const [visible, setVisible] = React.useState(false);
+  const [orderData, setOrderData] = React.useState("");
+
   const columns = [
     {
-      title: "User",
+      title: "Ordered",
       dataIndex: "orderedBy",
       key: "orderedBy",
       render: (text) => (
@@ -23,7 +28,20 @@ function OrderTable({ loading, data, handleStatusChange }) {
       title: "OrderId",
       dataIndex: ["paymentIntent", "id"],
       key: "id",
-      render: (text) => <Typography.Text>{text}</Typography.Text>,
+      width: 280,
+      ellipsis: true,
+      render: (text, record) => (
+        <Typography.Text
+          ellipsis
+          strong
+          onClick={() => {
+            setVisible(true);
+            setOrderData(record);
+          }}
+        >
+          {text}
+        </Typography.Text>
+      ),
     },
     {
       title: "CreatedAt",
@@ -48,48 +66,49 @@ function OrderTable({ loading, data, handleStatusChange }) {
       width: 200,
       render: (text, record) => (
         <Select onSelect={(value) => handleStatusChange(record._id, value)} value={text} placeholder="Select status.." style={{ width: "100%" }}>
-          <Select.Option value="Not Processed">Not Processed</Select.Option>
-          <Select.Option value="Processing">Processing</Select.Option>
-          <Select.Option value="Dispatched">Dispatched</Select.Option>
-          <Select.Option value="Cancelled">Cancelled</Select.Option>
-          <Select.Option value="Completed">Completed</Select.Option>
+          {orderStatus.map((item) => (
+            <Select.Option value={item}>{item}</Select.Option>
+          ))}
         </Select>
       ),
-      filters: [...["Not Processed", "Processing", "Dispatched", "Cancelled", "Completed"].map((item) => ({ text: item, value: item }))],
+      filters: [...orderStatus.map((item) => ({ text: item, value: item }))],
       onFilter: (value, record) => record.orderStatus === value,
     },
   ];
 
   return (
-    <Table
-      loading={loading}
-      columns={columns}
-      title={() => ""}
-      footer={() => ""}
-      rowKey={(record) => record._id}
-      dataSource={data}
-      pagination={{
-        position: ["topRight"],
-        total: data.length,
-        showTotal: (total) => (
-          <p style={{ marginRight: 16 }}>
-            Total <b>{total}</b> items
-          </p>
-        ),
-        defaultPageSize: 10,
-        showSizeChanger: true,
-        pageSizeOptions: ["10", "20", "30", "50"],
-      }}
-      expandable={{
-        expandedRowRender: (record) => (
-          <Row justify="end">
-            <Col span={23}>
-              <OrderProductsList loading={loading} order={record} />
-            </Col>
-          </Row>
-        ),
-      }}
-    />
+    <>
+      {orderData && <OrderDetail order={orderData} visible={visible} setVisible={setVisible} />}
+      <Table
+        loading={loading}
+        columns={columns}
+        title={() => ""}
+        footer={() => ""}
+        rowKey={(record) => record._id}
+        dataSource={data}
+        pagination={{
+          position: ["topRight"],
+          total: data.length,
+          showTotal: (total) => (
+            <p style={{ marginRight: 16 }}>
+              Total <b>{total}</b> items
+            </p>
+          ),
+          defaultPageSize: 10,
+          showSizeChanger: true,
+          pageSizeOptions: ["10", "20", "30", "50"],
+        }}
+        expandable={{
+          expandedRowRender: (record) => (
+            <Row justify="end">
+              <Col style={{ paddingLeft: 12 }} span={23}>
+                <OrderProductsList loading={loading} order={record} />
+              </Col>
+            </Row>
+          ),
+        }}
+      />
+    </>
   );
 }
 

@@ -27,24 +27,26 @@ function Header() {
   };
 
   const renderHeaderNav = () => (
-    <Menu
-      mode="horizontal"
-      selectedKeys={[pathname.split("/")[1]]}
-      style={{ lineHeight: "46px", backgroundColor: "transparent", borderBottom: "none", zIndex: 10 }}
-    >
-      <Menu.Item key="store">
-        <Link to="/store">
-          <FaStore size={30} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item key="cart">
-        <Badge count={cart.length}>
-          <Link to="/cart">
-            <FaShoppingCart size={28} />
+    <>
+      <Menu
+        mode="horizontal"
+        selectedKeys={[pathname.split("/")[1]]}
+        style={{ lineHeight: "46px", backgroundColor: "transparent", borderBottom: "none", zIndex: 10 }}
+      >
+        <Menu.Item key="store">
+          <Link to="/store">
+            <FaStore size={30} />
           </Link>
-        </Badge>
-      </Menu.Item>
-    </Menu>
+        </Menu.Item>
+        <Menu.Item key="cart">
+          <Badge count={cart.length}>
+            <Link to="/cart">
+              <FaShoppingCart size={28} />
+            </Link>
+          </Badge>
+        </Menu.Item>
+      </Menu>
+    </>
   );
 
   const renderLoginWrapper = () => {
