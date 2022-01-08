@@ -23,6 +23,11 @@ function Header() {
       type: "LOGOUT",
       payload: null,
     });
+    if (typeof window !== "undefined") localStorage.removeItem("cart");
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: [],
+    });
     history.replace("/login");
   };
 
@@ -120,20 +125,18 @@ function Header() {
     );
   };
 
-  const renderHeaderLeft = () => {
-    return (
-      <Row align="middle" style={{ height: 70 }}>
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/ecommerce-62fba.appspot.com/o/index.svg?alt=media&token=4582b9e5-16e0-4de1-a742-e1f0da3d3d62"
-          alt="logo"
-          style={{ height: "inherit" }}
-        />
-        <Link to="/" style={{ fontSize: 28, fontWeight: "bold" }}>
-          SetUpStore
-        </Link>
-      </Row>
-    );
-  };
+  const renderHeaderLeft = () => (
+    <Row align="middle" style={{ height: 70 }}>
+      <img
+        src="https://firebasestorage.googleapis.com/v0/b/ecommerce-62fba.appspot.com/o/index.svg?alt=media&token=4582b9e5-16e0-4de1-a742-e1f0da3d3d62"
+        alt="logo"
+        style={{ height: "inherit" }}
+      />
+      <Link to="/" style={{ fontSize: 28, fontWeight: "bold" }}>
+        SetUpStore
+      </Link>
+    </Row>
+  );
 
   return (
     <>

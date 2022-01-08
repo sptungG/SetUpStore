@@ -37,11 +37,14 @@ function OrderDetail({ order, visible, setVisible }) {
   const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
   const renderContent = (column = 3) => (
     <Descriptions size="default" column={column}>
-      <Descriptions.Item span={1} label="Ordered">
+      <Descriptions.Item span={1} label="Ordered by">
         {order.orderedBy.name ?? user.name}
       </Descriptions.Item>
       <Descriptions.Item span={2} label="Ordered on">
         {formatDate(order.paymentIntent.created * 1000, "DD/MM/YYYY HH:mm:ss")}
+      </Descriptions.Item>
+      <Descriptions.Item label="Delivery to" span={3}>
+        <b>{order.orderedBy.area ?? user.area}</b>, {order.orderedBy.address ?? user.address}
       </Descriptions.Item>
       <Descriptions.Item label="Payment">{capitalizeFirstLetter(order.paymentIntent.status)}</Descriptions.Item>
       <Descriptions.Item label="Method">{capitalizeFirstLetter(order.paymentIntent.payment_method_types[0])}</Descriptions.Item>
@@ -90,7 +93,7 @@ function OrderDetail({ order, visible, setVisible }) {
       }
     >
       <PageHeader
-        style={{ padding: 0, marginBottom: 48 }}
+        style={{ padding: 0, marginBottom: 24 }}
         onBack={() => setVisible(false)}
         title={order.paymentIntent.id}
         footer={() => ""}
