@@ -73,37 +73,39 @@ function App() {
   }, [dispatch]);
 
   return (
-    <Suspense fallback={<Loader />}>
+    <>
       <Header />
-      <SideDrawer />
       <ToastContainer theme="light" />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/register/complete" component={RegisterComplete} />
-        <Route exact path="/forgot/password" component={ForgotPassword} />
-        <UserRoute exact path="/user/history" component={History} />
-        <UserRoute exact path="/user/setting" component={Setting} />
-        <UserRoute exact path="/user/wishlist" component={Wishlist} />
-        <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
-        <AdminRoute exact path="/admin/category" component={CategoryPage} />
-        <AdminRoute exact path="/admin/category/:slug" component={CategoryPage} />
-        <AdminRoute exact path="/admin/sub" component={SubPage} />
-        <AdminRoute exact path="/admin/sub/:slug" component={SubPage} />
-        <AdminRoute exact path="/admin/product" component={ProductCreate} />
-        <AdminRoute exact path="/admin/products" component={ProductPage} />
-        <AdminRoute exact path="/admin/product/:slug" component={ProductUpdate} />
-        <AdminRoute exact path="/admin/coupon" component={CouponPage} />
-        <Route exact path="/product/:slug" component={Product} />
-        <Route exact path="/category/:slug" component={CategoryHome} />
-        <Route exact path="/sub/:slug" component={SubHome} />
-        <Route exact path="/store" component={Store} />
-        <Route exact path="/cart" component={Cart} />
-        <UserRoute exact path="/checkout" component={Checkout} />
-        <UserRoute exact path="/payment" component={Payment} />
-      </Switch>
-    </Suspense>
+      <SideDrawer />
+      <Suspense fallback={<Loader />}>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/register/complete" component={RegisterComplete} />
+          <Route exact path="/forgot/password" component={ForgotPassword} />
+          <UserRoute exact path="/user/history" component={History} />
+          <UserRoute exact path="/user/setting" component={Setting} />
+          <UserRoute exact path="/user/wishlist" component={Wishlist} />
+          <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
+          <AdminRoute exact path="/admin/category" component={CategoryPage} />
+          <AdminRoute exact path="/admin/category/:slug" component={CategoryPage} />
+          <AdminRoute exact path="/admin/sub" component={SubPage} />
+          <AdminRoute exact path="/admin/sub/:slug" component={SubPage} />
+          <AdminRoute exact path="/admin/product" component={ProductCreate} />
+          <AdminRoute exact path="/admin/products" component={ProductPage} />
+          <AdminRoute exact path="/admin/product/:slug" component={ProductUpdate} />
+          <AdminRoute exact path="/admin/coupon" component={CouponPage} />
+          <Route exact path="/product/:slug" component={Product} />
+          <Route exact path="/category/:slug" component={CategoryHome} />
+          <Route exact path="/sub/:slug" component={SubHome} />
+          <Route exact path="/store" component={Store} />
+          <Route exact path="/cart" component={Cart} />
+          <UserRoute exact path="/checkout" component={Checkout} />
+          <UserRoute exact path="/payment" component={Payment} />
+        </Switch>
+      </Suspense>
+    </>
   );
 }
 
