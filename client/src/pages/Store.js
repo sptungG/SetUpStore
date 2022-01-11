@@ -36,7 +36,7 @@ function Store() {
   }, []);
 
   const loadAllProducts = () => {
-    getProductsByLimit(12).then((p) => {
+    getProductsByLimit(20).then((p) => {
       setProducts(p.data);
       setLoading(false);
     });
