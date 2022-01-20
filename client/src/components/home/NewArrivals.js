@@ -63,9 +63,9 @@ function NewArrivals() {
             icon={<AiOutlineSmile size={48} />}
             title="Great, You have seen it all!"
             extra={
-              <Link to={"/store"}>
-                <Button type="primary">Start shopping now</Button>
-              </Link>
+              <Button type="primary">
+                <Link to={"/store"}>Start shopping now</Link>
+              </Button>
             }
           />
         }
