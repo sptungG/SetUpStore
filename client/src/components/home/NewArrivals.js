@@ -35,11 +35,13 @@ function NewArrivals() {
     if (loading) {
       return;
     }
-    getProducts("createdAt", "desc", currentPage, 4).then((res) => {
-      setProducts([...products, ...res.data]);
-      setLoading(false);
-    });
-    setCurrentPage(currentPage + 1);
+    if (productsCount > 0) {
+      getProducts("createdAt", "desc", currentPage, 4).then((res) => {
+        setProducts([...products, ...res.data]);
+        setLoading(false);
+      });
+      setCurrentPage(currentPage + 1);
+    }
   };
 
   return (
@@ -52,7 +54,7 @@ function NewArrivals() {
       <InfiniteScroll
         dataLength={products.length}
         next={loadMoreData}
-        hasMore={products.length < productsCount}
+        hasMore={!loading && products.length < productsCount}
         loader={
           <div style={{ margin: "16px 0" }}>
             <LoadingCard count={4} />
