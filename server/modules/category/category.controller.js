@@ -5,8 +5,8 @@ const slugify = require("slugify");
 
 exports.create = async (req, res) => {
   try {
-    const { name } = req.body;
-    const category = await new Category({ name, slug: slugify(name) }).save();
+    const { name, image } = req.body;
+    const category = await new Category({ name, slug: slugify(name), image }).save();
     res.json(category);
   } catch (err) {
     // console.log(err);
@@ -26,9 +26,9 @@ exports.read = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-  const { name } = req.body;
+  const { name, image } = req.body;
   try {
-    const updated = await Category.findOneAndUpdate({ slug: req.params.slug }, { name, slug: slugify(name) }, { new: true });
+    const updated = await Category.findOneAndUpdate({ slug: req.params.slug }, { name, slug: slugify(name), image }, { new: true });
     res.json(updated);
   } catch (err) {
     res.status(400).send("Category update failed");

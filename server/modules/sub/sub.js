@@ -16,6 +16,10 @@ const SubSchema = new mongoose.Schema(
       lowercase: true,
       index: true,
     },
+    image: {
+      type: String,
+      default: "https://source.unsplash.com/random?setup",
+    },
     parent: { type: ObjectId, ref: "Category", required: true },
   },
   { timestamps: true }

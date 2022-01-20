@@ -8,11 +8,7 @@ function OrdersList({ loading, orders }) {
     <List
       itemLayout="vertical"
       size="large"
-      pagination={{
-        total: orders.length,
-        showTotal: (total) => `Total ${total} items`,
-        pageSize: 3,
-      }}
+      pagination={false}
       dataSource={orders}
       renderItem={(order) => <OrderProductsList loading={loading} order={order} />}
     />

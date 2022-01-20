@@ -7,13 +7,13 @@ import { Card, Col, Image, Typography, Space, Button, Statistic, Rate, Divider, 
 import { FiHeart } from "react-icons/fi";
 import { BsCartPlus, BsSearch } from "react-icons/bs";
 import { ImFire } from "react-icons/im";
-import { FaHeart, FaRegEye } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import { AiFillStar } from "react-icons/ai";
 
 import _ from "lodash";
 import { addToWishlist } from "../../functions/user";
 
-function ProductCard({ product, size = "default" }) {
+function ProductCardCarousel({ product, size = "default" }) {
   const { name, desc, images, slug, price } = product;
   const [tooltip, setTooltip] = React.useState("Click to add");
 
@@ -85,16 +85,14 @@ function ProductCard({ product, size = "default" }) {
           visible: false,
           mask: (
             <Space size={16}>
-              <Tooltip title="View product">
-                <Link to={`/product/${slug}`}>
-                  <Button type="primary" shape="circle" size="large" icon={<FaRegEye />}></Button>
-                </Link>
-              </Tooltip>
+              <Link to={`/product/${slug}`}>
+                <Button type="primary" shape="circle" size="large" icon={<BsSearch />}></Button>
+              </Link>
               <Tooltip title={product.quantity < 1 ? "Out of Stock" : tooltip}>
                 <Button type="primary" shape="circle" size="large" onClick={handleAddToCart} disabled={product.quantity < 1} icon={<BsCartPlus />}></Button>
               </Tooltip>
               {user ? (
-                <Tooltip title={product.wishlist && product.wishlist.includes(user._id) ? "Added" : "Add product to wishlist"}>
+                <Tooltip title={product.wishlist && product.wishlist.includes(user._id) ? "Added" : "Click to add"}>
                   {product.wishlist && product.wishlist.includes(user._id) ? (
                     <Button type="primary" shape="circle" size="large" icon={<FaHeart />}></Button>
                   ) : (
@@ -102,18 +100,7 @@ function ProductCard({ product, size = "default" }) {
                   )}
                 </Tooltip>
               ) : (
-                <Tooltip title="Login to add to your wishlist">
-                  <Button
-                    type="primary"
-                    shape="circle"
-                    size="large"
-                    icon={<FiHeart />}
-                    onClick={() => {
-                      toast.error("Login to add to Wishlist");
-                      history.push("/login");
-                    }}
-                  ></Button>
-                </Tooltip>
+                <Button type="primary" shape="circle" size="large" icon={<FiHeart />} onClick={() => toast.error("Login to add to Wishlist")}></Button>
               )}
             </Space>
           ),
@@ -126,7 +113,7 @@ function ProductCard({ product, size = "default" }) {
     <Space direction="vertical" style={{ margin: "-16px" }}>
       {size === "default" ? (
         <>
-          <Typography.Title level={5} style={{ maxWidth: 260, marginBottom: 0 }} ellipsis>
+          <Typography.Title level={3} style={{ maxWidth: 260, marginBottom: 0 }} ellipsis>
             {name}
           </Typography.Title>
           <Typography.Text ellipsis style={{ maxWidth: 280 }}>
@@ -144,7 +131,7 @@ function ProductCard({ product, size = "default" }) {
         </>
       ) : (
         <>
-          <Typography.Title level={5} style={{ maxWidth: 220, marginBottom: 0 }} ellipsis>
+          <Typography.Title level={4} style={{ maxWidth: 220, marginBottom: 0 }} ellipsis>
             {name}
           </Typography.Title>
           <Typography.Text ellipsis style={{ maxWidth: 240 }}>
@@ -176,4 +163,4 @@ function ProductCard({ product, size = "default" }) {
   );
 }
 
-export default ProductCard;
+export default ProductCardCarousel;

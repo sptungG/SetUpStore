@@ -72,7 +72,7 @@ function UploadImage({ form, setLoading, imagesList = [] }) {
     <Form.Item name="images" noStyle>
       <Upload.Dragger
         multiple={true}
-        maxCount={4}
+        maxCount={6}
         fileList={[...images]}
         listType="picture-card"
         beforeUpload={() => false}

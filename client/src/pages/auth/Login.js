@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { toast } from "react-toastify";
-import { Form, Input, Button, Layout, Typography, Row, Col, Space, Divider } from "antd";
+import { Form, Input, Button, Layout, Typography, Row, Col, Space, Divider, Card } from "antd";
 
 import { HiOutlineMail, HiOutlineLockClosed } from "react-icons/hi";
 import { FcGoogle } from "react-icons/fc";
@@ -139,7 +139,7 @@ function Login({ history }) {
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" className="login-form-button" style={{ width: "100%" }}>
-            Login with Email/Password
+            Login
           </Button>
           <p style={{ textAlign: "right" }}>
             <Link to="/forgot/password">Forgot Password</Link>

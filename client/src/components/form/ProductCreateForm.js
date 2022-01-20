@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Form, Typography, Button, Input, InputNumber, Select } from "antd";
+import { Form, Typography, Button, Input, InputNumber, Select, Badge } from "antd";
 import UploadImage from "./UploadImage";
 import { colors } from "../../common/constant";
 
@@ -20,17 +20,22 @@ function ProductCreateForm({ form, onFinish, categories, handleCategoryChange, s
         <Input.TextArea showCount maxLength={250} placeholder="Enter description..." />
       </Form.Item>
       <Form.Item name="price" label="Price" rules={[{ required: true }]}>
-        <InputNumber placeholder="Enter price..." style={{ width: "50%" }} />
+        <InputNumber
+          placeholder="Enter price..."
+          style={{ width: "50%" }}
+          formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+          parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+        />
       </Form.Item>
       <Form.Item name="quantity" label="Quantity" rules={[{ required: true }]}>
-        <InputNumber placeholder="Enter quantity..." style={{ width: "50%" }} />
+        <InputNumber min={0} max={100} placeholder="Enter quantity..." style={{ width: "50%" }} />
       </Form.Item>
       <Form.Item name="color" label="Color" rules={[{ required: true }]}>
         <Select placeholder="Please select color...">
           {colors.length > 0 &&
             colors.map((c) => (
               <Select.Option key={c} value={c}>
-                {c}
+                <Badge color={c} text={c} />
               </Select.Option>
             ))}
         </Select>

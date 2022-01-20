@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 
@@ -87,9 +87,13 @@ const SingleProduct = ({ product }) => {
               <Col span={8}>
                 {user ? (
                   product.wishlist && product.wishlist.includes(user._id) ? (
-                    <Button type="link" block size="large" icon={<FaHeart />}>
-                      Added
-                    </Button>
+                    <Link to={"/user/wishlist"}>
+                      <Tooltip title="Already in your wishlist" placement="top">
+                        <Button type="link" block size="large" icon={<FaHeart />}>
+                          Added
+                        </Button>
+                      </Tooltip>
+                    </Link>
                   ) : (
                     <Button type="link" block size="large" onClick={handleAddToWishlist} icon={<FiHeart />}>
                       Add to Wishlist

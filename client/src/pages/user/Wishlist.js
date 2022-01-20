@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 import { Layout, Row, Col, Card, Typography } from "antd";
 
-import Loader from "../../components/loader/Loader";
 import Profile from "../../components/profile/Profile";
 import UserNav from "../../components/nav/UserNav";
 import WishlistList from "../../components/list/WishlistList";
@@ -37,7 +36,6 @@ function Wishlist() {
 
   return (
     <Layout.Content>
-      {loading ? <Loader /> : ""}
       <Row gutter={[24, 24]}>
         <Col flex="none">
           <Profile />
@@ -45,7 +43,7 @@ function Wishlist() {
         </Col>
         <Col flex="auto">
           <Card>
-            <Typography.Title level={3}>User Wishlist page</Typography.Title>
+            <Typography.Title level={3}>Your Wishlist</Typography.Title>
             <WishlistList loading={loading} wishlist={wishlist} handleRemove={handleRemove} />
           </Card>
         </Col>

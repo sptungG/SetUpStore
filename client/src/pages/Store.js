@@ -36,6 +36,7 @@ function Store() {
   }, []);
 
   const loadAllProducts = () => {
+    setLoading(true);
     getProductsByLimit(40).then((p) => {
       setProducts(p.data);
       setLoading(false);
@@ -201,14 +202,12 @@ function Store() {
         <Col flex="auto">
           <Typography.Title level={3}>Products</Typography.Title>
 
-          {products.length < 1 && (
+          {loading ? (
+            <LoadingCard count={8} />
+          ) : products.length < 1 ? (
             <Card>
               <Empty />
             </Card>
-          )}
-
-          {loading ? (
-            <LoadingCard count={8} />
           ) : (
             <Row gutter={[16, 16]}>
               {products.map((product) => (

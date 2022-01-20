@@ -1,10 +1,11 @@
 import React from "react";
 
-import { Row, Typography, Pagination } from "antd";
+import { Row, Typography, Pagination, Carousel, Button } from "antd";
 
 import { getProducts, getProductsCount } from "../../functions/product";
 import ProductCard from "../cards/ProductCard";
 import LoadingCard from "../cards/LoadingCard";
+import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from "react-icons/bs";
 
 function BestSellers() {
   const [products, setProducts] = React.useState([]);
@@ -19,7 +20,7 @@ function BestSellers() {
   const loadAllProducts = () => {
     setLoading(true);
     // sort, order, limit
-    getProducts("sold", "desc", currentPage).then((res) => {
+    getProducts("sold", "desc", currentPage, 8).then((res) => {
       setProducts(res.data);
       setLoading(false);
     });
@@ -31,20 +32,37 @@ function BestSellers() {
 
   return (
     <>
-      <Row justify="space-between" align="bottom" style={{ margin: "16px 0" }}>
+      <Row justify="space-between" align="bottom" style={{ marginBottom: 8 }}>
         <Typography.Title level={3} style={{ marginBottom: 8 }}>
           Best Sellers
         </Typography.Title>
-        <Pagination current={currentPage} total={(productsCount / 4) * 10} onChange={(page) => setCurrentPage(page)} />
       </Row>
       {loading ? (
         <LoadingCard count={4} />
       ) : (
-        <Row gutter={[16, 16]}>
-          {products.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))}
-        </Row>
+        <Carousel
+          autoplay
+          autoplaySpeed={5000}
+          dots={false}
+          arrows={true}
+          prevArrow={<Button icon={<BsArrowLeftSquareFill size={32} />}></Button>}
+          nextArrow={<Button icon={<BsArrowRightSquareFill size={32} />}></Button>}
+        >
+          <div>
+            <Row gutter={[16, 16]} wrap={false} style={{ padding: "8px 8px 16px 8px" }}>
+              {products.slice(0, 4).map((product) => (
+                <ProductCard key={product._id} product={product} />
+              ))}
+            </Row>
+          </div>
+          <div>
+            <Row gutter={[16, 16]} wrap={false} style={{ padding: "8px 8px 16px 8px" }}>
+              {products.slice(4, 8).map((product) => (
+                <ProductCard key={product._id} product={product} />
+              ))}
+            </Row>
+          </div>
+        </Carousel>
       )}
     </>
   );

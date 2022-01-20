@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Table, Button, Typography, Space, Popconfirm } from "antd";
+import { Table, Button, Typography, Space, Popconfirm, Avatar, Image } from "antd";
 import { formatFromNow, formatDate, sorterByDate } from "../../common/utils";
 
 import { BsTrash, BsThreeDots, BsCheckLg, BsXLg } from "react-icons/bs";
@@ -13,7 +13,13 @@ function SubTable({ categories, data, handleRemove }) {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      render: (text) => <Typography.Text>{text}</Typography.Text>,
+      ellipsis: true,
+      render: (text, record) => (
+        <Space>
+          <Avatar size={48} src={<Image src={record.image} width={48} height={48} />} />
+          <Typography.Text>{text}</Typography.Text>
+        </Space>
+      ),
       sorter: (a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0),
     },
     {
@@ -21,6 +27,7 @@ function SubTable({ categories, data, handleRemove }) {
       dataIndex: "parent",
       key: "parent",
       width: 200,
+      ellipsis: true,
       render: (text) => <Typography.Text>{text.name}</Typography.Text>,
       filters: [...categories.map((item) => ({ value: item._id, text: item.name }))],
       onFilter: (value, record) => record.parent._id.includes(value),
@@ -81,7 +88,6 @@ function SubTable({ categories, data, handleRemove }) {
       )}
       rowKey={(record) => record._id}
       dataSource={data}
-      pagination={{ pageSize: 4 }}
     />
   );
 }
