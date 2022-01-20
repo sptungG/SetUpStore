@@ -12,7 +12,7 @@ import Profile from "../../../components/profile/Profile";
 import UserNav from "../../../components/nav/UserNav";
 import LocalSearch from "../../../components/form/LocalSearch";
 import SubTable from "../../../components/table/SubTable";
-import { BsBackspaceReverse, BsArrowReturnRight } from "react-icons/bs";
+import { BsBackspaceReverse, BsArrowReturnRight, BsFillImageFill } from "react-icons/bs";
 function SubPage({ history, match }) {
   const { user } = useSelector((state) => ({ ...state }));
   const [form] = Form.useForm();
@@ -34,9 +34,9 @@ function SubPage({ history, match }) {
     loadCategories();
     if (slug) {
       const loadSub = () =>
-        getSub(slug).then((s) => {
-          setSub(s.data.name);
-          form.setFieldsValue({ parent: s.data.parent, name: s.data.name });
+        getSub(slug).then((res) => {
+          setSub(res.data.sub);
+          form.setFieldsValue({ parent: res.data.sub.parent, name: res.data.sub.name, image: res.data.sub.image });
         });
       loadSub();
     } else {
@@ -49,10 +49,10 @@ function SubPage({ history, match }) {
   const loadSubs = () => getSubs().then((s) => setSubs(s.data));
 
   const handleCreate = (values) => {
-    const { name, parent } = values;
+    const { name, parent, image } = values;
     // console.log(name);
     setLoading(true);
-    createSub({ name, parent }, user.token)
+    createSub({ name, parent, image }, user.token)
       .then((res) => {
         // console.log(res)
         setLoading(false);
@@ -60,11 +60,7 @@ function SubPage({ history, match }) {
         form.resetFields();
         loadSubs();
       })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-        if (err.response.status === 400) toast.error(err.response.data);
-      });
+      .catch((err) => console.log(err));
   };
 
   const handleRemove = async (slug) => {
@@ -78,19 +74,14 @@ function SubPage({ history, match }) {
         form.resetFields();
         loadSubs();
       })
-      .catch((err) => {
-        if (err.response.status === 400) {
-          setLoading(false);
-          toast.error(err.response.data);
-        }
-      });
+      .catch((err) => console.log(err));
   };
 
   const handleEdit = (values) => {
-    const { name, parent } = values;
+    const { name, parent, image } = values;
     // console.log(name);
     setLoading(true);
-    updateSub(slug, { name, parent }, user.token)
+    updateSub(slug, { name, parent, image }, user.token)
       .then((res) => {
         // console.log(res)
         setLoading(false);
@@ -99,17 +90,13 @@ function SubPage({ history, match }) {
         history.replace("/admin/sub");
         loadSubs();
       })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-        if (err.response.status === 400) toast.error(err.response.data);
-      });
+      .catch((err) => console.log(err));
   };
 
   const renderFormTitle = () => {
     return (
       <Space size="small" align="start">
-        <Typography.Title level={4}>{slug ? `Update ${sub}` : "Create new subcategory"}</Typography.Title>
+        <Typography.Title level={4}>{slug ? `Update ${sub.name}` : "Create new subcategory"}</Typography.Title>
         {slug ? (
           <Link to="/admin/sub">
             <Tooltip placement="topLeft" title="Back to create">
@@ -138,6 +125,19 @@ function SubPage({ history, match }) {
         </Form.Item>
         <Form.Item name="name" rules={[{ required: true, message: "Please input subcategory!" }]}>
           <Input prefix={<BsArrowReturnRight />} placeholder="Enter subcategory name..." autoFocus />
+        </Form.Item>
+        <Form.Item
+          name="image"
+          rules={[
+            { required: true, message: "Please input a link!" },
+            {
+              type: "url",
+              warningOnly: true,
+              message: "Please input a valid url!",
+            },
+          ]}
+        >
+          <Input prefix={<BsFillImageFill />} placeholder="Enter a image link..." />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">

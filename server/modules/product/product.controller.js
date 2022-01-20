@@ -18,15 +18,15 @@ exports.create = async (req, res) => {
 exports.listAll = async (req, res) => {
   let products = await Product.find({})
     .limit(parseInt(req.params.limit))
-    .populate("category")
-    .populate("subs")
+    .populate("category", "_id name")
+    .populate("subs", "_id name")
     .sort([["createdAt", "desc"]])
     .exec();
   res.json(products);
 };
 
 exports.read = async (req, res) => {
-  const product = await Product.findOne({ slug: req.params.slug }).populate("category").populate("subs").exec();
+  const product = await Product.findOne({ slug: req.params.slug }).populate("category", "_id name").populate("subs", "_id name").exec();
   res.json(product);
 };
 
@@ -85,8 +85,8 @@ exports.list = async (req, res) => {
 
     const products = await Product.find({})
       .skip((currentPage - 1) * perPage)
-      .populate("category")
-      .populate("subs")
+      .populate("category", "_id name")
+      .populate("subs", "_id name")
       .sort([[sort, order]])
       .limit(perPage)
       .exec();
@@ -109,9 +109,8 @@ exports.listRelated = async (req, res) => {
     _id: { $ne: product._id },
     category: product.category,
   })
-    .limit(4)
-    .populate("category")
-    .populate("subs")
+    .populate("category", "_id name")
+    .populate("subs", "_id name")
     .exec();
 
   res.json(related);

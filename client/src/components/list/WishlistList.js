@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { List, Popconfirm, Button, Typography, Space, Avatar, Progress, Tag } from "antd";
+import { List, Popconfirm, Button, Typography, Space, Avatar, Progress, Tag, Tooltip, Statistic } from "antd";
 import { BsTrash, BsCheckLg, BsXLg } from "react-icons/bs";
 import { FaHeart } from "react-icons/fa";
 
@@ -32,31 +32,41 @@ function WishlistList({ loading, wishlist, handleRemove }) {
   );
 
   const renderProgress = (item) => (
-    <Space>
-      <Typography.Text>Sold</Typography.Text>
+    <Tooltip
+      placement="topRight"
+      title={
+        <Statistic
+          groupSeparator="."
+          value={item.sold}
+          valueStyle={{ fontSize: 16, color: "#fff" }}
+          suffix={<Typography.Text style={{ fontSize: 14, color: "#eee" }}> of {item.quantity + item.sold}</Typography.Text>}
+        />
+      }
+    >
       <Progress
-        style={{ width: 240 }}
         strokeColor={{
           from: "#f56766",
           to: "#faad14",
         }}
         percent={((item.sold / (item.quantity + item.sold)) * 100).toFixed(2)}
         strokeWidth={12}
+        showInfo={false}
         status="active"
       />
-    </Space>
+    </Tooltip>
   );
 
   return (
     <List
       itemLayout="vertical"
       size="large"
-      pagination={{
-        pageSize: 10,
-        defaultPageSize: 10,
-        showSizeChanger: true,
-        pageSizeOptions: ["10", "20", "30", "50"],
-      }}
+      // pagination={{
+      //   pageSize: 10,
+      //   defaultPageSize: 10,
+      //   showSizeChanger: true,
+      //   pageSizeOptions: ["10", "20", "30", "50"],
+      // }}
+      pagination={false}
       loading={loading}
       dataSource={wishlist}
       renderItem={(item) => (

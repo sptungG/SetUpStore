@@ -15,16 +15,10 @@ const CategorySchema = new mongoose.Schema(
       lowercase: true,
       index: true,
     },
-    // desc: {
-    //   type: String,
-    //   required: true,
-    //   maxlength: 2000,
-    //   text: true,
-    // },
-    // image: {
-    //   type: String,
-    //   required: true,
-    // },
+    image: {
+      type: String,
+      default: "https://source.unsplash.com/random?setup",
+    },
   },
   { timestamps: true }
 );

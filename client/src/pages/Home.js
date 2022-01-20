@@ -1,28 +1,27 @@
 import React from "react";
 
-import { Layout, Typography, Row, Divider } from "antd";
+import { Layout, Row, Col } from "antd";
 
-import TypeWriter from "../components/effect/TypeWriter";
 import Footer from "../components/nav/Footer";
+import CategoryList from "../components/list/CategoryList";
 import NewArrivals from "../components/home/NewArrivals";
 import BestSellers from "../components/home/BestSellers";
-import CategoryList from "../components/list/CategoryList";
-import SubList from "../components/list/SubList";
 
 function Home() {
   return (
     <>
       <Layout.Content>
-        <Row justify="center" style={{ margin: "16px 0" }}>
-          <Typography.Link style={{ fontSize: 40 }}>
-            <TypeWriter text={["Latest Products", "New Arrivals", "Best Sellers"]} />
-          </Typography.Link>
+        <Row gutter={[0, 24]} style={{ width: "100%", minWidth: "100%" }}>
+          <Col span={24}>
+            <CategoryList />
+          </Col>
+          <Col span={24}>
+            <BestSellers />
+          </Col>
+          <Col span={24}>
+            <NewArrivals />
+          </Col>
         </Row>
-        <CategoryList />
-        <BestSellers />
-        <NewArrivals />
-        <Divider orientation="left">Sub-categories</Divider>
-        <SubList type="tag" />
       </Layout.Content>
       <Footer />
     </>

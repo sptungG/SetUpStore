@@ -29,7 +29,7 @@ function Search({ affixed }) {
           style={{
             borderRadius: 100,
             padding: "5px 8px 5px 20px",
-            backgroundColor: affixed ? "transparent" : "rgba(245, 103, 102, 0.05)",
+            backgroundColor: affixed ? "transparent" : "rgba(245, 103, 102, 0.06)",
             borderColor: !affixed && "transparent",
           }}
           allowClear

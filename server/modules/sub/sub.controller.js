@@ -4,8 +4,8 @@ const slugify = require("slugify");
 
 exports.create = async (req, res) => {
   try {
-    const { name, parent } = req.body;
-    const sub = await new Sub({ name, parent, slug: slugify(name) }).save();
+    const { name, parent, image } = req.body;
+    const sub = await new Sub({ name, parent, slug: slugify(name), image }).save();
     res.json(sub);
   } catch (err) {
     // console.log(err);
@@ -26,9 +26,9 @@ exports.read = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-  const { name, parent } = req.body;
+  const { name, parent, image } = req.body;
   try {
-    const updated = await Sub.findOneAndUpdate({ slug: req.params.slug }, { name, parent, slug: slugify(name) }, { new: true });
+    const updated = await Sub.findOneAndUpdate({ slug: req.params.slug }, { name, parent, slug: slugify(name), image }, { new: true });
     res.json(updated);
   } catch (err) {
     res.status(400).send("SubCategory update failed");

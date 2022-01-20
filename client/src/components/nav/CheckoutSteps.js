@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Typography, Steps, Row } from "antd";
+import { Typography, Steps, Row, Card, Col } from "antd";
 
 function CheckoutSteps({ current }) {
   const { cart } = useSelector((state) => ({ ...state }));
@@ -12,12 +12,16 @@ function CheckoutSteps({ current }) {
   );
 
   return (
-    <Row style={{ marginBottom: 16, padding: "0 24px" }}>
-      <Steps current={current}>
-        <Steps.Step title="Cart" description={renderDesc()} />
-        <Steps.Step title="Checkout" description={renderDesc()} />
-        <Steps.Step title="Final" description={renderDesc()} />
-      </Steps>
+    <Row style={{ marginBottom: 24 }}>
+      <Col span={24}>
+        <Card bordered={false}>
+          <Steps current={current} style={{ marginBottom: -24 }}>
+            <Steps.Step title="Cart" description={renderDesc()} />
+            <Steps.Step title="Checkout" description={renderDesc()} />
+            <Steps.Step title="Final" description={renderDesc()} />
+          </Steps>
+        </Card>
+      </Col>
     </Row>
   );
 }

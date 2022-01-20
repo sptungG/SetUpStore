@@ -6,6 +6,7 @@ import { ImFire } from "react-icons/im";
 
 import { BsCheckLg, BsXLg, BsSearch } from "react-icons/bs";
 import { BiEdit, BiTrash } from "react-icons/bi";
+import { FaRegEye } from "react-icons/fa";
 
 function AdminProductCard({ product, handleRemove }) {
   // const [visible, setVisible] = React.useState(false);
@@ -33,7 +34,7 @@ function AdminProductCard({ product, handleRemove }) {
           mask: (
             <Space size={16}>
               <Link to={`/product/${slug}`}>
-                <Button type="primary" shape="circle" size="large" icon={<BsSearch />}></Button>
+                <Button type="primary" shape="circle" size="large" icon={<FaRegEye />}></Button>
               </Link>
             </Space>
           ),
@@ -65,7 +66,7 @@ function AdminProductCard({ product, handleRemove }) {
           cancelText={<BsXLg />}
           onConfirm={() => handleRemove(slug)}
         >
-          <Button icon={<BiTrash />} type="text" style={{ width: 80 }}></Button>
+          <Button icon={<BiTrash />} type="text" danger style={{ width: 80 }}></Button>
         </Popconfirm>
       </Row>
     </Space>

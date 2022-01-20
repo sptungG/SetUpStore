@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Row, Col, Avatar, Typography, Space, Progress, Statistic, Rate, Divider, Tag } from "antd";
+import { Row, Col, Avatar, Typography, Space, Progress, Statistic, Rate, Divider, Tag, Tooltip } from "antd";
 function ProductListItems({ product }) {
   const { name, desc, price, category, subs, shipping, color, brand, quantity, sold } = product;
 
@@ -44,15 +44,28 @@ function ProductListItems({ product }) {
       {renderDetail(<Typography.Text>Brand</Typography.Text>, <Typography.Text>{brand}</Typography.Text>)}
       {renderDetail(
         <Typography.Text>Sold</Typography.Text>,
-        <Progress
-          strokeColor={{
-            from: "#f56766",
-            to: "#faad14",
-          }}
-          percent={((sold / (quantity + sold)) * 100).toFixed(2)}
-          strokeWidth={12}
-          status="active"
-        />
+        <Tooltip
+          placement="topRight"
+          title={
+            <Statistic
+              groupSeparator="."
+              value={sold}
+              valueStyle={{ fontSize: 16, color: "#fff" }}
+              suffix={<Typography.Text style={{ fontSize: 14, color: "#eee" }}> of {quantity + sold}</Typography.Text>}
+            />
+          }
+        >
+          <Progress
+            strokeColor={{
+              from: "#f56766",
+              to: "#faad14",
+            }}
+            percent={((sold / (quantity + sold)) * 100).toFixed(2)}
+            strokeWidth={12}
+            showInfo={false}
+            status="active"
+          />
+        </Tooltip>
       )}
       <Space split={<Divider type="vertical" />} size={24}>
         <Space direction="vertical">
@@ -66,7 +79,13 @@ function ProductListItems({ product }) {
             <Avatar style={{ backgroundColor: "#f46a01" }}>E</Avatar>
           </Avatar.Group>
         </Space>
-        <Statistic title="Sold" groupSeparator="." value={sold} suffix={<Typography.Text style={{ fontSize: 16 }}> of {quantity + sold}</Typography.Text>} />
+        <Statistic
+          title="Sold"
+          groupSeparator="."
+          valueStyle={{ fontSize: 24 }}
+          value={sold}
+          suffix={<Typography.Text style={{ fontSize: 16 }}> of {quantity + sold}</Typography.Text>}
+        />
         <Statistic title="Price" groupSeparator="." value={price} prefix="$" />
         {/* {renderStatus()} */}
       </Space>

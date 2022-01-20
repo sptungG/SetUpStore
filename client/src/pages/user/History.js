@@ -36,7 +36,7 @@ function History() {
         </Col>
         <Col flex="auto">
           <Card>
-            <Typography.Title level={3}>User History page</Typography.Title>
+            <Typography.Title level={3}>Your History</Typography.Title>
             {orders.length > 0 ? <OrdersList loading={loading} orders={orders} /> : <EmptyCard type={"history"} />}
           </Card>
         </Col>

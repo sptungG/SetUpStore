@@ -12,7 +12,7 @@ import UserNav from "../../../components/nav/UserNav";
 import LocalSearch from "../../../components/form/LocalSearch";
 import CategoryTable from "../../../components/table/CategoryTable";
 
-import { BsArrowReturnRight, BsBackspaceReverse } from "react-icons/bs";
+import { BsArrowReturnRight, BsBackspaceReverse, BsFillImageFill } from "react-icons/bs";
 
 function CategoryPage({ history, match }) {
   const { user } = useSelector((state) => ({ ...state }));
@@ -31,9 +31,9 @@ function CategoryPage({ history, match }) {
   React.useEffect(() => {
     if (slug) {
       const loadCategory = () =>
-        getCategory(slug).then((c) => {
-          setCategory(c.data.name);
-          form.setFieldsValue({ name: c.data.name });
+        getCategory(slug).then((res) => {
+          setCategory(res.data.category);
+          form.setFieldsValue({ name: res.data.category.name, image: res.data.category.image });
         });
       loadCategory();
     } else {
@@ -43,10 +43,10 @@ function CategoryPage({ history, match }) {
 
   const loadCategories = () => getCategories().then((c) => setCategories(c.data));
 
-  const handleCreate = ({ name }) => {
+  const handleCreate = ({ name, image }) => {
     // console.log(name);
     setLoading(true);
-    createCategory({ name }, user.token)
+    createCategory({ name, image }, user.token)
       .then((res) => {
         // console.log(res)
         setLoading(false);
@@ -80,10 +80,10 @@ function CategoryPage({ history, match }) {
       });
   };
 
-  const handleEdit = ({ name }) => {
+  const handleEdit = ({ name, image }) => {
     // console.log(name);
     setLoading(true);
-    updateCategory(slug, { name }, user.token)
+    updateCategory(slug, { name, image }, user.token)
       .then((res) => {
         // console.log(res)
         setLoading(false);
@@ -102,7 +102,7 @@ function CategoryPage({ history, match }) {
   const renderFormTitle = () => {
     return (
       <Space size="small" align="start">
-        <Typography.Title level={4}>{slug ? `Update ${category}` : "Create new category"}</Typography.Title>
+        <Typography.Title level={4}>{slug ? `Update ${category.name}` : "Create new category"}</Typography.Title>
         {slug ? (
           <Link to="/admin/category">
             <Tooltip placement="topLeft" title="Back to create">
@@ -120,6 +120,19 @@ function CategoryPage({ history, match }) {
       <Form form={form} onFinish={slug ? handleEdit : handleCreate} layout="inline" requiredMark={false} size="large">
         <Form.Item name="name" rules={[{ required: true, message: "Please input category!" }]}>
           <Input prefix={<BsArrowReturnRight />} placeholder="Enter category name..." autoFocus />
+        </Form.Item>
+        <Form.Item
+          name="image"
+          rules={[
+            { required: true, message: "Please input a link!" },
+            {
+              type: "url",
+              warningOnly: true,
+              message: "Please input a valid url!",
+            },
+          ]}
+        >
+          <Input prefix={<BsFillImageFill />} placeholder="Enter a image link..." />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">

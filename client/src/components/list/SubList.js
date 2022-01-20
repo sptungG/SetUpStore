@@ -20,7 +20,7 @@ function SubList({ type = "image" }) {
     subs.map((s) => (
       <Space key={s._id} direction="vertical" size={0}>
         <Link to={`/sub/${s.slug}`}>
-          <Avatar size={64} shape="square" src={`https://source.unsplash.com/random?setup,${s.slug}`} />
+          <Avatar size={64} shape="square" src={s.image} />
         </Link>
         <div style={{ textAlign: "center", fontWeight: "bold" }}>
           <Link to={`/sub/${s.slug}`}>{s.name}</Link>
@@ -38,7 +38,7 @@ function SubList({ type = "image" }) {
     ));
 
   return (
-    <Row justify="space-between" style={{ padding: "0 32px" }}>
+    <Row justify="center" gutter={[16, 16]} style={{ padding: "0 32px" }}>
       {loading ? <h4>Loading...</h4> : type === "image" ? showSubs() : showSubsTag()}
     </Row>
   );

@@ -19,7 +19,7 @@ function CategoryList() {
     categories.map((c) => (
       <Space key={c._id} direction="vertical" size={0}>
         <Link to={`/category/${c.slug}`}>
-          <Avatar size={64} shape="square" src={`https://source.unsplash.com/random?setup,${c.slug}`} />
+          <Avatar size={64} shape="square" src={c.image} />
         </Link>
         <div style={{ textAlign: "center", fontWeight: "bold" }}>
           <Link to={`/category/${c.slug}`}>{c.name}</Link>
