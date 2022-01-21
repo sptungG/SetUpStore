@@ -155,7 +155,7 @@ function ProductCard({ product, size = "default" }) {
           <Space split={<Divider type="vertical" />}>
             <Space>
               <Tag color="gold" icon={<AiFillStar size={16} />} style={{ padding: "4px 8px", border: 0, display: "flex", alignItems: "center", gap: 4 }}>
-                {showAverage(product, "res").toFixed(2)}
+                {product && product.ratings && product.ratings.length > 0 ? showAverage(product, "res").toFixed(2) : "_"}
               </Tag>
               <Tag color="volcano" icon={<FaHeart />} style={{ padding: "4px 8px", border: 0, display: "flex", alignItems: "center", gap: 4 }}>
                 {product.wishlist.length > 0 ? product.wishlist.length : "_"}
