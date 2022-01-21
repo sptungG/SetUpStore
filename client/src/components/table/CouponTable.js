@@ -74,7 +74,6 @@ function CouponTable({ data, handleRemove }) {
       )}
       rowKey={(record) => record._id}
       dataSource={data}
-      pagination={{ pageSize: 4 }}
     />
   );
 }

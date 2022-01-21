@@ -12,6 +12,7 @@ import { AiFillStar } from "react-icons/ai";
 
 import _ from "lodash";
 import { addToWishlist } from "../../functions/user";
+import { showAverage } from "../../functions/rating";
 
 function ProductCard({ product, size = "default" }) {
   const { name, desc, images, slug, price } = product;
@@ -133,7 +134,8 @@ function ProductCard({ product, size = "default" }) {
             {desc}
           </Typography.Text>
           <Space split={<Divider type="vertical" />}>
-            <Rate disabled allowHalf defaultValue={2.5} />
+            {/* <Rate disabled allowHalf defaultValue={2.5} /> */}
+            {product && product.ratings && product.ratings.length > 0 ? showAverage(product) : "No rating yet"}
             <Space>
               <Statistic groupSeparator="." valueStyle={{ fontSize: 20 }} value={price} suffix="$" />
               <Tag color="volcano" icon={<FaHeart />} style={{ padding: "4px 8px", border: 0, display: "flex", alignItems: "center", gap: 4 }}>
@@ -153,7 +155,7 @@ function ProductCard({ product, size = "default" }) {
           <Space split={<Divider type="vertical" />}>
             <Space>
               <Tag color="gold" icon={<AiFillStar size={16} />} style={{ padding: "4px 8px", border: 0, display: "flex", alignItems: "center", gap: 4 }}>
-                {2.5}
+                {showAverage(product, "res").toFixed(2)}
               </Tag>
               <Tag color="volcano" icon={<FaHeart />} style={{ padding: "4px 8px", border: 0, display: "flex", alignItems: "center", gap: 4 }}>
                 {product.wishlist.length > 0 ? product.wishlist.length : "_"}

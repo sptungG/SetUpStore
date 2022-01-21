@@ -48,7 +48,7 @@ function ForgotPassword({ history }) {
       <Typography.Title level={5} type="secondary">
         Just one more step
       </Typography.Title>
-      <Form.Item name="email" rules={[{ required: true }]}>
+      <Form.Item name="email" rules={[{ required: true, message: "You should input email." }]}>
         <Input prefix={<HiOutlineMail size={24} />} placeholder="Enter your email..." />
       </Form.Item>
       <Form.Item>

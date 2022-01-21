@@ -8,6 +8,7 @@ function OrderProductsList({ loading, order }) {
     <List
       grid={{ gutter: 24, column: 3 }}
       loading={loading}
+      style={{ marginTop: -8 }}
       header={<ShowPaymentInfo order={order} />}
       dataSource={order.products}
       renderItem={(p) => (

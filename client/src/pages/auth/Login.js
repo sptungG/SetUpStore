@@ -131,10 +131,20 @@ function Login({ history }) {
           </Button>
         </Space>
         <Divider plain>Or</Divider>
-        <Form.Item name="email" rules={[{ required: true }]}>
+        <Form.Item
+          name="email"
+          rules={[
+            { required: true, message: "You should input email." },
+            {
+              type: "email",
+              warningOnly: true,
+              message: "Please input a valid email.",
+            },
+          ]}
+        >
           <Input prefix={<HiOutlineMail size={24} />} placeholder="Enter your email..." />
         </Form.Item>
-        <Form.Item name="password" rules={[{ required: true }]}>
+        <Form.Item name="password" rules={[{ required: true, message: "You should input password." }]}>
           <Input.Password prefix={<HiOutlineLockClosed size={24} />} type="password" placeholder="Enter your password..." />
         </Form.Item>
         <Form.Item>

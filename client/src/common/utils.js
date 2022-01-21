@@ -1,17 +1,15 @@
-import * as dayjs from "dayjs";
-import * as relativeTime from "dayjs/plugin/relativeTime";
-dayjs.extend(relativeTime);
+import moment from "moment";
 
-export const formatFromNow = (date) => dayjs(date).fromNow();
+export const formatFromNow = (date) => moment(date).fromNow();
 
-export const formatDate = (date, format = "DD/MM/YYYY") => dayjs(date).format(format);
+export const formatDate = (date, format = "DD/MM/YYYY") => moment(date).format(format);
 
-export const isSameTime = (date1, date2) => dayjs(date1).isSame(dayjs(date2));
+export const isSameTime = (date1, date2) => moment(date1).isSame(moment(date2));
 
 export const sorterByWords = (sorterKey) => (a, b) =>
   vietnameseSlug(a[sorterKey]) > vietnameseSlug(b[sorterKey]) ? 1 : vietnameseSlug(b[sorterKey]) > vietnameseSlug(a[sorterKey]) ? -1 : 0;
 
-export const sorterByDate = (sorterKey) => (a, b) => dayjs(b[sorterKey]) - dayjs(a[sorterKey]);
+export const sorterByDate = (sorterKey) => (a, b) => moment(b[sorterKey]) - moment(a[sorterKey]);
 
 export function validateEmail(email) {
   const regexEmail =

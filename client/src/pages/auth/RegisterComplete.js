@@ -75,10 +75,10 @@ function RegisterComplete({ history }) {
       <Typography.Title level={5} type="secondary">
         The last step
       </Typography.Title>
-      <Form.Item name="email" rules={[{ required: true }]}>
+      <Form.Item name="email" rules={[{ required: true, message: "You should input email." }]}>
         <Input prefix={<HiOutlineMail size={24} />} disabled />
       </Form.Item>
-      <Form.Item name="password" rules={[{ required: true }]}>
+      <Form.Item name="password" rules={[{ required: true, message: "You should input password." }]}>
         <Input.Password prefix={<HiOutlineLockClosed size={24} />} type="password" placeholder="Enter your password..." />
       </Form.Item>
       <Form.Item>

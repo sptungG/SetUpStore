@@ -8,9 +8,11 @@ import { BsFillPrinterFill } from "react-icons/bs";
 const ShowPaymentInfo = ({ order }) => {
   const [visible, setVisible] = React.useState(false);
 
+  const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+
   const renderOrderSummary = () => (
     <Space split={<Divider type="vertical" />}>
-      <span>Order Id: {order.paymentIntent.id}</span>
+      <span>Payment: {capitalizeFirstLetter(order.paymentIntent.payment_method_types[0])}</span>
       <Space>
         Amount: <Statistic valueStyle={{ fontSize: 18 }} value={order.paymentIntent.amount / 100} groupSeparator="." prefix="$" />
       </Space>

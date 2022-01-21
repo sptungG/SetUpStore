@@ -10,12 +10,14 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
-import { BsCartPlus, BsStar } from "react-icons/bs";
-import ProductListItems from "./ProductListItems";
-import { addToWishlist } from "../../functions/user";
+import { BsCartPlus } from "react-icons/bs";
 
-const SingleProduct = ({ product }) => {
-  const { images, slug } = product;
+import { addToWishlist } from "../../functions/user";
+import ProductListItems from "./ProductListItems";
+import RatingForm from "../form/RatingForm";
+
+const SingleProduct = ({ product, onStarClick, star }) => {
+  const { images, slug, _id } = product;
   const [tooltip, setTooltip] = React.useState("Click to add");
 
   // redux
@@ -100,21 +102,15 @@ const SingleProduct = ({ product }) => {
                     </Button>
                   )
                 ) : (
-                  <Button type="link" block size="large" icon={<FiHeart />} onClick={() => toast.error("Login to add to Wishlist")}>
-                    Add to Wishlist
-                  </Button>
+                  <Link to={"/login"}>
+                    <Button type="link" block size="large" icon={<FiHeart />} onClick={() => toast.error("Login to add to Wishlist")}>
+                      Add to Wishlist
+                    </Button>
+                  </Link>
                 )}
               </Col>
               <Col span={8}>
-                {user ? (
-                  <Button type="link" block size="large" icon={<BsStar />}>
-                    Rating
-                  </Button>
-                ) : (
-                  <Button type="link" block size="large" icon={<BsStar />} onClick={() => toast.error("Login to Rating")}>
-                    Rating
-                  </Button>
-                )}
+                <RatingForm name={_id} star={star} onStarClick={onStarClick}></RatingForm>
               </Col>
             </Row>
           </Card>

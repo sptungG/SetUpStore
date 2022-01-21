@@ -5,7 +5,7 @@ const router = express.Router();
 const { authCheck, adminCheck } = require("../auth/auth.validation");
 
 // controller
-const { create, listAll, update, remove, read, list, productsCount, listRelated, searchFilters } = require("./product.controller");
+const { create, listAll, update, remove, read, list, productsCount, productStar, listRelated, searchFilters } = require("./product.controller");
 
 // routes
 router.post("/product", authCheck, adminCheck, create);
@@ -18,6 +18,8 @@ router.put("/product/:slug", authCheck, adminCheck, update);
 router.delete("/product/:slug", authCheck, adminCheck, remove);
 
 router.post("/products", list);
+
+router.put("/product/star/:productId", authCheck, productStar);
 
 // related
 router.get("/product/related/:productId", listRelated);

@@ -5,6 +5,7 @@ import { auth } from "./common/firebase";
 import { currentUser } from "./functions/auth";
 import Loader from "./components/loader/Loader";
 import "./App.less";
+import "@ant-design/flowchart/dist/index.css";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
