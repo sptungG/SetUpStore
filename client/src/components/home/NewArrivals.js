@@ -60,7 +60,8 @@ function NewArrivals() {
             <LoadingCard count={4} />
           </div>
         }
-        endMessage={<Result icon={<AiOutlineSmile size={48} />} title="Great, You have seen it all!" extra={<Link to={"/store"}>Start shopping now</Link>} />}
+endMessage={<Result icon={<AiOutlineSmile size={48} />} title="Great, You have seen it all!" extra={<Link to={"/store"}>Start shopping now</Link>} />}
+        
       >
         <Row gutter={[16, 16]} style={{ paddingTop: 8, margin: "0 -8px" }}>
           {products.map((product) => (
