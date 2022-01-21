@@ -22,6 +22,7 @@ function Store() {
   const [categories, setCategories] = React.useState([]);
   const [categoryIds, setCategoryIds] = React.useState([]);
   const [subs, setSubs] = React.useState([]);
+  const [star, setStar] = React.useState("");
 
   let dispatch = useDispatch();
   let { search } = useSelector((state) => ({ ...state }));
@@ -51,6 +52,7 @@ function Store() {
   const resetStates = () => {
     setPrice([0, 0]);
     setCategoryIds([]);
+    setStar("");
   };
   // load products on user search input
   React.useEffect(() => {
@@ -115,6 +117,7 @@ function Store() {
     else loadAllProducts();
   };
   // show products by star rating
+
   const handleStarClick = (num) => {
     // console.log(num);
     dispatch({
@@ -122,8 +125,8 @@ function Store() {
       payload: { text: "" },
     });
     resetStates();
-    console.log(num);
-    // fetchProducts({ stars: num });
+    setStar(num);
+    fetchProducts({ stars: num });
   };
 
   const showStars = () => (

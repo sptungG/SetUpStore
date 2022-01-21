@@ -1,10 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
+import moment from "moment";
 import { toast } from "react-toastify";
-import { Form, Layout, Row, Col, Card, Typography, Space, Button, Input, InputNumber } from "antd";
-import DatePicker from "../../../components/form/DatePicker";
-import * as dayjs from "dayjs";
+import { Form, Layout, Row, Col, Card, Typography, Space, Button, Input, InputNumber, DatePicker } from "antd";
 
 import { BsArrowReturnRight } from "react-icons/bs";
 
@@ -74,13 +73,13 @@ function CouponPage() {
             style={{ width: 240 }}
           />
         </Form.Item>
-        <Form.Item name="expiry" initialValue={dayjs()} rules={[{ required: true, message: "Please choose expiry date!" }]}>
+        <Form.Item name="expiry" initialValue={moment()} rules={[{ required: true, message: "Please choose expiry date!" }]}>
           <DatePicker
             placeholder="Enter expiry date..."
             mode="date"
             format="DD/MM/YYYY"
             size="large"
-            disabledDate={(current) => current && dayjs(current) < dayjs().subtract(1, "day")}
+            disabledDate={(current) => current && moment(current) < moment().subtract(1, "day")}
           />
         </Form.Item>
         <Form.Item>

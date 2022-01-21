@@ -57,7 +57,14 @@ function Register({ history }) {
       </Typography.Title>
       <Form.Item
         name="email"
-        rules={[{ required: true }]}
+        rules={[
+          { required: true, message: "You should input email." },
+          {
+            type: "email",
+            warningOnly: true,
+            message: "Please input a valid email.",
+          },
+        ]}
         help={
           <>
             You will get the link to complete registration.

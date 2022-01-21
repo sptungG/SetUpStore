@@ -1,4 +1,5 @@
 const Product = require("./product");
+const User = require("../user/user");
 const slugify = require("slugify");
 
 exports.create = async (req, res) => {
@@ -26,7 +27,11 @@ exports.listAll = async (req, res) => {
 };
 
 exports.read = async (req, res) => {
-  const product = await Product.findOne({ slug: req.params.slug }).populate("category", "_id name").populate("subs", "_id name").exec();
+  const product = await Product.findOne({ slug: req.params.slug })
+    .populate("category", "_id name")
+    .populate("subs", "_id name")
+    .populate("ratings.postedBy", "_id name picture")
+    .exec();
   res.json(product);
 };
 
@@ -116,6 +121,40 @@ exports.listRelated = async (req, res) => {
   res.json(related);
 };
 
+exports.productStar = async (req, res) => {
+  const product = await Product.findById(req.params.productId).exec();
+  const user = await User.findOne({ email: req.user.email }).exec();
+  const { star } = req.body;
+
+  // who is updating?
+  // check if currently logged in user have already added rating to this product?
+  let existingRatingObject = product.ratings.find((ele) => ele.postedBy.toString() === user._id.toString());
+
+  // if user haven't left rating yet, push it
+  if (existingRatingObject === undefined) {
+    let ratingAdded = await Product.findByIdAndUpdate(
+      product._id,
+      {
+        $push: { ratings: { star, postedBy: user._id } },
+      },
+      { new: true }
+    ).exec();
+    console.log("ratingAdded", ratingAdded.ratings);
+    res.json(ratingAdded);
+  } else {
+    // if user have already left rating, update it
+    const ratingUpdated = await Product.updateOne(
+      {
+        ratings: { $elemMatch: existingRatingObject },
+      },
+      { $set: { "ratings.$.star": star } },
+      { new: true }
+    ).exec();
+    console.log("ratingUpdated", ratingUpdated);
+    res.json(ratingUpdated);
+  }
+};
+
 // SEARCH / FILTER
 
 const handleQuery = async (req, res, query) => {
@@ -168,8 +207,35 @@ const handleBrand = async (req, res, brand) => {
   res.json(products);
 };
 
+const handleStar = (req, res, stars) => {
+  Product.aggregate([
+    {
+      $project: {
+        document: "$$ROOT",
+        // title: "$title",
+        floorAverage: {
+          $floor: { $avg: "$ratings.star" }, // floor value of 3.33 will be 3
+        },
+      },
+    },
+    { $match: { floorAverage: stars } },
+  ])
+    .limit(40)
+    .exec((err, aggregates) => {
+      if (err) console.log("AGGREGATE ERROR", err);
+      Product.find({ _id: aggregates })
+        .populate("category", "_id name")
+        .populate("subs", "_id name")
+        .populate("ratings.postedBy", "_id name")
+        .exec((err, products) => {
+          if (err) console.log("PRODUCT AGGREGATE ERROR", err);
+          res.json(products);
+        });
+    });
+};
+
 exports.searchFilters = async (req, res) => {
-  const { query, price, category, sub, color, brand } = req.body;
+  const { query, price, category, sub, color, brand, stars } = req.body;
 
   if (query) {
     console.log("query --->", query);
@@ -199,5 +265,10 @@ exports.searchFilters = async (req, res) => {
   if (brand) {
     console.log("brand ---> ", brand);
     await handleBrand(req, res, brand);
+  }
+
+  if (stars) {
+    console.log("stars ---> ", stars);
+    await handleStar(req, res, stars);
   }
 };

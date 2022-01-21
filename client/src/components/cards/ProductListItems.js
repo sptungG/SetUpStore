@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Avatar, Typography, Space, Progress, Statistic, Rate, Divider, Tag, Tooltip } from "antd";
+import { showAverage } from "../../functions/rating";
 function ProductListItems({ product }) {
-  const { name, desc, price, category, subs, shipping, color, brand, quantity, sold } = product;
+  const { name, desc, price, category, subs, shipping, color, brand, quantity, sold, ratings } = product;
 
   const renderDetail = (col1, col2) => {
     return (
@@ -27,7 +28,7 @@ function ProductListItems({ product }) {
       {renderDetail(
         <Typography.Text>Sub Categories</Typography.Text>,
         subs && (
-          <Space size={24}>
+          <Space size={[8, 8]} split="·">
             {subs.map((s) => (
               <Link key={s._id} to={`/sub/${s.slug}`}>
                 {s.name}
@@ -69,14 +70,16 @@ function ProductListItems({ product }) {
       )}
       <Space split={<Divider type="vertical" />} size={24}>
         <Space direction="vertical">
-          <Rate disabled allowHalf defaultValue={2.5} />
+          {product && ratings && ratings.length > 0 ? showAverage(product) : "No rating yet"}
+          {/* <Rate disabled allowHalf defaultValue={2.5} /> */}
           <Avatar.Group maxCount={5} maxStyle={{ color: "#f56a00", backgroundColor: "#fde3cf" }}>
-            <Avatar src="https://joeschmoe.io/api/v1/random" />
-            <Avatar style={{ backgroundColor: "#f56a00" }}>A</Avatar>
-            <Avatar style={{ backgroundColor: "#87d068" }}>B</Avatar>
-            <Avatar style={{ backgroundColor: "#1890ff" }}>C</Avatar>
-            <Avatar style={{ backgroundColor: "#f56a01" }}>D</Avatar>
-            <Avatar style={{ backgroundColor: "#f46a01" }}>E</Avatar>
+            {product && ratings && ratings.length > 0
+              ? ratings.map((item) => (
+                  <Tooltip title={item.postedBy.name}>
+                    <Avatar src={item.postedBy.picture} />
+                  </Tooltip>
+                ))
+              : "No rating yet"}
           </Avatar.Group>
         </Space>
         <Statistic
