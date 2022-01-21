@@ -19,8 +19,8 @@ exports.create = async (req, res) => {
 exports.listAll = async (req, res) => {
   let products = await Product.find({})
     .limit(parseInt(req.params.limit))
-    .populate("category", "_id name")
-    .populate("subs", "_id name")
+    .populate("category", "_id name slug")
+    .populate("subs", "_id name slug")
     .sort([["createdAt", "desc"]])
     .exec();
   res.json(products);
@@ -28,8 +28,8 @@ exports.listAll = async (req, res) => {
 
 exports.read = async (req, res) => {
   const product = await Product.findOne({ slug: req.params.slug })
-    .populate("category", "_id name")
-    .populate("subs", "_id name")
+    .populate("category", "_id name slug")
+    .populate("subs", "_id name slug")
     .populate("ratings.postedBy", "_id name picture")
     .exec();
   res.json(product);
