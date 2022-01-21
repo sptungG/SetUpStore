@@ -11,8 +11,9 @@ Team Members: **Lê Minh Hoàng**, **Bùi Xuân Hiếu**, **Ngô Việt Tùng**
 <p align="left">
   <img src="https://img.shields.io/badge/React-61abcb?style=flat-square&logo=React&logoColor=ebebeb" height="24" />&nbsp
   <img src="https://img.shields.io/badge/Redux-764abc?style=flat-square&logo=Redux&logoColor=ebebeb" height="24" />&nbsp
-  <img src="https://img.shields.io/badge/Scss-CC6699?style=flat-square&logo=Sass&logoColor=ebebeb" height="24" />&nbsp
-  <!-- <img src="https://img.shields.io/badge/Ant%20Design-ebebeb?style=flat-square&logo=AntDesign&logoColor=0170FE" height="24" />&nbsp -->
+<!--   <img src="https://img.shields.io/badge/Scss-CC6699?style=flat-square&logo=Sass&logoColor=ebebeb" height="24" />&nbsp -->
+  <img src="https://img.shields.io/badge/Ant%20Design-ebebeb?style=flat-square&logo=AntDesign&logoColor=0170FE" height="24" />&nbsp
+  <img src="https://img.shields.io/badge/Stripe-008CDD?style=flat-square&logo=Stripe&logoColor=ebebeb" height="24" />&nbsp
   <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=MongoDB&logoColor=ebebeb" height="24" />&nbsp
   <img src="https://img.shields.io/badge/Express-323330?style=flat-square&logo=Express&logoColor=ebebeb" height="24" />&nbsp
   <img src="https://img.shields.io/badge/Firebase-049ae6?style=flat-square&logo=Firebase&logoColor=ffca28" height="24" />&nbsp
@@ -26,6 +27,7 @@ Team Members: **Lê Minh Hoàng**, **Bùi Xuân Hiếu**, **Ngô Việt Tùng**
 - ExpressJS để tạo web app
 - Firebase để quản lý authentication, dữ liệu user vẫn đc lưu vào DB
 - Nodejs để làm backend
+- Stripe để thanh toán online
 
 ## User Story
 
