@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Table, Typography, Space, Row, Col, Avatar, Select, Statistic } from "antd";
+import { Table, Typography, Space, Row, Col, Avatar, Select, Statistic, Badge } from "antd";
 
 import { formatDate, sorterByDate } from "../../common/utils";
 import { orderStatus } from "../../common/constant";
@@ -10,6 +10,15 @@ import OrderDetail from "../cards/OrderDetail";
 function OrderTable({ loading, data, handleStatusChange }) {
   const [visible, setVisible] = React.useState(false);
   const [orderData, setOrderData] = React.useState("");
+
+  const setColor = (status = "") => {
+    // ["Not Processed", "Processing", "Dispatched", "Cancelled", "Completed"]
+    if (status === "Cancelled") return "error";
+    else if (status === "Processing") return "processing";
+    else if (status === "Dispatched") return "warning";
+    else if (status === "Completed") return "success";
+    else return "default";
+  };
 
   const columns = [
     {
@@ -67,7 +76,9 @@ function OrderTable({ loading, data, handleStatusChange }) {
       render: (text, record) => (
         <Select onSelect={(value) => handleStatusChange(record._id, value)} value={text} placeholder="Select status.." style={{ width: "100%" }}>
           {orderStatus.map((item) => (
-            <Select.Option value={item}>{item}</Select.Option>
+            <Select.Option value={item}>
+              <Badge status={setColor(item)} text={item} />
+            </Select.Option>
           ))}
         </Select>
       ),

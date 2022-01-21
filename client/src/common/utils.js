@@ -19,9 +19,11 @@ export function validateEmail(email) {
 
 export const setColor = (status = "") => {
   // ["Not Processed", "Processing", "Dispatched", "Cancelled", "Completed"]
-  if (status === "Cancelled") return "danger";
-  if (status === "Processing" || status === "Dispatched") return "warning";
-  if (status === "Completed") return "success";
+  if (status === "Cancelled") return "error";
+  else if (status === "Processing") return "processing";
+  else if (status === "Dispatched") return "warning";
+  else if (status === "Completed") return "success";
+  else return "default";
 };
 
 export function vietnameseSlug(str, separator = "-") {

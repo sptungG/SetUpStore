@@ -1,5 +1,5 @@
 import React from "react";
-import { Statistic, Space, Divider, Typography, Row, Button } from "antd";
+import { Statistic, Space, Divider, Typography, Row, Button, Badge } from "antd";
 
 import { setColor } from "../../common/utils";
 import OrderDetail from "./OrderDetail";
@@ -18,9 +18,7 @@ const ShowPaymentInfo = ({ order }) => {
       </Space>
       <Space>
         STATUS:
-        <Typography.Text strong type={setColor(order.orderStatus)}>
-          {order.orderStatus}
-        </Typography.Text>
+        <Badge status={setColor(order.orderStatus)} text={order.orderStatus} />
       </Space>
     </Space>
   );
